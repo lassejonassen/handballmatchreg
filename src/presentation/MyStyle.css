@@ -1,0 +1,39 @@
+#top
+{
+	-fx-pref-height: 100px;
+}
+
+#bottom
+{
+	-fx-pref-height: 100px;
+}
+
+#center
+{
+	-fx-background-color: blue;
+	-fx-pref-height: 400px;
+	-fx-pref-width: 640px;
+}
+
+#left
+{
+	-fx-background-color: green;
+	-fx-pref-width: 150px;
+}
+
+#btn1
+{
+	-fx-pref-width: 150px;
+	-fx-pref-height: 50px;
+}
+#btn2
+{
+	-fx-pref-width: 150px;
+	-fx-pref-height: 50px;
+}
+
+#right
+{
+	-fx-background-color: green;
+	-fx-pref-width: 10px;
+}

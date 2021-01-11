@@ -3,17 +3,22 @@ package presentation;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class Main extends Application 
+{
 
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 		launch(args);
 
 	}
 
 	@Override
-	public void start(Stage stage) throws Exception {
-		stage.show();
+	public void start(Stage stage) throws Exception 
+	{
+		Menu menu = new Menu();
+		menu.showMenu(stage);
 		
 	}
+
 
 }
