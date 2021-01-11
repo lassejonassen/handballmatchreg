@@ -18,7 +18,7 @@ CREATE TABLE Liga (
 CREATE TABLE Team (
 	id int IDENTITY (100, 1) NOT NULL,
 	tname nvarchar(50) NOT NULL,
-	point int,
+	point int NOT NULL,
 	liga int,
 
 	PRIMARY KEY (id),
