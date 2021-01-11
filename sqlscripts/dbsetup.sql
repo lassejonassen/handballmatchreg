@@ -10,14 +10,14 @@ USE handballmatchregDB;
 
 CREATE TABLE Liga (
 	id int IDENTITY(1,1) NOT NULL,
-	ligaName varchar(20) NOT NULL,
+	liga_name varchar(20) NOT NULL,
 
 	PRIMARY KEY (id)
 );
 
 CREATE TABLE Team (
 	id int IDENTITY (100, 1) NOT NULL,
-	tname nvarchar(50) NOT NULL,
+	team_name nvarchar(50) NOT NULL,
 	point int NOT NULL,
 	liga int,
 
@@ -27,8 +27,8 @@ CREATE TABLE Team (
 
 CREATE TABLE TMatch (
 	id int IDENTITY (1000, 1) NOT NULL,
-	t1name nvarchar(50) NOT NULL,
-	t2name nvarchar(50) NOT NULL,
+	team2_id nvarchar(50) NOT NULL,
+	team2_id nvarchar(50) NOT NULL,
 	score nvarchar(10),
 	
 	PRIMARY KEY (id)
