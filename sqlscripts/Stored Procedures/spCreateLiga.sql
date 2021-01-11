@@ -6,3 +6,4 @@ BEGIN
 	INSERT INTO Liga
 	VALUES (@ligaName)
 END
+GO

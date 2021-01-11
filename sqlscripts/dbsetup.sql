@@ -27,8 +27,8 @@ CREATE TABLE Team (
 
 CREATE TABLE TMatch (
 	id int IDENTITY (1000, 1) NOT NULL,
-	team2_id nvarchar(50) NOT NULL,
-	team2_id nvarchar(50) NOT NULL,
+	team1_id INT NOT NULL,
+	team2_id INT NOT NULL,
 	score nvarchar(10),
 	
 	PRIMARY KEY (id)
@@ -38,6 +38,7 @@ CREATE TABLE Deportation (
 	id INT IDENTITY (10000, 1) NOT NULL,
 	tmatch INT NOT NULL,
 	team INT NOT NULL,
+	match_time nvarchar(10) NOT NULL,
 
 	PRIMARY KEY (id),
 	FOREIGN KEY (tmatch) REFERENCES TMatch(id) ON DELETE CASCADE,
