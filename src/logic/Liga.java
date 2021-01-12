@@ -3,8 +3,14 @@ package logic;
 import java.util.ArrayList;
 
 public class Liga {
+	/*
+	 *  Author: Lucas Elley
+	 *  Date: 12/01/2021
+	 */
 	
 	private String ligaName;
+	private int ligaId;
+	
 	private ArrayList<Team> teams = new ArrayList<>();
 	
 	public Liga (String ligaName) {
@@ -23,5 +29,8 @@ public class Liga {
 	private void setLigaName(String ligaName) {
 		this.ligaName = ligaName;
 	}
-
+	
+	public int getligaId() {
+		return ligaId;
+	}
 }

@@ -2,6 +2,7 @@ package data;
 
 import java.sql.*;
 
+
 public class DataLayer {
 	private Connection connection;
 	
@@ -45,6 +46,25 @@ public class DataLayer {
 			String sql = "{call spCreateLiga(?)}";
 			try (CallableStatement stmt = connection.prepareCall(sql)) {
 				stmt.setString(1, ligaName);
+				stmt.execute();
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	/*
+	 *  Author: Lucas Elley
+	 *  Date: 12/01/2021
+	 */
+	
+	public boolean createTeam(String name, int ligaId) {
+		try {
+			String sql = "{call spCreateTeam(?,?)}";
+			try (CallableStatement stmt = connection.prepareCall(sql)) {
+				stmt.setInt(2, ligaId);
+				stmt.setString(1, name);
 				stmt.execute();
 				return true;
 			}
