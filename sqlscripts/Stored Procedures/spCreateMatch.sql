@@ -1,9 +1,9 @@
-USE [handballmatchregDB]
+USE [HbmrDb];
 GO
-CREATE PROCEDURE spCreateMatch @team1 INT, @team2 INT
+CREATE PROCEDURE spCreateMatch @team1_id INT, @team2_id INT
 AS
 BEGIN
 	INSERT INTO TMatch
-	VALUES (@team1, @team2, '')
+	VALUES (@team1_id, @team2_id, 0, 0)
 END
 GO

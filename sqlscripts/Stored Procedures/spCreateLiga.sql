@@ -1,9 +1,9 @@
-USE handballmatchregDB;
+USE [HbmrDb];
 GO
-CREATE PROCEDURE spCreateLiga @ligaName nvarchar(20)
+CREATE PROCEDURE spCreateLiga @league_name nvarchar(20)
 AS
 BEGIN
-	INSERT INTO Liga
-	VALUES (@ligaName)
+	INSERT INTO League
+	VALUES (@league_name)
 END
 GO
