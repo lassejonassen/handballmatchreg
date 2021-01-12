@@ -10,13 +10,13 @@ public class Layout
  *Date: 11-01-2021
 */
 {
-	protected BorderPane bPane = new BorderPane();
-	protected StackPane stackPane = new StackPane();
-	protected VBox top = new VBox();
-	protected VBox bottom = new VBox();
-	protected VBox center = new VBox();
-	protected HBox left = new HBox();
-	protected HBox right = new HBox();
+	
+	protected BorderPane root = new BorderPane();
+	protected HBox top = new HBox();
+	protected HBox bottom = new HBox(15);
+	protected HBox center = new HBox();
+	protected AnchorPane left = new AnchorPane();
+	protected VBox right = new VBox();
 	
 	public Layout() 
 	{
@@ -25,11 +25,17 @@ public class Layout
 		centerLayout();
 		leftLayout();
 		rightLayout();
+		rootId();
+	}
+	
+	private void rootId()
+	{
+		root.setId("root");
 	}
 	
 	private void topLayout()
 	{
-		bPane.setTop(top);
+		root.setTop(top);
 		top.setId("top");
 		
 		Label heading = new Label();
@@ -39,29 +45,29 @@ public class Layout
 	
 	private void bottomLayout()
 	{
-		bPane.setBottom(bottom);
+		root.setBottom(bottom);
 		bottom.setId("bottom");
+		bottom.setAlignment(Pos.CENTER_RIGHT);
 		
 	}
 	
 	private void centerLayout()
 	{
-		bPane.setCenter(center);
+		root.setCenter(center);
 		center.setId("center");
 	}
 	
 	private void leftLayout()
 	{
-		bPane.setLeft(stackPane);
+		root.setLeft(left);
 		left.setId("left");
-		stackPane.getChildren().add(left);
-		StackPane.setAlignment(left, Pos.CENTER);
+//		left.setAlignment(Pos.TOP_CENTER);
 		
 	}
 	
 	private void rightLayout()
 	{
-		bPane.setRight(right);
+		root.setRight(right);
 		right.setId("right");
 		
 	}
