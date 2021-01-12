@@ -1,8 +1,8 @@
-USE [handballmatchregDB];
+USE [HbmrDb];
 GO
 CREATE PROCEDURE spGetAllLeagues
 AS
 BEGIN
-	SELECT * FROM Liga
+	SELECT * FROM League
 END
 GO

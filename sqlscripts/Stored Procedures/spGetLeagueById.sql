@@ -1,0 +1,8 @@
+USE [HbmrDb];
+GO
+CREATE PROCEDURE spGetLeagueById @id INT
+AS
+BEGIN
+	SELECT * FROM League WHERE id = @id
+END
+GO

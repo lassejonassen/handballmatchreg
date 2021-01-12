@@ -1,4 +1,4 @@
-USE [handballmatchregDB];
+USE [HbmrDb];
 GO
 CREATE PROCEDURE spGetAllMatches
 AS
