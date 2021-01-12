@@ -2,6 +2,8 @@ package logic;
 
 import java.util.ArrayList;
 
+import data.Team;
+
 public class Liga {
 	/*
 	 *  Author: Lucas Elley

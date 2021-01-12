@@ -1,4 +1,4 @@
-package logic;
+package data;
 
 public class Team {
 	/*
@@ -9,6 +9,10 @@ public class Team {
 	private String name;
 	private int goals;
 	private int point;
+	
+	public Team() {
+		
+	}
 	
 	public Team (String name) {
 		this.name = name;

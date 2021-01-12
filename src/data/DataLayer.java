@@ -1,16 +1,16 @@
 package data;
 
 import java.sql.*;
-
+import java.util.ArrayList;
 
 public class DataLayer {
 	private Connection connection;
-	
+
 	public DataLayer() {
 		loadJDBCDriver();
 		openConnection();
 	}
-	
+
 	private boolean loadJDBCDriver() {
 		try {
 			System.out.println("Loading JDBC Driver...");
@@ -22,7 +22,7 @@ public class DataLayer {
 			return false;
 		}
 	}
-	
+
 	private boolean openConnection() {
 		String connectionString = "jdbc:sqlserver://localhost:1433;" + "instanceName=SQLSERVER;" + "databaseName="
 				+ "handballmatchregDB" + ";" + "integratedSecurity=true;";
@@ -38,7 +38,7 @@ public class DataLayer {
 			return false;
 		}
 	}
-	
+
 	// Author: Lasse Jonassen
 	// Created: 2020_01_11
 	public boolean createLiga(String ligaName) {
@@ -54,9 +54,9 @@ public class DataLayer {
 			return false;
 		}
 	}
+
 	/*
-	 *  Author: Lucas Elley
-	 *  Date: 12/01/2021
+	 * Author: Lucas Elley Date: 12/01/2021
 	 */
 	public boolean createTeam(String name, int ligaId) {
 		try {
@@ -72,17 +72,30 @@ public class DataLayer {
 			return false;
 		}
 	}
-	
-	public boolean getAllTeams() {
+
+	public ArrayList<Team> getAllTeams(int ligaId) {
+		ArrayList<Team> teamList = new ArrayList<>();
 		try {
-			String sql = "{call spGetAllTeams()}";
+			String sql = "{call spGetAllTeams(?)}";
 			try (CallableStatement stmt = connection.prepareCall(sql)) {
-				stmt.execute();
-				return true;
+				stmt.setInt(1, ligaId);
+				ResultSet teams = stmt.executeQuery();
+				while(teams.next()) {
+					Team team = new Team();
+					int teamId = teams.getInt("id");
+					String name = teams.getString("team_name");
+					int point = teams.getInt("point");
+					team.setId(teamId);
+					team.setName(name);
+					team.setPoint(point);
+					teamList.add(team);
+				}
 			}
+			return teamList;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
+			System.out.println("Couldnt find any teams.");
+			return teamList;
 		}
 	}
 }

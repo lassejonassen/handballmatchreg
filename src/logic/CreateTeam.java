@@ -1,5 +1,6 @@
 package logic;
 import data.DataLayer;
+import data.Team;
 
 public class CreateTeam {
 	/* 
