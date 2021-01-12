@@ -1,12 +1,19 @@
 package presentation;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import data.Team;
+
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import logic.TeamImpl;
 
 public class LigaMenu 
 {	
@@ -18,8 +25,6 @@ public class LigaMenu
 	
 	private Button createTeamBtn = new Button("Opret hold");
 	private Button updateTeamBtn = new Button("Opdatere hold");
-	
-	private TableView ligaTable;
 	
 	private Layout layout = new Layout();
 	
@@ -34,28 +39,12 @@ public class LigaMenu
 		layout.left.setBottomAnchor(backBtn, 0.0);
 		
 		ligaButtonFunctionality(stage);
+		new LeagueTableView(layout);
 		
 		Scene scene = new Scene(layout.root);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
 		stage.setScene(scene);
 		stage.show();
-	}
-	
-	public void showLiga()
-	{
-		ligaTable = new TableView();
-		
-		/*
-		 *position 
-		 *holdnavn
-		 *total kampe
-		 *vundet kampe
-		 *uafgjort
-		 *tabt
-		 *antal mål scored/gået ind
-		 *point
-		 *
-		 * */
 	}
 	
 	private void ligaButtonFunctionality(Stage stage)

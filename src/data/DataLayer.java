@@ -24,12 +24,12 @@ public class DataLayer {
 			return false;
 		}
 	}
-  
+
 	// Author: Lasse Jonassen
 	// Created: 2020_01_11
 	private boolean openConnection() {
 		String connectionString = "jdbc:sqlserver://localhost:1433;" + "instanceName=SQLSERVER;" + "databaseName="
-				+ "handballmatchregDB" + ";" + "integratedSecurity=true;";
+				+ "HbmrDb" + ";" + "integratedSecurity=true;";
 		connection = null;
 		try {
 			System.out.println("Connecting to database...");
@@ -76,36 +76,48 @@ public class DataLayer {
 			return false;
 		}
 	}
-  
-	
+
 	// Author: Lasse Jonassen & Lucas Elley
 	// Created: 2020_01_11
 	public ArrayList<Team> getAllTeams(int ligaId) {
 		ArrayList<Team> teamList = new ArrayList<>();
-		try {
-			String sql = "{call spGetAllTeams(?)}";
-			try (CallableStatement stmt = connection.prepareCall(sql)) {
-				stmt.setInt(1, ligaId);
-				ResultSet teams = stmt.executeQuery();
-				while(teams.next()) {
-					Team team = new Team();
-					int teamId = teams.getInt("id");
-					String name = teams.getString("team_name");
-					int point = teams.getInt("point");
-					team.setId(teamId);
-					team.setName(name);
-					team.setPoint(point);
-					teamList.add(team);
-				}
+		String sql = "{call spGetAllTeams(?)}";
+		try (CallableStatement stmt = connection.prepareCall(sql)) {
+			stmt.setInt(1, ligaId);
+			ResultSet teams = stmt.executeQuery();
+			while (teams.next()) {
+				Team team = new Team();
+				int id = teams.getInt("id");
+				String name = teams.getString("team_name");
+				int matchesTotal = teams.getInt("matches_total");
+				int matchesWon = teams.getInt("matches_won");
+				int matchesLost = teams.getInt("matches_lost");
+				int matchesDraw = teams.getInt("matches_draw");
+				int goals = teams.getInt("goals");
+				int goalsIn = teams.getInt("goals_in");
+				int points = teams.getInt("points");
+				int leagueId = teams.getInt("league_id");
+				team.setId(id);
+				team.setName(name);
+				team.setMatchesTotal(matchesTotal);
+				team.setMatchesWon(matchesWon);
+				team.setMatchesLost(matchesLost);
+				team.setMatchesDraw(matchesDraw);
+				team.setGoals(goals);
+				team.setGoalsIn(goalsIn);
+				team.setPoints(points);
+				team.setLeagueId(leagueId);
+				teamList.add(team);
+				System.out.println(team);
 			}
-			return teamList;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Couldnt find any teams.");
-			return teamList;
-    }
-  }
-  
+		}
+		return teamList;
+		
+	}
+
 	// Author: Lasse Jonassen
 	// Created: 2020_01_11
 	public boolean createMatch(int team1ID, int team2ID) {
@@ -122,7 +134,7 @@ public class DataLayer {
 			return false;
 		}
 	}
-	
+
 	// Author: Lasse Jonassen
 	// Created: 2020_01_11
 	public boolean createSuspension(int matchId, int teamId, String matchTime) {
@@ -135,10 +147,10 @@ public class DataLayer {
 				stmt.execute();
 			}
 			return true;
-		} catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
-		
+
 	}
 }

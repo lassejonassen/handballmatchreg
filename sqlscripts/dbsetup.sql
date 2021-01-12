@@ -12,17 +12,25 @@ CREATE TABLE League (
 	id int IDENTITY(1,1) NOT NULL,
 	league_name varchar(20) NOT NULL,
 
-	PRIMARY KEY (id)
+	PRIMARY KEY (id),
 );
 
 CREATE TABLE Team (
 	id int IDENTITY (100, 1) NOT NULL,
 	team_name nvarchar(50) NOT NULL,
-	point int NOT NULL,
-	league_id int,
+	matches_total INT NOT NULL,
+	matches_won INT NOT NULL,
+	matches_lost INT NULL,
+	matches_draw INT NOT NULL,
+	goals INT NOT NULL,
+	goals_in INT NOT NULL,
+	points INT NOT NULL,
+	league_id INT NOT NULL,
 
 	PRIMARY KEY (id),
-	FOREIGN KEY (league_id) REFERENCES League(id) ON DELETE SET NULL
+
+	CONSTRAINT Team_League_Relation FOREIGN KEY (league_id) 
+	REFERENCES League(id)
 );
 
 CREATE TABLE TMatch (
@@ -42,8 +50,10 @@ CREATE TABLE Suspension (
 	team_id INT NOT NULL,
 	
 	PRIMARY KEY (id),
-	FOREIGN KEY (match_id) REFERENCES TMatch(id) ON DELETE CASCADE,
-	FOREIGN KEY (team_id) REFERENCES Team(id) ON DELETE CASCADE
+	CONSTRAINT Suspension_Match_Relation FOREIGN KEY (match_id) 
+	REFERENCES TMatch(id) ON DELETE CASCADE,
+	CONSTRAINT Suspension_Team_Relation FOREIGN KEY (team_id) 
+	REFERENCES Team(id) ON DELETE CASCADE
 );
 
 
