@@ -11,6 +11,8 @@ public class DataLayer {
 		openConnection();
 	}
 
+	// Author: Lasse Jonassen
+	// Created: 2020_01_11
 	private boolean loadJDBCDriver() {
 		try {
 			System.out.println("Loading JDBC Driver...");
@@ -22,7 +24,9 @@ public class DataLayer {
 			return false;
 		}
 	}
-
+  
+	// Author: Lasse Jonassen
+	// Created: 2020_01_11
 	private boolean openConnection() {
 		String connectionString = "jdbc:sqlserver://localhost:1433;" + "instanceName=SQLSERVER;" + "databaseName="
 				+ "handballmatchregDB" + ";" + "integratedSecurity=true;";
@@ -47,8 +51,8 @@ public class DataLayer {
 			try (CallableStatement stmt = connection.prepareCall(sql)) {
 				stmt.setString(1, ligaName);
 				stmt.execute();
-				return true;
 			}
+			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -72,7 +76,7 @@ public class DataLayer {
 			return false;
 		}
 	}
-
+  
 	public ArrayList<Team> getAllTeams(int ligaId) {
 		ArrayList<Team> teamList = new ArrayList<>();
 		try {
@@ -96,6 +100,23 @@ public class DataLayer {
 			e.printStackTrace();
 			System.out.println("Couldnt find any teams.");
 			return teamList;
+    }
+  }
+  
+	// Author: Lasse Jonassen
+	// Created: 2020_01_11
+	public boolean createMatch(int team1ID, int team2ID) {
+		try {
+			String sql = "{call spCreateMatch(?, ?)}";
+			try (CallableStatement stmt = connection.prepareCall(sql)) {
+				stmt.setInt(1, team1ID);
+				stmt.setInt(2, team2ID);
+				stmt.execute();
+			}
+			return true;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return false;
 		}
 	}
 }
