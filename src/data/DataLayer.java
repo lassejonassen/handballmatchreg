@@ -2,6 +2,7 @@ package data;
 
 import java.sql.*;
 
+
 public class DataLayer {
 	private Connection connection;
 	
@@ -56,9 +57,28 @@ public class DataLayer {
 			return false;
 		}
 	}
+	/*
+	 *  Author: Lucas Elley
+	 *  Date: 12/01/2021
+	 */
 	
-	// Author: Lasse Jonassen
-	// Created: 2020_01_11
+	public boolean createTeam(String name, int ligaId) {
+		try {
+			String sql = "{call spCreateTeam(?,?)}";
+			try (CallableStatement stmt = connection.prepareCall(sql)) {
+				stmt.setInt(2, ligaId);
+				stmt.setString(1, name);
+				stmt.execute();
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+  
+  // Author: Lasse Jonassen
+  // Created: 2020_01_11
 	public boolean createMatch(int team1ID, int team2ID) {
 		try {
 			String sql = "{call spCreateMatch(?, ?)}";
@@ -70,8 +90,6 @@ public class DataLayer {
 			return true;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			return false;
-		}
-	}
-
+    }
+  }
 }

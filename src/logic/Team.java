@@ -1,18 +1,26 @@
 package logic;
 
 public class Team {
+	/*
+	 * Author: Lucas Elley
+	 * Date: 12/01/2021
+	 */
 
-	private int id;
+	private int teamId;
 	private String name;
 	private int goals;
 	private int point;
 	
 	
+	public Team (String name) {
+		this.name = name;
+	}
+	
 	public int getId() {
-		return id;
+		return teamId;
 	}
 	public void setId(int id) {
-		this.id = id;
+		this.teamId = id;
 	}
 	public String getName() {
 		return name;
