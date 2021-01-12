@@ -1,0 +1,45 @@
+#root
+{
+	-fx-background-color: red;
+}
+#top
+{
+	-fx-pref-height: 100px;
+	-fx-font-family: 'Helvetica', Arial, sans-serif;
+	-fx-font-size:30;
+	-fx-font-weight:bold;
+	-fx-padding:25,10,25,10;
+}
+
+#bottom
+{
+	-fx-pref-height: 100px;
+	-fx-padding: 15px;
+}
+
+#center
+{
+	-fx-background-color: blue;
+	-fx-pref-height: 400px;
+	-fx-pref-width: 640px;
+}
+
+#left
+{
+	-fx-pref-width: 150px;
+}
+
+.button
+{
+	-fx-pref-width: 150px;
+	-fx-pref-height: 50px;
+	-fx-background-radius: 0;
+	-fx-border-color: #e7e7e7;
+	-fx-border-size: 5px;
+
+}
+
+#right
+{
+	-fx-pref-width: 10px;
+}
