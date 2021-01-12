@@ -2,9 +2,7 @@ package presentation;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-
-public class Main extends Application 
-{
+public class Main extends Application {
 
 	public static void main(String[] args) 
 	{
@@ -18,7 +16,6 @@ public class Main extends Application
 		Menu menu = new Menu();
 		stage.setTitle("Midtvejs projekt");
 		menu.showMenu(stage);
-		
 	}
 
 
