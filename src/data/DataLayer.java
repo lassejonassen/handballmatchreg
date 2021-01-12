@@ -1,6 +1,7 @@
 package data;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DataLayer {
 	private Connection connection;
@@ -23,7 +24,7 @@ public class DataLayer {
 			return false;
 		}
 	}
-
+  
 	// Author: Lasse Jonassen
 	// Created: 2020_01_11
 	private boolean openConnection() {
@@ -57,16 +58,16 @@ public class DataLayer {
 			return false;
 		}
 	}
+
 	/*
 	 * Author: Lucas Elley Date: 12/01/2021
 	 */
-
 	public boolean createTeam(String name, int ligaId) {
 		try {
 			String sql = "{call spCreateTeam(?,?)}";
 			try (CallableStatement stmt = connection.prepareCall(sql)) {
-				stmt.setInt(2, ligaId);
 				stmt.setString(1, name);
+				stmt.setInt(2, ligaId);
 				stmt.execute();
 				return true;
 			}
@@ -75,7 +76,33 @@ public class DataLayer {
 			return false;
 		}
 	}
-
+  
+	public ArrayList<Team> getAllTeams(int ligaId) {
+		ArrayList<Team> teamList = new ArrayList<>();
+		try {
+			String sql = "{call spGetAllTeams(?)}";
+			try (CallableStatement stmt = connection.prepareCall(sql)) {
+				stmt.setInt(1, ligaId);
+				ResultSet teams = stmt.executeQuery();
+				while(teams.next()) {
+					Team team = new Team();
+					int teamId = teams.getInt("id");
+					String name = teams.getString("team_name");
+					int point = teams.getInt("point");
+					team.setId(teamId);
+					team.setName(name);
+					team.setPoint(point);
+					teamList.add(team);
+				}
+			}
+			return teamList;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Couldnt find any teams.");
+			return teamList;
+    }
+  }
+  
 	// Author: Lasse Jonassen
 	// Created: 2020_01_11
 	public boolean createMatch(int team1ID, int team2ID) {
