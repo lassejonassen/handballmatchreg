@@ -77,6 +77,9 @@ public class DataLayer {
 		}
 	}
   
+	
+	// Author: Lasse Jonassen & Lucas Elley
+	// Created: 2020_01_11
 	public ArrayList<Team> getAllTeams(int ligaId) {
 		ArrayList<Team> teamList = new ArrayList<>();
 		try {
@@ -118,5 +121,24 @@ public class DataLayer {
 			ex.printStackTrace();
 			return false;
 		}
+	}
+	
+	// Author: Lasse Jonassen
+	// Created: 2020_01_11
+	public boolean createSuspension(int matchId, int teamId, String matchTime) {
+		try {
+			String sql = "{call spCreateSuspension(?, ? ,?)}";
+			try (CallableStatement stmt = connection.prepareCall(sql)) {
+				stmt.setInt(1, matchId);
+				stmt.setInt(2, teamId);
+				stmt.setString(3, matchTime);
+				stmt.execute();
+			}
+			return true;
+		} catch(SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 }
