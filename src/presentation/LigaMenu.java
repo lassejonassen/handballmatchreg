@@ -8,11 +8,13 @@ import data.Team;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import logic.LeagueImpl;
 import logic.TeamImpl;
 
 public class LigaMenu 
@@ -20,6 +22,7 @@ public class LigaMenu
 	private Button createLigaBtn = new Button("Opret Liga");
 	private Button updateLigaBtn = new Button("Opdater Liga");
 	private Button deleteLigaBtn = new Button("Slet Liga");
+	private ComboBox leagueDropdown = new ComboBox();
 	
 	private Button backBtn = new Button("Tilbage");
 	
@@ -30,15 +33,17 @@ public class LigaMenu
 	
 	public void ligaShowMenu(Stage stage)
 	{
-		layout.left.getChildren().addAll(createLigaBtn, updateLigaBtn, deleteLigaBtn, backBtn);
+		layout.left.getChildren().addAll(createLigaBtn, updateLigaBtn, deleteLigaBtn, backBtn, leagueDropdown);
 		layout.bottom.getChildren().addAll(updateTeamBtn, createTeamBtn);
 		
 		layout.left.setTopAnchor(createLigaBtn, 0.0);
 		layout.left.setTopAnchor(updateLigaBtn, 50.0);
 		layout.left.setTopAnchor(deleteLigaBtn, 100.0);
+		layout.left.setTopAnchor(leagueDropdown, 150.0);
 		layout.left.setBottomAnchor(backBtn, 0.0);
 		
 		ligaButtonFunctionality(stage);
+		leagueDropDown();
 		new LeagueTableView(layout);
 		
 		Scene scene = new Scene(layout.root);
@@ -57,6 +62,13 @@ public class LigaMenu
 		backBtn.setOnAction(e -> menu.showMenu(stage));
 		updateTeamBtn.setOnAction(e -> updateHold.showHoldUpdate());
 //		createTeamBtn.setOnAction(e -> holdMenu.showCreateTeamWindow());
+	}
+	
+	// Author: Lasse Jonassen
+	// Created: 12-01-2021
+	private void leagueDropDown() {
+		LeagueImpl leagueImpl = new LeagueImpl();
+		leagueDropdown.getItems().addAll(leagueImpl.getAllLeagues());
 	}
 
 }

@@ -85,9 +85,7 @@ public class Team {
 
 	@Override
 	public String toString() {
-		return "Team [id=" + id + ", name=" + name + ", matchesTotal=" + matchesTotal + ", matchesWon=" + matchesWon
-				+ ", matchesLost=" + matchesLost + ", matchesDraw=" + matchesDraw + ", goals=" + goals + ", goalsIn="
-				+ goalsIn + ", points=" + points + ", leagueId=" + leagueId + "]";
+		return id + " " + name;
 	}
 	
 	

@@ -12,7 +12,7 @@ public class DataLayer {
 	}
 
 	// Author: Lasse Jonassen
-	// Created: 2020_01_11
+	// Created: 11-01-2021
 	private boolean loadJDBCDriver() {
 		try {
 			System.out.println("Loading JDBC Driver...");
@@ -26,7 +26,7 @@ public class DataLayer {
 	}
 
 	// Author: Lasse Jonassen
-	// Created: 2020_01_11
+	// Created: 11-01-2021
 	private boolean openConnection() {
 		String connectionString = "jdbc:sqlserver://localhost:1433;" + "instanceName=SQLSERVER;" + "databaseName="
 				+ "HbmrDb" + ";" + "integratedSecurity=true;";
@@ -44,7 +44,7 @@ public class DataLayer {
 	}
 
 	// Author: Lasse Jonassen
-	// Created: 2020_01_11
+	// Created: 11-01-2021
 	public boolean createLiga(String ligaName) {
 		try {
 			String sql = "{call spCreateLiga(?)}";
@@ -78,7 +78,7 @@ public class DataLayer {
 	}
 
 	// Author: Lasse Jonassen & Lucas Elley
-	// Created: 2020_01_11
+	// Created: 12-01-2021
 	public ArrayList<Team> getAllTeams(int ligaId) {
 		ArrayList<Team> teamList = new ArrayList<>();
 		String sql = "{call spGetAllTeams(?)}";
@@ -119,7 +119,7 @@ public class DataLayer {
 	}
 
 	// Author: Lasse Jonassen
-	// Created: 2020_01_11
+	// Created: 11-01-2021
 	public boolean createMatch(int team1ID, int team2ID) {
 		try {
 			String sql = "{call spCreateMatch(?, ?)}";
@@ -136,7 +136,7 @@ public class DataLayer {
 	}
 
 	// Author: Lasse Jonassen
-	// Created: 2020_01_11
+	// Created: 11-01-2021
 	public boolean createSuspension(int matchId, int teamId, String matchTime) {
 		try {
 			String sql = "{call spCreateSuspension(?, ? ,?)}";
@@ -153,4 +153,25 @@ public class DataLayer {
 		}
 
 	}
+	
+	// Author: Lasse Jonassen
+	// Created: 12-01-2021
+	public ArrayList<League> getAllLeagues() {
+		ArrayList<League> leagueList = new ArrayList<League>();
+		String sql = "{call spGetAllLeagues}";
+		try (CallableStatement stmt = connection.prepareCall(sql)) {
+			ResultSet leagues = stmt.executeQuery();
+			while (leagues.next()) {
+				int id = leagues.getInt("id");
+				String name = leagues.getString("league_name");
+				League league = new League(id, name);
+				leagueList.add(league);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Couldnt find any teams.");
+		}
+		return leagueList;
+	}
+	
 }
