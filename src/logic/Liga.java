@@ -16,11 +16,11 @@ public class Liga {
 		teams.add(team);
 	}
 
-	public String getLigaName() {
+	private String getLigaName() {
 		return ligaName;
 	}
 
-	public void setLigaName(String ligaName) {
+	private void setLigaName(String ligaName) {
 		this.ligaName = ligaName;
 	}
 

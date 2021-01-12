@@ -2,10 +2,10 @@ package logic;
 
 public class Team {
 
-	int id;
-	String name;
-	int goals;
-	int point;
+	private int id;
+	private String name;
+	private int goals;
+	private int point;
 	
 	
 	public int getId() {
