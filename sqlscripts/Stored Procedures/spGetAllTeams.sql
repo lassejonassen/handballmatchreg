@@ -1,0 +1,8 @@
+USE [handballmatchregDB];
+GO
+CREATE PROCEDURE spGetAllTeams
+AS
+BEGIN
+	SELECT * FROM Team
+END
+GO
