@@ -19,10 +19,10 @@ CREATE TABLE Team (
 	id int IDENTITY (100, 1) NOT NULL,
 	team_name nvarchar(50) NOT NULL,
 	point int NOT NULL,
-	liga_id int,
+	league_id int,
 
 	PRIMARY KEY (id),
-	FOREIGN KEY (liga_id) REFERENCES League(id) ON DELETE SET NULL
+	FOREIGN KEY (league_id) REFERENCES League(id) ON DELETE SET NULL
 );
 
 CREATE TABLE TMatch (

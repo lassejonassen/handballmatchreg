@@ -1,6 +1,6 @@
 USE [HbmrDb];
 GO
-CREATE PROCEDURE spCreateLiga @league_name nvarchar(20)
+CREATE PROCEDURE spCreateLeague @league_name nvarchar(20)
 AS
 BEGIN
 	INSERT INTO League
