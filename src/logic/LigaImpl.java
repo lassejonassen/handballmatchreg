@@ -1,10 +1,14 @@
 package logic;
+import data.DataLayer;
 
 public class LigaImpl implements LigaInterface {
-
+	
+	DataLayer dataLayer = new DataLayer();
+	
+	
+	
 	public void createLiga(String ligaName) {
-		Liga liga = new Liga(ligaName);	
-		
+		dataLayer.createLiga(ligaName);
 	}
 
 	
