@@ -58,13 +58,12 @@ public class DataLayer {
 	 *  Author: Lucas Elley
 	 *  Date: 12/01/2021
 	 */
-	
 	public boolean createTeam(String name, int ligaId) {
 		try {
 			String sql = "{call spCreateTeam(?,?)}";
 			try (CallableStatement stmt = connection.prepareCall(sql)) {
-				stmt.setInt(2, ligaId);
 				stmt.setString(1, name);
+				stmt.setInt(2, ligaId);
 				stmt.execute();
 				return true;
 			}
@@ -73,5 +72,17 @@ public class DataLayer {
 			return false;
 		}
 	}
-
+	
+	public boolean getAllTeams() {
+		try {
+			String sql = "{call spGetAllTeams()}";
+			try (CallableStatement stmt = connection.prepareCall(sql)) {
+				stmt.execute();
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }
