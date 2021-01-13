@@ -5,5 +5,5 @@ import java.util.ArrayList;
 
 public interface TeamInterface {
 	public void createTeam(League league, String name);
-	public ArrayList<Team> getAllTeams(League league);
+	public ArrayList<Team> getAllTeams(int league_id);
 }

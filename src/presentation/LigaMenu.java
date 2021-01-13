@@ -50,8 +50,7 @@ public class LigaMenu
 		
 		ligaButtonFunctionality(stage);
 		leagueDropDown();
-		leagueTableView();
-		
+		new LeagueTableView(layout);
 		
 		Scene scene = new Scene(layout.root);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
@@ -81,15 +80,10 @@ public class LigaMenu
 	 *
 	 * @tags $ { Everything league regarded }
 	 */
-	
-	private void leagueTableView() {
-		new LeagueTableView(layout);
-	}
-	
+		
 	private void leagueDropDown() {
 		LeagueImpl leagueImpl = new LeagueImpl();
 		leagueDropdown.getItems().addAll(leagueImpl.getAllLeagues());
-		
 	}
 	
 	private void createLeague() {
@@ -101,7 +95,6 @@ public class LigaMenu
 		Optional<String> result = dialog.showAndWait();
 		if (result.isPresent())
 			leagueImpl.createLeague(result);
-		    
 	}
 
 	private void deleteLeague() {
@@ -144,7 +137,7 @@ public class LigaMenu
 		alert.setTitle("Confirm changes to league");
 		alert.setHeaderText("Are you sure you want to make changes?");
 		alert.setContentText("Choose your option.");
-		ButtonType confirmBtn = new ButtonType("Yes");
+		ButtonType confirmBtn = new ButtonType("Yes", ButtonData.OK_DONE);
 		ButtonType cancelBtn = new ButtonType("No", ButtonData.CANCEL_CLOSE);
 		alert.getButtonTypes().setAll(confirmBtn, cancelBtn);
 		Optional<ButtonType> result = alert.showAndWait();

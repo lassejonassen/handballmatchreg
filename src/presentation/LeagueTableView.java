@@ -70,7 +70,7 @@ public class LeagueTableView {
         	leagueTable.getColumns().add(tc);
         
         layout.root.setCenter(leagueTable);
-        leagueTable.getItems().addAll(teamImpl.getAllTeams());
+        leagueTable.getItems().addAll(teamImpl.getAllTeams(1));
 	}
 
 }
