@@ -1,9 +1,6 @@
 package data;
+import java.util.Optional;
 
-/*
- *  Author: Lucas Elley
- *  Date: 12/01/2021
- */
 public class League {
 	private int id;
 	private String name;
@@ -12,6 +9,8 @@ public class League {
 		this.id = id;
 		this.name = name;
 	}
+	
+	public League() {}
 	
 	public int getId() {
 		return id;
@@ -30,5 +29,4 @@ public class League {
 	public String toString() {
 		return id + " " + name;
 	}
-	
 }

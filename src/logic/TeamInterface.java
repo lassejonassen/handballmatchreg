@@ -1,11 +1,9 @@
 package logic;
+import data.League;
+import data.Team;
+import java.util.ArrayList;
 
 public interface TeamInterface {
-	/*
-	 * Author: Lucas Elley
-	 * Date: 12/01/2021
-	 */
-	public void createTeam(String ligaId);
-	public void getAllTeams();
-	
+	public void createTeam(League league, String name);
+	public ArrayList<Team> getAllTeams(League league);
 }

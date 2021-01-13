@@ -1,10 +1,6 @@
 package data;
 
 public class Team {
-	/*
-	 * Author: Lucas Elley
-	 * Date: 12/01/2021
-	 */
 	private int id; 
 	private String name;
 	private int matchesTotal;
@@ -87,6 +83,4 @@ public class Team {
 	public String toString() {
 		return id + " " + name;
 	}
-	
-	
 }
