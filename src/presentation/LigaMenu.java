@@ -76,6 +76,8 @@ public class LigaMenu
 		
 	}
 	
+	// Author: Lasse Jonassen
+	// Created: 12-01-2021
 	private void createLeague() {
 		LeagueImpl leagueImpl = new LeagueImpl();
 		TextInputDialog dialog = new TextInputDialog();
@@ -87,6 +89,8 @@ public class LigaMenu
 		    leagueImpl.createLeague(result);
 	}
 	
+	// Author: Lasse Jonassen
+	// Created: 12-01-2021
 	private void deleteLeague() {
 		LeagueImpl leagueImpl = new LeagueImpl();
 		ArrayList<League> leagues = leagueImpl.getAllLeagues();
@@ -100,6 +104,8 @@ public class LigaMenu
 				leagueImpl.deleteLeague(result);
 	}
 	
+	// Author: Lasse Jonassen
+	// Created: 12-01-2021
 	private boolean confirmDelete() {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Confirm deletion of league");
