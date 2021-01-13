@@ -22,7 +22,7 @@ public class LeagueTableView {
 		columns.add(idColumn);
 		
         TableColumn<Team, String> nameColumn = new TableColumn<>("NAME");
-        nameColumn.setPrefWidth(50);
+        nameColumn.setPrefWidth(150);
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         columns.add(nameColumn);
         
@@ -52,17 +52,17 @@ public class LeagueTableView {
         columns.add(goalsColumn);
         
         TableColumn<Team, String> goalsInColumn = new TableColumn<>("GOALS IN");
-        goalsInColumn.setPrefWidth(50);
+        goalsInColumn.setPrefWidth(150);
         goalsInColumn.setCellValueFactory(new PropertyValueFactory<>("goalsIn"));
         columns.add(goalsInColumn);
         
         TableColumn<Team, String> pointsColumn = new TableColumn<>("POINTS");
-        pointsColumn.setPrefWidth(50);
+        pointsColumn.setPrefWidth(150);
         pointsColumn.setCellValueFactory(new PropertyValueFactory<>("points"));
         columns.add(pointsColumn);
         
         TableColumn<Team, String> leagueIdColumn = new TableColumn<>("LEAGUE ID");
-        leagueIdColumn.setPrefWidth(50);
+        leagueIdColumn.setPrefWidth(150);
         leagueIdColumn.setCellValueFactory(new PropertyValueFactory<>("leagueId"));
         columns.add(leagueIdColumn);
         

@@ -1,28 +1,24 @@
 package presentation;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import logic.LeagueImpl;
 
-import data.Team;
+import java.util.Optional;
 
-import javafx.geometry.Pos;
+import data.League;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
-import logic.LeagueImpl;
-import logic.TeamImpl;
+
 
 public class LigaMenu 
 {	
-	private Button createLigaBtn = new Button("Opret Liga");
+	private Button createLeagueBtn = new Button("Opret Liga");
 	private Button updateLigaBtn = new Button("Opdater Liga");
 	private Button deleteLigaBtn = new Button("Slet Liga");
-	private ComboBox leagueDropdown = new ComboBox();
+	private ComboBox<League> leagueDropdown = new ComboBox<League>();
 	
 	private Button backBtn = new Button("Tilbage");
 	
@@ -31,12 +27,13 @@ public class LigaMenu
 	
 	private Layout layout = new Layout();
 	
-	public void ligaShowMenu(Stage stage)
+	
+	public LigaMenu(Stage stage)
 	{
-		layout.left.getChildren().addAll(createLigaBtn, updateLigaBtn, deleteLigaBtn, backBtn, leagueDropdown);
+		layout.left.getChildren().addAll(createLeagueBtn, updateLigaBtn, deleteLigaBtn, backBtn, leagueDropdown);
 		layout.bottom.getChildren().addAll(updateTeamBtn, createTeamBtn);
 		
-		layout.left.setTopAnchor(createLigaBtn, 0.0);
+		layout.left.setTopAnchor(createLeagueBtn, 0.0);
 		layout.left.setTopAnchor(updateLigaBtn, 50.0);
 		layout.left.setTopAnchor(deleteLigaBtn, 100.0);
 		layout.left.setTopAnchor(leagueDropdown, 150.0);
@@ -56,7 +53,7 @@ public class LigaMenu
 	{
 		UpdateHold updateHold = new UpdateHold();
 		Menu menu = new Menu();
-//		createLigaBtn.setOnAction(e -> insert thingy here);
+		createLeagueBtn.setOnAction(e -> createLeague());
 //		updateLigaBtn.setOnAction(e -> insert thingy here);
 //		deleteLigaBtn.setOnAction(e -> insert thingy here);
 		backBtn.setOnAction(e -> menu.showMenu(stage));
@@ -69,6 +66,18 @@ public class LigaMenu
 	private void leagueDropDown() {
 		LeagueImpl leagueImpl = new LeagueImpl();
 		leagueDropdown.getItems().addAll(leagueImpl.getAllLeagues());
+		
+	}
+	
+	private void createLeague() {
+		LeagueImpl leagueImpl = new LeagueImpl();
+		TextInputDialog dialog = new TextInputDialog();
+		dialog.setTitle("Add a new League");
+		dialog.setHeaderText("Look, a Text Input Dialog");
+		dialog.setContentText("Please enter the name of the league");
+		Optional<String> result = dialog.showAndWait();
+		if (result.isPresent())
+		    leagueImpl.createLeague(result);
 	}
 
 }

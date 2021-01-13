@@ -2,6 +2,7 @@ package data;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class DataLayer {
 	private Connection connection;
@@ -45,11 +46,11 @@ public class DataLayer {
 
 	// Author: Lasse Jonassen
 	// Created: 11-01-2021
-	public boolean createLiga(String ligaName) {
+	public boolean createLeague(String leagueName) {
 		try {
-			String sql = "{call spCreateLiga(?)}";
+			String sql = "{call spCreateLeague(?)}";
 			try (CallableStatement stmt = connection.prepareCall(sql)) {
-				stmt.setString(1, ligaName);
+				stmt.setString(1, leagueName);
 				stmt.execute();
 			}
 			return true;
@@ -58,6 +59,10 @@ public class DataLayer {
 			return false;
 		}
 	}
+	
+	
+	
+	
 
 	/*
 	 * Author: Lucas Elley Date: 12/01/2021

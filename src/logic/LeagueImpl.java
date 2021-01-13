@@ -1,9 +1,9 @@
 package logic;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import data.DataLayer;
 import data.League;
-import data.Team;
 
 public class LeagueImpl implements iLeague {
 	DataLayer dataLayer = new DataLayer();
@@ -12,9 +12,15 @@ public class LeagueImpl implements iLeague {
 	 * Author: Lucas Elley
 	 * 12/01/2021 
 	 */
-	public void createLiga(String ligaName) {
-		dataLayer.createLiga(ligaName);
+//	public void createLeague(String ligaName) {
+//		dataLayer.createLeague(ligaName);
+//	}
+	
+	public void createLeague(Optional<String> leagueName) {
+		String name = leagueName.map(String::toString).orElse("(empty)");
+		dataLayer.createLeague(name);
 	}
+	
 
 	// Author: Lasse Jonassen
 	// Created: 12-01-2021
