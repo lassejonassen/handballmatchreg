@@ -19,8 +19,11 @@ public class LeagueImpl implements iLeague {
 	}
 	
 
-	// Author: Lasse Jonassen
-	// Created: 12-01-2021
+	/**
+	 * @author $ Lasse Jonassen
+	 *
+	 * @tags $ { Read, update, delete }
+	 */
 	public ArrayList<League> getAllLeagues() {
 		ArrayList<League> leagues = dataLayer.getAllLeagues();
 		return leagues;
@@ -35,9 +38,6 @@ public class LeagueImpl implements iLeague {
 			return false;
 	}
 	
-	
-	// Author: Lasse Jonassen
-	// Created: 13-01-2021
 	@SuppressWarnings("static-access") // ofNullable
 	public boolean deleteLeague(Optional<League> league) {
 		league.ofNullable(new League());

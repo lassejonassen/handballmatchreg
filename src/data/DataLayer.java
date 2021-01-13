@@ -11,8 +11,6 @@ public class DataLayer {
 		openConnection();
 	}
 
-	// Author: Lasse Jonassen
-	// Created: 11-01-2021
 	private boolean loadJDBCDriver() {
 		try {
 			System.out.println("Loading JDBC Driver...");
@@ -25,8 +23,6 @@ public class DataLayer {
 		}
 	}
 
-	// Author: Lasse Jonassen
-	// Created: 11-01-2021
 	private boolean openConnection() {
 		String connectionString = "jdbc:sqlserver://localhost:1433;" + "instanceName=SQLSERVER;" + "databaseName="
 				+ "HbmrDb" + ";" + "integratedSecurity=true;";
@@ -61,8 +57,11 @@ public class DataLayer {
 		}
 	}
 
-	// Author: Lasse Jonassen & Lucas Elley
-	// Created: 12-01-2021
+	/**
+	 * @author $ Lasse Jonassen & Lucas Elley
+	 * 
+	 * @Created $ 12-01-2021
+	 */
 	public ArrayList<Team> getAllTeams(int ligaId) {
 		ArrayList<Team> teamList = new ArrayList<>();
 		String sql = "{call spGetAllTeams(?)}";
@@ -102,8 +101,11 @@ public class DataLayer {
 
 	}
 
-	// Author: Lasse Jonassen
-	// Created: 11-01-2021
+	/**
+	 * @author $ Lasse Jonassen
+	 * 
+	 * @Created $ 11-01-2021
+	 */
 	public boolean createMatch(int team1ID, int team2ID) {
 		try {
 			String sql = "{call spCreateMatch(?, ?)}";
@@ -119,8 +121,11 @@ public class DataLayer {
 		}
 	}
 
-	// Author: Lasse Jonassen
-	// Created: 11-01-2021
+	/**
+	 * @author $ Lasse Jonassen
+	 * 
+	 * @Created $ 11-01-2021
+	 */
 	public boolean createSuspension(int matchId, int teamId, String matchTime) {
 		try {
 			String sql = "{call spCreateSuspension(?, ? ,?)}";
@@ -139,12 +144,12 @@ public class DataLayer {
 	}
 
 	/**
-	 * @author $Lasse Jonassen
-	 *
-	 * $League
-	 */
-	// Author: Lasse Jonassen
-	// Created: 11-01-2021
+	 * @author $ Lasse Jonassen
+	 * 
+	 * @created $ 11-01-2021 - 13-01-2021
+	 * 
+	 * @tags $ CRUD On League
+ 	 */
 	public boolean createLeague(String leagueName) {
 		try {
 			String sql = "{call spCreateLeague(?)}";
@@ -159,8 +164,6 @@ public class DataLayer {
 		}
 	}
 
-	// Author: Lasse Jonassen
-	// Created: 12-01-2021
 	public ArrayList<League> getAllLeagues() {
 		ArrayList<League> leagueList = new ArrayList<League>();
 		String sql = "{call spGetAllLeagues}";
@@ -195,8 +198,6 @@ public class DataLayer {
 		
 	}
 
-	// Author: Lasse Jonassen
-	// Created: 13-01-2021
 	public boolean deleteLeague(League league) {
 		String sql = "{call spDeleteLeague(?)}";
 		try (CallableStatement stmt = connection.prepareCall(sql)) {
