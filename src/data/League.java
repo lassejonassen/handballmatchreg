@@ -1,5 +1,7 @@
 package data;
 
+import java.util.Optional;
+
 /*
  *  Author: Lucas Elley
  *  Date: 12/01/2021
@@ -11,6 +13,10 @@ public class League {
 	public League(int id, String name) {
 		this.id = id;
 		this.name = name;
+	}
+	
+	public League() {
+		
 	}
 	
 	public int getId() {
@@ -29,6 +35,11 @@ public class League {
 	@Override
 	public String toString() {
 		return id + " " + name;
+	}
+
+	public Optional<String> map(Object object) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

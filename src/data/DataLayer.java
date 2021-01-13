@@ -179,4 +179,18 @@ public class DataLayer {
 		return leagueList;
 	}
 	
+	// Author: Lasse Jonassen
+	// Created: 13-01-2021
+	public boolean deleteLeague(League league) {
+		String sql = "{call spDeleteLeague(?)}";
+		try (CallableStatement stmt = connection.prepareCall(sql)) {
+			stmt.setInt(1, league.getId());
+			stmt.execute();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 }

@@ -2,12 +2,19 @@ package presentation;
 
 import logic.LeagueImpl;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
+import data.DataLayer;
 import data.League;
 
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
@@ -55,7 +62,7 @@ public class LigaMenu
 		Menu menu = new Menu();
 		createLeagueBtn.setOnAction(e -> createLeague());
 //		updateLigaBtn.setOnAction(e -> insert thingy here);
-//		deleteLigaBtn.setOnAction(e -> insert thingy here);
+		deleteLigaBtn.setOnAction(e -> deleteLeague());
 		backBtn.setOnAction(e -> menu.showMenu(stage));
 		updateTeamBtn.setOnAction(e -> updateHold.showHoldUpdate());
 //		createTeamBtn.setOnAction(e -> holdMenu.showCreateTeamWindow());
@@ -78,6 +85,35 @@ public class LigaMenu
 		Optional<String> result = dialog.showAndWait();
 		if (result.isPresent())
 		    leagueImpl.createLeague(result);
+	}
+	
+	private void deleteLeague() {
+		LeagueImpl leagueImpl = new LeagueImpl();
+		ArrayList<League> leagues = leagueImpl.getAllLeagues();
+		ChoiceDialog<League> dialog = new ChoiceDialog<>(leagues.get(0), leagues);
+		dialog.setTitle("Choose league");
+		dialog.setHeaderText("Look, a Choice Dialog");
+		dialog.setContentText("Choose league: ");
+		Optional<League> result = dialog.showAndWait();
+		if (result.isPresent())
+			if (confirmDelete())
+				leagueImpl.deleteLeague(result);
+	}
+	
+	private boolean confirmDelete() {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirm deletion of league");
+		alert.setHeaderText("Are you sure you want to delete the choosen league?");
+		alert.setContentText("Choose your option.");
+		ButtonType confirmBtn = new ButtonType("Yes");
+		ButtonType cancelBtn = new ButtonType("No", ButtonData.CANCEL_CLOSE);
+		alert.getButtonTypes().setAll(confirmBtn, cancelBtn);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == confirmBtn)
+			return true;
+		else if (result.get() == cancelBtn)
+		    return false;
+		return false;
 	}
 
 }
