@@ -14,7 +14,7 @@ public class TeamImpl implements TeamInterface {
 		dataLayer.createTeam(new Team(name).getName(), league.getId());
 	}
 	
-	public ArrayList<Team> getAllTeams(League league) {
-		return dataLayer.getAllTeams(league.getId());
+	public ArrayList<Team> getAllTeams(int league_id) {
+		return dataLayer.getAllTeams(1);
 	}
 }
