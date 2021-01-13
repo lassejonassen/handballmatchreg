@@ -1,9 +1,7 @@
 package logic;
+
 import java.util.ArrayList;
 import java.util.Optional;
-
-import com.sun.net.httpserver.Filter;
-
 import data.DataLayer;
 import data.League;
 
@@ -27,6 +25,16 @@ public class LeagueImpl implements iLeague {
 		ArrayList<League> leagues = dataLayer.getAllLeagues();
 		return leagues;
 	}
+	
+	@SuppressWarnings("static-access") // ofNullable
+	public boolean updateLeague(Optional<League> league, String newName) {
+		league.ofNullable(new League());
+		if (dataLayer.updateLeague(league.get(), newName))
+			return true;
+		else
+			return false;
+	}
+	
 	
 	// Author: Lasse Jonassen
 	// Created: 13-01-2021

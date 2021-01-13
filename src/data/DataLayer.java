@@ -2,7 +2,6 @@ package data;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Optional;
 
 public class DataLayer {
 	private Connection connection;
@@ -43,26 +42,6 @@ public class DataLayer {
 			return false;
 		}
 	}
-
-	// Author: Lasse Jonassen
-	// Created: 11-01-2021
-	public boolean createLeague(String leagueName) {
-		try {
-			String sql = "{call spCreateLeague(?)}";
-			try (CallableStatement stmt = connection.prepareCall(sql)) {
-				stmt.setString(1, leagueName);
-				stmt.execute();
-			}
-			return true;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-	
-	
-	
-	
 
 	/*
 	 * Author: Lucas Elley Date: 12/01/2021
@@ -120,7 +99,7 @@ public class DataLayer {
 			System.out.println("Couldnt find any teams.");
 		}
 		return teamList;
-		
+
 	}
 
 	// Author: Lasse Jonassen
@@ -158,7 +137,28 @@ public class DataLayer {
 		}
 
 	}
-	
+
+	/**
+	 * @author $Lasse Jonassen
+	 *
+	 * $League
+	 */
+	// Author: Lasse Jonassen
+	// Created: 11-01-2021
+	public boolean createLeague(String leagueName) {
+		try {
+			String sql = "{call spCreateLeague(?)}";
+			try (CallableStatement stmt = connection.prepareCall(sql)) {
+				stmt.setString(1, leagueName);
+				stmt.execute();
+			}
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 	// Author: Lasse Jonassen
 	// Created: 12-01-2021
 	public ArrayList<League> getAllLeagues() {
@@ -178,7 +178,23 @@ public class DataLayer {
 		}
 		return leagueList;
 	}
-	
+
+	public boolean updateLeague(League league, String newName) {
+		try {
+			String sql = "{call spUpdateLeague(?, ?)}";
+			try (CallableStatement stmt = connection.prepareCall(sql)) {
+				stmt.setInt(1, league.getId());
+				stmt.setString(2, newName);
+				stmt.execute();
+			}
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
+
 	// Author: Lasse Jonassen
 	// Created: 13-01-2021
 	public boolean deleteLeague(League league) {
@@ -192,5 +208,5 @@ public class DataLayer {
 			return false;
 		}
 	}
-	
+
 }
