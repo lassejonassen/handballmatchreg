@@ -5,7 +5,6 @@ import data.DataLayer;
 import data.Team;
 
 public class iMatchImpl implements iMatch {
-	
 	DataLayer dataLayer = new DataLayer();
 	
 	// Author: Lasse Jonassen
