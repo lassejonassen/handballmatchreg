@@ -131,6 +131,25 @@ public class DataLayer {
 		return teamList;
 
 	}
+	
+	
+	
+	/**
+	 * @author $ Lasse Jonassen
+	 * 
+	 * @Created $ 11-01-2021
+	 */
+	public boolean deleteTeam(int teamId) {
+		String sql = "{call spDeleteTeam(?)}";
+		try (CallableStatement stmt = connection.prepareCall(sql)) {
+			stmt.setInt(1,  teamId);
+			stmt.execute();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 	/**
 	 * @author $ Lasse Jonassen

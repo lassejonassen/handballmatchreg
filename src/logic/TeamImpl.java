@@ -23,8 +23,7 @@ public class TeamImpl implements TeamInterface {
 		return dataLayer.getAllTeams(league_id);
 	}
 	
-//	public boolean deleteLeague(League league) {
-//		dataLayer.deleteLeague(league.getId());
-//		return true;
-//	}
+	public void deleteTeam(Team team) {
+		dataLayer.deleteTeam(team.getId());
+	}
 }

@@ -1,3 +1,8 @@
+/**
+ * @author $ Lasse Jonassen
+ * 
+ * @Created $ 11-01-2021
+ */
 package presentation;
 
 import java.util.ArrayList;
@@ -13,7 +18,6 @@ public class LeagueTableView {
 	private TeamImpl teamImpl = new TeamImpl();
 	private TableView<Team> leagueTable = new TableView<>();
 	private ArrayList<TableColumn<Team, String>> columns = new ArrayList<TableColumn<Team, String>>();
-	
 	public LeagueTableView(Layout layout, League league) {
 		leagueTable.setPrefHeight(640);
 		
