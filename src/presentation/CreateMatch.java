@@ -18,7 +18,7 @@ public class CreateMatch {
 	private Stage window = new Stage();
 	private Scene scene;
 	
-	private HoldLayout teamLayout = new HoldLayout();
+	private ChildLayout teamLayout = new ChildLayout();
 	
 	protected void showMatchCreate() {
 		Scene scene = new Scene(teamLayout.childRoot);

@@ -12,12 +12,17 @@ public class MatchMenu {
 	
 	private Layout layout = new Layout();
 	
+	public MatchMenu(Stage stage)
+	{
+		showMatchMenu(stage);
+		matchBtnFunctionality(stage);
+	}
+	
 	public void showMatchMenu(Stage stage) {
+		
 		layout.left.getChildren().addAll(createMatchBtn,backBtn);
 		layout.left.setBottomAnchor(backBtn, 0.0);
 		layout.left.setTopAnchor(createMatchBtn, 0.0);
-		
-		matchBtnFunctionality(stage);
 		
 		Scene scene = new Scene(layout.root);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
