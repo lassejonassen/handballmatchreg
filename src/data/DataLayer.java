@@ -155,9 +155,9 @@ public class DataLayer {
 			e.printStackTrace();
 			return false;
 		}
-
 	}
 
+	
 	/**
 	 * @author $ Lasse Jonassen
 	 * 
@@ -197,11 +197,11 @@ public class DataLayer {
 		return leagueList;
 	}
 
-	public boolean updateLeague(League league, String newName) {
+	public boolean updateLeague(int id, String newName) {
 		try {
 			String sql = "{call spUpdateLeague(?, ?)}";
 			try (CallableStatement stmt = connection.prepareCall(sql)) {
-				stmt.setInt(1, league.getId());
+				stmt.setInt(1, id);
 				stmt.setString(2, newName);
 				stmt.execute();
 			}

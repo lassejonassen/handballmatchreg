@@ -38,6 +38,14 @@ public class LigaMenu
 	
 	
 	public LigaMenu(Stage stage)
+	{		
+		ligaButtonFunctionality(stage);
+		showLeagueMenu(stage);
+		leagueDropDown();
+		
+	}
+	
+	private void showLeagueMenu(Stage stage)
 	{
 		layout.left.getChildren().addAll(createLeagueBtn, updateLeagueBtn, deleteLigaBtn, backBtn, leagueDropdown);
 		layout.bottom.getChildren().addAll(updateTeamBtn, createTeamBtn);
@@ -48,8 +56,6 @@ public class LigaMenu
 		layout.left.setTopAnchor(leagueDropdown, 150.0);
 		layout.left.setBottomAnchor(backBtn, 0.0);
 		
-		ligaButtonFunctionality(stage);
-		leagueDropDown();
 		new LeagueTableView(layout);
 		
 		Scene scene = new Scene(layout.root);
@@ -60,13 +66,12 @@ public class LigaMenu
 	
 	private void ligaButtonFunctionality(Stage stage)
 	{
-		UpdateHold updateHold = new UpdateHold();
 		Menu menu = new Menu();
 		createLeagueBtn.setOnAction(e -> createLeague());
 		updateLeagueBtn.setOnAction(e -> updateLeague());
 		deleteLigaBtn.setOnAction(e -> deleteLeague());
 		backBtn.setOnAction(e -> menu.showMenu(stage));
-		updateTeamBtn.setOnAction(e -> updateHold.showHoldUpdate());
+		updateTeamBtn.setOnAction(e -> new CreateTeam());
 //		createTeamBtn.setOnAction(e -> holdMenu.showCreateTeamWindow());
 	}
 	

@@ -6,9 +6,9 @@ import java.util.Optional;
 import data.League;
 
 public interface iLeague {
-	public void createLeague(Optional<String> leagueName);
+	public void createLeague(League league);
 	public ArrayList<League> getAllLeagues();
-	public boolean updateLeague(Optional<League> league, String newName);
-	public boolean deleteLeague(Optional<League> league);
+	public boolean updateLeague(League league, String newName);
+	public boolean deleteLeague(League league);
 	
 }
