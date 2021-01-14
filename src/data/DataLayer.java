@@ -120,6 +120,21 @@ public class DataLayer {
 			return false;
 		}
 	}
+	
+	public boolean deleteMatch(int team1ID, int team2ID) {
+		try {
+			String sql = "{call spDeleteMatch(?, ?)}";
+			try (CallableStatement stmt = connection.prepareCall(sql)) {
+				stmt.setInt(1, team1ID);
+				stmt.setInt(2, team2ID);
+				stmt.execute();
+			}
+			return true;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
 
 	/**
 	 * @author $ Lasse Jonassen
@@ -140,9 +155,9 @@ public class DataLayer {
 			e.printStackTrace();
 			return false;
 		}
-
 	}
 
+	
 	/**
 	 * @author $ Lasse Jonassen
 	 * 
@@ -182,11 +197,11 @@ public class DataLayer {
 		return leagueList;
 	}
 
-	public boolean updateLeague(League league, String newName) {
+	public boolean updateLeague(int id, String newName) {
 		try {
 			String sql = "{call spUpdateLeague(?, ?)}";
 			try (CallableStatement stmt = connection.prepareCall(sql)) {
-				stmt.setInt(1, league.getId());
+				stmt.setInt(1, id);
 				stmt.setString(2, newName);
 				stmt.execute();
 			}
@@ -198,10 +213,10 @@ public class DataLayer {
 		
 	}
 
-	public boolean deleteLeague(League league) {
+	public boolean deleteLeague(int id) {
 		String sql = "{call spDeleteLeague(?)}";
 		try (CallableStatement stmt = connection.prepareCall(sql)) {
-			stmt.setInt(1, league.getId());
+			stmt.setInt(1, id);
 			stmt.execute();
 			return true;
 		} catch (SQLException e) {

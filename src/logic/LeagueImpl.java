@@ -13,38 +13,27 @@ public class LeagueImpl implements iLeague {
 	 * 12/01/2021 
 	 */
 	
-	public void createLeague(Optional<String> leagueName) {
-		String name = leagueName.map(String::toString).orElse("(empty)");
-		dataLayer.createLeague(name);
+	public void createLeague(League league) {
+		dataLayer.createLeague(league.getName());
 	}
 	
-
 	/**
 	 * @author $ Lasse Jonassen
 	 *
 	 * @tags $ { Read, update, delete }
 	 */
 	public ArrayList<League> getAllLeagues() {
-		ArrayList<League> leagues = dataLayer.getAllLeagues();
-		return leagues;
+		return dataLayer.getAllLeagues();
 	}
 	
-	@SuppressWarnings("static-access") // ofNullable
-	public boolean updateLeague(Optional<League> league, String newName) {
-		league.ofNullable(new League());
-		if (dataLayer.updateLeague(league.get(), newName))
-			return true;
-		else
-			return false;
+	public boolean updateLeague(League league, String newName) {
+		dataLayer.updateLeague(league.getId(), newName);
+		return true;
 	}
 	
-	@SuppressWarnings("static-access") // ofNullable
-	public boolean deleteLeague(Optional<League> league) {
-		league.ofNullable(new League());
-		if (dataLayer.deleteLeague(league.get()))
-			return true;
-		else
-			return false;		
+	public boolean deleteLeague(League league) {
+		dataLayer.deleteLeague(league.getId());
+		return true;
 	}
 	
 	
