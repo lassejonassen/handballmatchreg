@@ -5,14 +5,11 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class CreateMatch {
-	
 	private ComboBox homeChoice = new ComboBox();
 	private ComboBox awayChoice = new ComboBox();
 	private ComboBox ligaChoice = new ComboBox();
-	
 	private Stage window = new Stage();
 	private Scene scene;
-	
 	private ChildLayout teamLayout = new ChildLayout();
 	
 	public CreateMatch()
