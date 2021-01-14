@@ -21,12 +21,18 @@ public class iMatchImpl implements iMatch {
 		dataLayer.createSuspension(match.getId(), team.getId(), time);
 	}
 	
+	/**
+	 * @author $ Lucas Elley
+	 *
+	 * @tags $ { Delete match, Update match }
+	 */
+	
 	public void deleteMatch(Team team, Team team2) {
 		dataLayer.deleteMatch(team.getId(), team2.getId());
 	}
 	
-	public void updateMatch() {
-		
+	public void updateMatch(Team team, Team team2) {
+		dataLayer.updateMatch(team.getId(), team2.getId());
 	}
 
 }
