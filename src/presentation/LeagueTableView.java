@@ -1,6 +1,13 @@
+/**
+ * @author $ Lasse Jonassen
+ * 
+ * @Created $ 11-01-2021
+ */
 package presentation;
 
 import java.util.ArrayList;
+
+import data.League;
 import data.Team;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -8,12 +15,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import logic.TeamImpl;
 
 public class LeagueTableView {
-	
-	public LeagueTableView(Layout layout) {
-		TeamImpl teamImpl = new TeamImpl();
-		ArrayList<TableColumn<Team, String>> columns = new ArrayList<TableColumn<Team, String>>();
-		
-		TableView<Team> leagueTable = new TableView<>();
+	private TeamImpl teamImpl = new TeamImpl();
+	private TableView<Team> leagueTable = new TableView<>();
+	private ArrayList<TableColumn<Team, String>> columns = new ArrayList<TableColumn<Team, String>>();
+	public LeagueTableView(Layout layout, League league) {
 		leagueTable.setPrefHeight(640);
 		
 		TableColumn<Team, String> idColumn = new TableColumn<>("ID");
@@ -70,7 +75,7 @@ public class LeagueTableView {
         	leagueTable.getColumns().add(tc);
         
         layout.root.setCenter(leagueTable);
-        leagueTable.getItems().addAll(teamImpl.getAllTeams(1));
+        leagueTable.getItems().addAll(teamImpl.getAllTeams(league.getId()));
+        System.out.println(league.getId());
 	}
-
 }

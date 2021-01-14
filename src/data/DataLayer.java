@@ -56,6 +56,37 @@ public class DataLayer {
 			return false;
 		}
 	}
+	
+	public boolean deleteTeam(String name, int ligaId) {
+		try {
+			String sql = "{call spDeleteTeam(?, ?)}";
+			try (CallableStatement stmt = connection.prepareCall(sql)) {
+				stmt.setString(1, name);
+				stmt.setInt(2, ligaId);
+				stmt.execute();
+			}
+			return true;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean updateTeam(int id, String newName) {
+		try {
+			String sql = "{call spUpdateTeam(?, ?)}";
+			try (CallableStatement stmt = connection.prepareCall(sql)) {
+				stmt.setInt(1, id);
+				stmt.setString(2, newName);
+				stmt.execute();
+			}
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
 
 	/**
 	 * @author $ Lasse Jonassen & Lucas Elley
@@ -99,6 +130,25 @@ public class DataLayer {
 		}
 		return teamList;
 
+	}
+	
+	
+	
+	/**
+	 * @author $ Lasse Jonassen
+	 * 
+	 * @Created $ 11-01-2021
+	 */
+	public boolean deleteTeam(int teamId) {
+		String sql = "{call spDeleteTeam(?)}";
+		try (CallableStatement stmt = connection.prepareCall(sql)) {
+			stmt.setInt(1,  teamId);
+			stmt.execute();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	/**
