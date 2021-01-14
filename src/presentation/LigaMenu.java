@@ -47,6 +47,7 @@ public class LigaMenu {
 	private void showLeagueMenu(Stage stage) {
 		layout.left.getChildren().addAll(createLeagueBtn, updateLeagueBtn, deleteLigaBtn, backBtn, leagueDropdown);
 		layout.bottom.getChildren().addAll(updateTeamBtn, createTeamBtn);
+		leagueDropdown.setId("leagueDropDown");
 
 		layout.left.setTopAnchor(createLeagueBtn, 0.0);
 		layout.left.setTopAnchor(updateLeagueBtn, 50.0);

@@ -23,6 +23,8 @@ public class CreateTeam
 	
 	private ChildLayout childLayout = new ChildLayout();
 	private LeagueImpl leagueImpl = new LeagueImpl();
+	private Validation validation = new Validation();
+	private TeamImpl teamImpl = new TeamImpl();
 	
 	public CreateTeam()
 	{
@@ -52,8 +54,18 @@ public class CreateTeam
 	
 	private void createTeamButtonFunctionality()
 	{
-		TeamImpl teamImpl = new TeamImpl();
-		confirmCreateBtn.setOnAction(e -> teamImpl.createTeam(leagueChoice.getSelectionModel().getSelectedItem(), teamName.getText()));
+		confirmCreateBtn.setOnAction(e -> createConfirm());
 		cancelCreateBtn.setOnAction(e -> window.close());
 	}
+	
+	private void createConfirm()
+	{
+		if(validation.emptyStringWarning(teamName.getText()))
+			if(validation.confirmChanges())
+			{
+				teamImpl.createTeam(leagueChoice.getSelectionModel().getSelectedItem(), teamName.getText());
+				window.close();
+			}
+	}
+	
 }
