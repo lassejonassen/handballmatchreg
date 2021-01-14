@@ -5,10 +5,11 @@ import javafx.scene.layout.*;
 public class HoldLayout 
 {
 	protected BorderPane childRoot = new BorderPane();
-	private HBox childTop = new HBox();
-	private HBox childBottom = new HBox();
-	private VBox childLeft = new VBox();
-	private VBox childRight = new VBox();
+	protected HBox childTop = new HBox();
+	protected HBox childBottom = new HBox();
+	protected GridPane childCenter = new GridPane();
+	protected VBox childLeft = new VBox();
+	protected VBox childRight = new VBox();
 	
 	public HoldLayout()
 	{
@@ -16,6 +17,7 @@ public class HoldLayout
 		childBottomLayout();
 		childLeftLayout();
 		childRightLayout();
+		childCenterLayout();
 	}
 	
 	private void childTopLayout()
@@ -30,6 +32,11 @@ public class HoldLayout
 		childBottom.setId("childBottom");
 	}
 	
+	private void childCenterLayout() {
+		childRoot.setCenter(childCenter);
+		childCenter.setId("childCenter");
+	}
+	
 	private void childLeftLayout()
 	{
 		childRoot.setLeft(childLeft);
@@ -41,5 +48,6 @@ public class HoldLayout
 		childRoot.setRight(childRight);
 		childRight.setId("childRight");
 	}
+	
 
 }
