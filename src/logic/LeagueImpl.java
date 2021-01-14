@@ -1,7 +1,6 @@
 package logic;
 
 import java.util.ArrayList;
-import java.util.Optional;
 import data.DataLayer;
 import data.League;
 

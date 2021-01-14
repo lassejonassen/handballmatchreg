@@ -1,10 +1,7 @@
 package presentation;
 
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Menu 
@@ -15,6 +12,7 @@ public class Menu
 	private Button btn4 = new Button("this is button 4");
 	
 	
+	@SuppressWarnings("static-access")
 	public void showMenu(Stage stage)
 	{
 		Layout layout = new Layout();
