@@ -121,9 +121,30 @@ public class DataLayer {
 		}
 	}
 	
+	/**
+	 * @author $ Lucas Elley
+	 * 
+	 * @Created $ 14-01-2021
+	 */
+	
 	public boolean deleteMatch(int team1ID, int team2ID) {
 		try {
 			String sql = "{call spDeleteMatch(?, ?)}";
+			try (CallableStatement stmt = connection.prepareCall(sql)) {
+				stmt.setInt(1, team1ID);
+				stmt.setInt(2, team2ID);
+				stmt.execute();
+			}
+			return true;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean updateMatch(int team1ID, int team2ID) {
+		try {
+			String sql = "{call spUpdateMatch(?, ?)}";
 			try (CallableStatement stmt = connection.prepareCall(sql)) {
 				stmt.setInt(1, team1ID);
 				stmt.setInt(2, team2ID);
