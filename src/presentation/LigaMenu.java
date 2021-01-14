@@ -37,6 +37,7 @@ public class LigaMenu {
 	private void showLeagueMenu(Stage stage) {
 		layout.left.getChildren().addAll(createLeagueBtn, updateLeagueBtn, deleteLigaBtn, backBtn, leagueDropdown);
 		layout.bottom.getChildren().addAll(updateTeamBtn, createTeamBtn);
+		leagueDropdown.setId("leagueDropDown");
 		layout.left.setTopAnchor(createLeagueBtn, 0.0);
 		layout.left.setTopAnchor(updateLeagueBtn, 50.0);
 		layout.left.setTopAnchor(deleteLigaBtn, 100.0);
@@ -73,7 +74,7 @@ public class LigaMenu {
 		LeagueImpl leagueImpl = new LeagueImpl();
 		ChildLayout layout = new ChildLayout();
 		Label header = new Label("Opret ny liga");
-		Label guideLabel = new Label("Skriv venligst navnet på den nye liga: ");
+		Label guideLabel = new Label("Skriv venligst navnet pÃ¥ den nye liga: ");
 		TextField leagueNameField = new TextField();
 		leagueNameField.setPromptText("Liga navn");
 		Button addBtn = new Button("OK");
@@ -102,7 +103,7 @@ public class LigaMenu {
 		ChildLayout layout = new ChildLayout();
 		Label header = new Label("Slet en liga");
 		layout.childTop.getChildren().add(header);
-		Label guideLabel = new Label("Vælg venligst den liga du vil slette");
+		Label guideLabel = new Label("VÃ¦lg venligst den liga du vil slette");
 		layout.childCenter.add(guideLabel, 0, 0);
 		ComboBox<League> leagues = new ComboBox<>();
 		leagues.getItems().addAll(leagueImpl.getAllLeagues());
@@ -129,7 +130,7 @@ public class LigaMenu {
 		ChildLayout layout = new ChildLayout();
 		Label header = new Label("Opdater en liga");
 		layout.childTop.getChildren().add(header);
-		Label guideLabel = new Label("Vælg den liga du vil opdaterer");
+		Label guideLabel = new Label("VÃ¦lg den liga du vil opdaterer");
 		layout.childCenter.add(guideLabel, 0, 0);
 		ComboBox<League> leagues = new ComboBox<>();
 		leagues.getItems().addAll(leagueImpl.getAllLeagues());

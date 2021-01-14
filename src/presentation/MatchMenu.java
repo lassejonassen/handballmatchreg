@@ -14,12 +14,20 @@ public class MatchMenu {
 	
 	@SuppressWarnings("static-access")
 	public MatchMenu(Stage stage) {
+		
+		matchBtnFunctionality(stage);
+		showMatchMenu(stage);
+		
+	}
+	
+	private void showMatchMenu(Stage stage)
+	{
 		layout.left.getChildren().addAll(createMatchBtn, deleteMatchBtn, updateMatchBtn,backBtn);
 		layout.left.setBottomAnchor(backBtn, 0.0);
 		layout.left.setTopAnchor(createMatchBtn, 0.0);
 		layout.left.setTopAnchor(updateMatchBtn, 50.0);
 		layout.left.setTopAnchor(deleteMatchBtn, 100.0);
-		matchBtnFunctionality(stage);
+		
 		Scene scene = new Scene(layout.root);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
 		stage.setScene(scene);
@@ -31,9 +39,6 @@ public class MatchMenu {
 		Menu menu = new Menu();
 		backBtn.setOnAction(e -> menu.showMenu(stage));
 		createMatchBtn.setOnAction(e-> new CreateMatch());
-		Scene scene = new Scene(layout.root);
-		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
-		stage.setScene(scene);
 	}
 	
 	private void deleteMatch() {
