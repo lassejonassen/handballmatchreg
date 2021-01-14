@@ -234,10 +234,10 @@ public class DataLayer {
 		
 	}
 
-	public boolean deleteLeague(League league) {
+	public boolean deleteLeague(int id) {
 		String sql = "{call spDeleteLeague(?)}";
 		try (CallableStatement stmt = connection.prepareCall(sql)) {
-			stmt.setInt(1, league.getId());
+			stmt.setInt(1, id);
 			stmt.execute();
 			return true;
 		} catch (SQLException e) {

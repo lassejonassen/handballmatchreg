@@ -32,6 +32,7 @@ public class LeagueImpl implements iLeague {
 	}
 	
 	public boolean deleteLeague(League league) {
+		dataLayer.deleteLeague(league.getId());
 		return true;
 	}
 	

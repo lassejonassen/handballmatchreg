@@ -6,11 +6,6 @@ import javafx.stage.Stage;
 
 public class CreateMatch {
 	
-	private Label homeLabel = new Label("Hjemme");
-	private Label awayLabel = new Label("Ude");
-	private Label vsLabel = new Label("-");
-	private Label leagueLabel = new Label("Valg af liga");
-	
 	private ComboBox homeChoice = new ComboBox();
 	private ComboBox awayChoice = new ComboBox();
 	private ComboBox ligaChoice = new ComboBox();
@@ -19,6 +14,12 @@ public class CreateMatch {
 	private Scene scene;
 	
 	private ChildLayout teamLayout = new ChildLayout();
+	
+	public CreateMatch()
+	{
+		showMatchCreate();
+		matchCreateCenter();
+	}
 	
 	protected void showMatchCreate() {
 		Scene scene = new Scene(teamLayout.childRoot);
@@ -30,12 +31,14 @@ public class CreateMatch {
 	
 	private void matchCreateCenter() {
 		// ComboBox kalde på hold liste.
-		teamLayout.childCenter.add(homeLabel, 1, 0);
-		teamLayout.childCenter.add(awayLabel, 3, 0);
-		teamLayout.childCenter.add(vsLabel, 2, 1);
-		teamLayout.childCenter.add(homeChoice, 1, 1);
-		teamLayout.childCenter.add(awayChoice, 3, 1);
-		teamLayout.childCenter.add(ligaChoice, 0, 0);
+		
+		teamLayout.childCenter.add(new Label("Valg af liga"), 0, 0);
+		teamLayout.childCenter.add(ligaChoice, 2, 0);
+		teamLayout.childCenter.add(new Label("Hjemme"), 0, 1);
+		teamLayout.childCenter.add(homeChoice, 0, 2);
+		teamLayout.childCenter.add(new Label(" - "), 1, 1);
+		teamLayout.childCenter.add(new Label("Ude"), 2, 1);
+		teamLayout.childCenter.add(awayChoice, 2, 2);
 	}
 	
 }

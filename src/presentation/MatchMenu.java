@@ -28,20 +28,12 @@ public class MatchMenu {
 	
 	private void matchBtnFunctionality(Stage stage) {
 		Menu menu = new Menu();
-		CreateMatch createMatch = new CreateMatch();
 		backBtn.setOnAction(e -> menu.showMenu(stage));
-		createMatchBtn.setOnAction(e -> createMatch.showMatchCreate());
-		deleteMatchBtn.setOnAction(e -> deleteMatch());
+		createMatchBtn.setOnAction(e-> new CreateMatch());
 		Scene scene = new Scene(layout.root);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
 		stage.setScene(scene);
-		stage.show();
 	}
-	
-//	private void createMatch() {
-//		iMatchImpl matchImpl = new iMatchImpl();
-//		
-//	}
 	
 	private void deleteMatch() {
 		iMatchImpl matchImpl = new iMatchImpl();
