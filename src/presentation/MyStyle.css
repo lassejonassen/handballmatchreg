@@ -80,3 +80,12 @@
 {
 	-fx-pref-width:50px;
 }
+
+#leagueDropDown
+{
+	-fx-pref-width:150px;
+	-fx-pref-height:50px;
+	-fx-background-radius: 0;
+	-fx-border-color: #e7e7e7;
+	-fx-border-size: 5px;
+}
