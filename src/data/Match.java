@@ -1,4 +1,4 @@
-package logic;
+package data;
 
 public class Match {
 	private int id;

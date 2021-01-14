@@ -14,6 +14,7 @@ public class Menu
 	private Button btn3 = new Button("this is button 3");
 	private Button btn4 = new Button("this is button 4");
 	
+	
 	public void showMenu(Stage stage)
 	{
 		Layout layout = new Layout();
@@ -39,7 +40,6 @@ public class Menu
 		MatchMenu matchMenu = new MatchMenu();
 		showLigaBtn.setOnAction(e -> ligaMenu.ligaShowMenu(stage));
 		showMatchBtn.setOnAction(e -> matchMenu.showMatchMenu(stage));
-	}
-	
-
+		showLigaBtn.setOnAction(e -> new LigaMenu(stage));
+  }
 }
