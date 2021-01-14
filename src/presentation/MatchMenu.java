@@ -12,6 +12,7 @@ public class MatchMenu {
 	private Button backBtn = new Button("Tilbage");
 	private Layout layout = new Layout();
 	
+	@SuppressWarnings("static-access")
 	public MatchMenu(Stage stage) {
 		
 		matchBtnFunctionality(stage);
