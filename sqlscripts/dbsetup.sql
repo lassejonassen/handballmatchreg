@@ -39,8 +39,18 @@ CREATE TABLE TMatch (
 	team2_id INT NOT NULL,
 	team1_goals INT NOT NULL,
 	team2_goals INT NOT NULL,
+	league_id INT NOT NULL,
 
-	PRIMARY KEY (id)
+	PRIMARY KEY (id),
+
+	CONSTRAINT Match_Team1_Relation FOREIGN KEY (team1_id) 
+	REFERENCES Team(id),
+
+	CONSTRAINT Match_Team2_Relation FOREIGN KEY (team2_id) 
+	REFERENCES Team(id),
+
+	CONSTRAINT Match_League_Relation FOREIGN KEY (league_id) 
+	REFERENCES League(id)
 );
 
 CREATE TABLE Suspension (
