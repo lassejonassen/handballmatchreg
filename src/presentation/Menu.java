@@ -1,29 +1,25 @@
 package presentation;
 
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Menu 
 {
 	private Button showLigaBtn = new Button("Liga");
 	private Button showMatchBtn = new Button("Kamp");
-	private Button phOpretHoldKnap = new Button("PlaceHolder hold knap thingy");
 	private Button btn4 = new Button("this is button 4");
 	
 	
+	@SuppressWarnings("static-access")
 	public void showMenu(Stage stage)
 	{
 		Layout layout = new Layout();
-		layout.left.getChildren().addAll(showLigaBtn,showMatchBtn,phOpretHoldKnap,btn4);
+		layout.left.getChildren().addAll(showLigaBtn,showMatchBtn,btn4);
 		
 		layout.left.setTopAnchor(showLigaBtn, 0.0);
 		layout.left.setTopAnchor(showMatchBtn, 50.0);
-		layout.left.setTopAnchor(phOpretHoldKnap, 100.0);
-		layout.left.setTopAnchor(btn4, 150.0);
+		layout.left.setTopAnchor(btn4, 100.0);
 
 		buttonFunctionality(stage);
 		
@@ -38,6 +34,5 @@ public class Menu
 	{
 		showMatchBtn.setOnAction(e -> new MatchMenu(stage));
 		showLigaBtn.setOnAction(e -> new LigaMenu(stage));
-		phOpretHoldKnap.setOnAction(e -> new CreateTeam());
   }
 }

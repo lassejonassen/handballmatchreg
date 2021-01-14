@@ -3,22 +3,11 @@ package presentation;
 import logic.LeagueImpl;
 import data.League;
 
-import java.util.ArrayList;
-import java.util.Optional;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class LigaMenu {
@@ -26,37 +15,35 @@ public class LigaMenu {
 	private Button updateLeagueBtn = new Button("Opdater Liga");
 	private Button deleteLigaBtn = new Button("Slet Liga");
 	private ComboBox<League> leagueDropdown = new ComboBox<League>();
-
 	private Button backBtn = new Button("Tilbage");
-
 	private Button createTeamBtn = new Button("Opret hold");
 	private Button updateTeamBtn = new Button("Opdatere hold");
-	
 	private Layout layout = new Layout();
-
 	private Validation validate = new Validation();
-	
 	
 	public LigaMenu(Stage stage) {
 		ligaButtonFunctionality(stage);
-		showLeagueMenu(stage);
 		leagueDropDown();
-
+		showLeagueMenu(stage);
+		updateTableView();
 	}
-
+	
+	private void updateTableView() {
+		leagueDropdown.setOnAction(e -> {
+			new LeagueTableView(layout, leagueDropdown.getSelectionModel().getSelectedItem());
+		});
+	}
+	
+	@SuppressWarnings("static-access")
 	private void showLeagueMenu(Stage stage) {
 		layout.left.getChildren().addAll(createLeagueBtn, updateLeagueBtn, deleteLigaBtn, backBtn, leagueDropdown);
 		layout.bottom.getChildren().addAll(updateTeamBtn, createTeamBtn);
 		leagueDropdown.setId("leagueDropDown");
-
 		layout.left.setTopAnchor(createLeagueBtn, 0.0);
 		layout.left.setTopAnchor(updateLeagueBtn, 50.0);
 		layout.left.setTopAnchor(deleteLigaBtn, 100.0);
 		layout.left.setTopAnchor(leagueDropdown, 150.0);
 		layout.left.setBottomAnchor(backBtn, 0.0);
-
-		new LeagueTableView(layout);
-
 		Scene scene = new Scene(layout.root);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
 		stage.setScene(scene);
@@ -70,8 +57,10 @@ public class LigaMenu {
 		updateLeagueBtn.setOnAction(e -> updateLeague());
 		deleteLigaBtn.setOnAction(e -> deleteLeague());
 		backBtn.setOnAction(e -> menu.showMenu(stage));
-		createTeamBtn.setOnAction(e -> new CreateTeam());
-		updateTeamBtn.setOnAction(e -> new UpdateTeam());
+//		updateTeamBtn.setOnAction(e -> new CreateTeam());
+		createTeamBtn.setOnAction(e -> {
+			new CreateTeam();
+		});
 	}
 
 	/**
@@ -82,13 +71,15 @@ public class LigaMenu {
 	private void leagueDropDown() {
 		LeagueImpl leagueImpl = new LeagueImpl();
 		leagueDropdown.getItems().addAll(leagueImpl.getAllLeagues());
+		leagueDropdown.setPromptText("Vælg liga");
+		
 	}
 
 	private void createLeague() {
 		LeagueImpl leagueImpl = new LeagueImpl();
 		ChildLayout layout = new ChildLayout();
 		Label header = new Label("Opret ny liga");
-		Label guideLabel = new Label("Skriv venligst navnet p� den nye liga: ");
+		Label guideLabel = new Label("Skriv venligst navnet pÃ¥ den nye liga: ");
 		TextField leagueNameField = new TextField();
 		leagueNameField.setPromptText("Liga navn");
 		Button addBtn = new Button("OK");
@@ -118,7 +109,7 @@ public class LigaMenu {
 		ChildLayout layout = new ChildLayout();
 		Label header = new Label("Slet en liga");
 		layout.childTop.getChildren().add(header);
-		Label guideLabel = new Label("V�lg venligst den liga du vil slette");
+		Label guideLabel = new Label("VÃ¦lg venligst den liga du vil slette");
 		layout.childCenter.add(guideLabel, 0, 0);
 		ComboBox<League> leagues = new ComboBox<>();
 		leagues.getItems().addAll(leagueImpl.getAllLeagues());
@@ -146,7 +137,7 @@ public class LigaMenu {
 		ChildLayout layout = new ChildLayout();
 		Label header = new Label("Opdater en liga");
 		layout.childTop.getChildren().add(header);
-		Label guideLabel = new Label("V�lg den liga du vil opdaterer");
+		Label guideLabel = new Label("VÃ¦lg den liga du vil opdaterer");
 		layout.childCenter.add(guideLabel, 0, 0);
 		ComboBox<League> leagues = new ComboBox<>();
 		leagues.getItems().addAll(leagueImpl.getAllLeagues());

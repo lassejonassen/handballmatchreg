@@ -1,5 +1,4 @@
 package data;
-import java.util.Optional;
 
 public class League {
 	private int id;

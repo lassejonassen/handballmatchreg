@@ -1,8 +1,11 @@
 package presentation;
+
 import data.Match;
 import logic.iMatchImpl;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class MatchMenu {
@@ -12,6 +15,7 @@ public class MatchMenu {
 	private Button backBtn = new Button("Tilbage");
 	private Layout layout = new Layout();
 	
+	@SuppressWarnings("static-access")
 	public MatchMenu(Stage stage) {
 		
 		matchBtnFunctionality(stage);
@@ -41,6 +45,12 @@ public class MatchMenu {
 	
 	private void deleteMatch() {
 		iMatchImpl matchImpl = new iMatchImpl();
+		ChildLayout layout = new ChildLayout();
+		Label header = new Label("Slet Kamp");
+		layout.childTop.getChildren().add(header);
+		
+		
+		
 		
 	}
 	
