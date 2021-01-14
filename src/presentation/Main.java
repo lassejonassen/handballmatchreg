@@ -7,7 +7,6 @@ public class Main extends Application {
 	public static void main(String[] args) 
 	{
 		launch(args);
-
 	}
 
 	@Override
@@ -17,6 +16,4 @@ public class Main extends Application {
 		stage.setTitle("Midtvejs projekt");
 		menu.showMenu(stage);
 	}
-
-
 }

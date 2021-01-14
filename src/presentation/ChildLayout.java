@@ -57,6 +57,4 @@ public class ChildLayout
 		childRoot.setRight(childRight);
 		childRight.setId("childRight");
 	}
-	
-
 }

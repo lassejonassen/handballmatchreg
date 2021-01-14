@@ -10,7 +10,6 @@ public class Layout
  *Date: 11-01-2021
 */
 {
-	
 	protected BorderPane root = new BorderPane();
 	protected HBox top = new HBox();
 	protected HBox bottom = new HBox(15);
@@ -36,8 +35,7 @@ public class Layout
 	private void topLayout()
 	{
 		root.setTop(top);
-		top.setId("top");
-		
+		top.setId("top");		
 		Label heading = new Label();
 		top.getChildren().add(heading);
 		heading.setText("Midtvejs Projekt test tekst!");
@@ -68,7 +66,6 @@ public class Layout
 	{
 		root.setRight(right);
 		right.setId("right");
-		
 	}
 
 }

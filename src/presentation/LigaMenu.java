@@ -15,24 +15,25 @@ public class LigaMenu {
 	private Button updateLeagueBtn = new Button("Opdater Liga");
 	private Button deleteLigaBtn = new Button("Slet Liga");
 	private ComboBox<League> leagueDropdown = new ComboBox<League>();
-
 	private Button backBtn = new Button("Tilbage");
-
 	private Button createTeamBtn = new Button("Opret hold");
 	private Button updateTeamBtn = new Button("Opdatere hold");
-
 	private Layout layout = new Layout();
-
 	private Validation validate = new Validation();
-	
 	
 	public LigaMenu(Stage stage) {
 		ligaButtonFunctionality(stage);
-		showLeagueMenu(stage);
 		leagueDropDown();
-
+		showLeagueMenu(stage);
+		updateTableView();
 	}
-
+	
+	private void updateTableView() {
+		leagueDropdown.setOnAction(e -> {
+			new LeagueTableView(layout, leagueDropdown.getSelectionModel().getSelectedItem());
+		});
+	}
+	
 	@SuppressWarnings("static-access")
 	private void showLeagueMenu(Stage stage) {
 		layout.left.getChildren().addAll(createLeagueBtn, updateLeagueBtn, deleteLigaBtn, backBtn, leagueDropdown);
@@ -43,7 +44,6 @@ public class LigaMenu {
 		layout.left.setTopAnchor(deleteLigaBtn, 100.0);
 		layout.left.setTopAnchor(leagueDropdown, 150.0);
 		layout.left.setBottomAnchor(backBtn, 0.0);
-		new LeagueTableView(layout);
 		Scene scene = new Scene(layout.root);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
 		stage.setScene(scene);
@@ -57,7 +57,9 @@ public class LigaMenu {
 		deleteLigaBtn.setOnAction(e -> deleteLeague());
 		backBtn.setOnAction(e -> menu.showMenu(stage));
 //		updateTeamBtn.setOnAction(e -> new CreateTeam());
-		createTeamBtn.setOnAction(e -> new CreateTeam());
+		createTeamBtn.setOnAction(e -> {
+			new CreateTeam();
+		});
 	}
 
 	/**
@@ -68,6 +70,8 @@ public class LigaMenu {
 	private void leagueDropDown() {
 		LeagueImpl leagueImpl = new LeagueImpl();
 		leagueDropdown.getItems().addAll(leagueImpl.getAllLeagues());
+		leagueDropdown.setPromptText("Vælg liga");
+		
 	}
 
 	private void createLeague() {
