@@ -10,6 +10,10 @@ public class League {
 		this.name = name;
 	}
 	
+	public League(String name) {
+		this.name = name;
+	}
+	
 	public League() {}
 	
 	public int getId() {

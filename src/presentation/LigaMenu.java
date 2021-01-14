@@ -21,51 +21,45 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-
-public class LigaMenu 
-{	
+public class LigaMenu {
 	private Button createLeagueBtn = new Button("Opret Liga");
 	private Button updateLeagueBtn = new Button("Opdater Liga");
 	private Button deleteLigaBtn = new Button("Slet Liga");
 	private ComboBox<League> leagueDropdown = new ComboBox<League>();
-	
+
 	private Button backBtn = new Button("Tilbage");
-	
+
 	private Button createTeamBtn = new Button("Opret hold");
 	private Button updateTeamBtn = new Button("Opdatere hold");
-	
+
 	private Layout layout = new Layout();
-	
-	
-	public LigaMenu(Stage stage)
-	{		
+
+	public LigaMenu(Stage stage) {
 		ligaButtonFunctionality(stage);
 		showLeagueMenu(stage);
 		leagueDropDown();
-		
+
 	}
-	
-	private void showLeagueMenu(Stage stage)
-	{
+
+	private void showLeagueMenu(Stage stage) {
 		layout.left.getChildren().addAll(createLeagueBtn, updateLeagueBtn, deleteLigaBtn, backBtn, leagueDropdown);
 		layout.bottom.getChildren().addAll(updateTeamBtn, createTeamBtn);
-		
+
 		layout.left.setTopAnchor(createLeagueBtn, 0.0);
 		layout.left.setTopAnchor(updateLeagueBtn, 50.0);
 		layout.left.setTopAnchor(deleteLigaBtn, 100.0);
 		layout.left.setTopAnchor(leagueDropdown, 150.0);
 		layout.left.setBottomAnchor(backBtn, 0.0);
-		
+
 		new LeagueTableView(layout);
-		
+
 		Scene scene = new Scene(layout.root);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
 		stage.setScene(scene);
 		stage.show();
 	}
-	
-	private void ligaButtonFunctionality(Stage stage)
-	{
+
+	private void ligaButtonFunctionality(Stage stage) {
 		Menu menu = new Menu();
 		createLeagueBtn.setOnAction(e -> createLeague());
 		updateLeagueBtn.setOnAction(e -> updateLeague());
@@ -74,69 +68,104 @@ public class LigaMenu
 		updateTeamBtn.setOnAction(e -> new CreateTeam());
 //		createTeamBtn.setOnAction(e -> holdMenu.showCreateTeamWindow());
 	}
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * @author $ Lasse Jonassen
 	 *
 	 * @tags $ { Everything league regarded }
 	 */
-		
 	private void leagueDropDown() {
 		LeagueImpl leagueImpl = new LeagueImpl();
 		leagueDropdown.getItems().addAll(leagueImpl.getAllLeagues());
 	}
-	
+
 	private void createLeague() {
 		LeagueImpl leagueImpl = new LeagueImpl();
-		TextInputDialog dialog = new TextInputDialog();
-		dialog.setTitle("Add a new League");
-		dialog.setHeaderText("Look, a Text Input Dialog");
-		dialog.setContentText("Please enter the name of the league");
-		Optional<String> result = dialog.showAndWait();
-		if (result.isPresent())
-			leagueImpl.createLeague(result);
+		ChildLayout layout = new ChildLayout();
+		Label header = new Label("Opret ny liga");
+		Label guideLabel = new Label("Skriv venligst navnet på den nye liga: ");
+		TextField leagueNameField = new TextField();
+		leagueNameField.setPromptText("Liga navn");
+		Button addBtn = new Button("OK");
+		Button cancelBtn = new Button("Annuller");
+		Scene scene = new Scene(layout.childRoot, 600, 400);
+		Stage stage = new Stage();
+		stage.setScene(scene);
+		stage.show();
+		layout.childTop.getChildren().add(header);
+		layout.childCenter.add(guideLabel, 0, 0);
+		layout.childCenter.add(leagueNameField, 1, 0);
+		layout.childCenter.add(addBtn, 0, 1);
+		layout.childCenter.add(cancelBtn, 1, 1);
+		addBtn.setOnAction(e -> {
+			if (emptyStringWarning(leagueNameField.getText()))
+				if (confirmChanges()) {
+					leagueImpl.createLeague(new League(leagueNameField.getText()));
+					stage.close();
+				}
+		});
+		cancelBtn.setOnAction(e -> stage.close());
 	}
 
 	private void deleteLeague() {
 		LeagueImpl leagueImpl = new LeagueImpl();
-		ArrayList<League> leagues = leagueImpl.getAllLeagues();
-		ChoiceDialog<League> dialog = new ChoiceDialog<>(leagues.get(0), leagues);
-		dialog.setTitle("Choose league");
-		dialog.setHeaderText("Look, a Choice Dialog");
-		dialog.setContentText("Choose league: ");
-		Optional<League> result = dialog.showAndWait();
-		if (result.isPresent())
-			if (confirmChanges())
-				leagueImpl.deleteLeague(result);
+		ChildLayout layout = new ChildLayout();
+		Label header = new Label("Slet en liga");
+		layout.childTop.getChildren().add(header);
+		Label guideLabel = new Label("Vælg venligst den liga du vil slette");
+		layout.childCenter.add(guideLabel, 0, 0);
+		ComboBox<League> leagues = new ComboBox<>();
+		leagues.getItems().addAll(leagueImpl.getAllLeagues());
+		layout.childCenter.add(leagues, 1, 0);
+		Button addBtn = new Button("OK");
+		Button cancelBtn = new Button("Annuller");
+		layout.childCenter.add(addBtn, 0, 1);
+		layout.childCenter.add(cancelBtn, 1, 1);
+		Scene scene = new Scene(layout.childRoot, 600, 400);
+		Stage stage = new Stage();
+		stage.setScene(scene);
+		stage.show();
+		addBtn.setOnAction(e -> {
+			if (confirmChanges()) {
+				leagueImpl.deleteLeague(leagues.getSelectionModel().getSelectedItem());
+				stage.close();
+			}
+		});
+		cancelBtn.setOnAction(e -> stage.close());
 	}
-	
+
 	private void updateLeague() {
 		LeagueImpl leagueImpl = new LeagueImpl();
-		Dialog<League> dialog = new Dialog<>();
-		dialog.setTitle("Update dialog");
-		dialog.setHeaderText("Choose a league to update");
-		VBox fields = new VBox();
-		fields.setSpacing(10);
-		ChoiceBox<League> leagues = new ChoiceBox<>();
+		ChildLayout layout = new ChildLayout();
+		Label header = new Label("Opdater en liga");
+		layout.childTop.getChildren().add(header);
+		Label guideLabel = new Label("Vælg den liga du vil opdaterer");
+		layout.childCenter.add(guideLabel, 0, 0);
+		ComboBox<League> leagues = new ComboBox<>();
 		leagues.getItems().addAll(leagueImpl.getAllLeagues());
-		ButtonType updateBtn = new ButtonType("Update", ButtonData.OK_DONE);
-		dialog.getDialogPane().getButtonTypes().setAll(updateBtn);
-		Label newName = new Label("League name: ");
-		TextField nameField = new TextField();
-		nameField.setPromptText("New league name");
-		fields.getChildren().addAll(leagues, newName, nameField);
-		dialog.getDialogPane().setContent(fields);
-		Optional<League> result = dialog.showAndWait();
-		if (result.isPresent())
-			if (confirmChanges())
-				leagueImpl.updateLeague(result, nameField.getText());
+		layout.childCenter.add(leagues, 1, 0);
+		Label guideLabel2 = new Label("Skriv ligaens nye navn");
+		layout.childCenter.add(guideLabel2, 0, 1);
+		TextField leagueNameField = new TextField();
+		leagueNameField.setPromptText("Liga navn");
+		layout.childCenter.add(leagueNameField, 1, 1);
+		Button addBtn = new Button("OK");
+		Button cancelBtn = new Button("Annuller");
+		layout.childCenter.add(addBtn, 0, 2);
+		layout.childCenter.add(cancelBtn, 1, 2);
+		Scene scene = new Scene(layout.childRoot, 600, 400);
+		Stage stage = new Stage();
+		stage.setScene(scene);
+		stage.show();
+		addBtn.setOnAction(e -> {
+			if (confirmChanges()) {
+				leagueImpl.updateLeague(leagues.getSelectionModel().getSelectedItem(), leagueNameField.getText());
+				stage.close();
+			}
+		});
+		cancelBtn.setOnAction(e -> stage.close());
 	}
-	
+
 	private boolean confirmChanges() {
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("Confirm changes to league");
@@ -149,8 +178,21 @@ public class LigaMenu
 		if (result.get() == confirmBtn)
 			return true;
 		else if (result.get() == cancelBtn)
-		    return false;
+			return false;
 		return false;
+	}
+
+	private boolean emptyStringWarning(String str) {
+		if (str.isEmpty()) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Tomt felt advarsel");
+			alert.setHeaderText("DU HAR ET TOMT FELT!");
+			alert.setContentText("Skriv venligst noget i tekst feltet");
+			alert.show();
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 }
