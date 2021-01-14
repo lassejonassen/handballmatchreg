@@ -17,4 +17,8 @@ public class TeamImpl implements TeamInterface {
 	public ArrayList<Team> getAllTeams(int league_id) {
 		return dataLayer.getAllTeams(league_id);
 	}
+	
+	public void deleteTeam(Team team) {
+		dataLayer.deleteTeam(team.getId());
+	}
 }
