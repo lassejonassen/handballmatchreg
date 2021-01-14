@@ -34,6 +34,9 @@ public class LigaMenu {
 
 	private Layout layout = new Layout();
 
+	private Validation validate = new Validation();
+	
+	
 	public LigaMenu(Stage stage) {
 		ligaButtonFunctionality(stage);
 		showLeagueMenu(stage);
@@ -98,8 +101,8 @@ public class LigaMenu {
 		layout.childCenter.add(addBtn, 0, 1);
 		layout.childCenter.add(cancelBtn, 1, 1);
 		addBtn.setOnAction(e -> {
-			if (emptyStringWarning(leagueNameField.getText()))
-				if (confirmChanges()) {
+			if (validate.emptyStringWarning(leagueNameField.getText()))
+				if (validate.confirmChanges()) {
 					leagueImpl.createLeague(new League(leagueNameField.getText()));
 					stage.close();
 				}
@@ -126,7 +129,7 @@ public class LigaMenu {
 		stage.setScene(scene);
 		stage.show();
 		addBtn.setOnAction(e -> {
-			if (confirmChanges()) {
+			if (validate.confirmChanges()) {
 				leagueImpl.deleteLeague(leagues.getSelectionModel().getSelectedItem());
 				stage.close();
 			}
@@ -158,41 +161,12 @@ public class LigaMenu {
 		stage.setScene(scene);
 		stage.show();
 		addBtn.setOnAction(e -> {
-			if (confirmChanges()) {
+			if (validate.confirmChanges()) {
 				leagueImpl.updateLeague(leagues.getSelectionModel().getSelectedItem(), leagueNameField.getText());
 				stage.close();
 			}
 		});
 		cancelBtn.setOnAction(e -> stage.close());
-	}
-
-	private boolean confirmChanges() {
-		Alert alert = new Alert(AlertType.WARNING);
-		alert.setTitle("Confirm changes to league");
-		alert.setHeaderText("Are you sure you want to make changes?");
-		alert.setContentText("Choose your option.");
-		ButtonType confirmBtn = new ButtonType("Yes", ButtonData.OK_DONE);
-		ButtonType cancelBtn = new ButtonType("No", ButtonData.CANCEL_CLOSE);
-		alert.getButtonTypes().setAll(confirmBtn, cancelBtn);
-		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == confirmBtn)
-			return true;
-		else if (result.get() == cancelBtn)
-			return false;
-		return false;
-	}
-
-	private boolean emptyStringWarning(String str) {
-		if (str.isEmpty()) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Tomt felt advarsel");
-			alert.setHeaderText("DU HAR ET TOMT FELT!");
-			alert.setContentText("Skriv venligst noget i tekst feltet");
-			alert.show();
-			return false;
-		} else {
-			return true;
-		}
 	}
 
 }
