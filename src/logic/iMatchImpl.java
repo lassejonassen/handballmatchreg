@@ -27,12 +27,12 @@ public class iMatchImpl implements iMatch {
 	 * @tags $ { Delete match, Update match }
 	 */
 	
-	public void deleteMatch(Team team, Team team2) {
-		dataLayer.deleteMatch(team.getId(), team2.getId());
+	public void deleteMatch(Match match) {
+		dataLayer.deleteMatch(match.getId());
 	}
 	
-	public void updateMatch(Team team, Team team2) {
-		dataLayer.updateMatch(team.getId(), team2.getId());
-	}
-
+//	public void updateMatch(Match match) {
+//		dataLayer.updateMatch(match.getId());
+//	}
+//
 }
