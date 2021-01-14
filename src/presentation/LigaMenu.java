@@ -31,7 +31,7 @@ public class LigaMenu {
 
 	private Button createTeamBtn = new Button("Opret hold");
 	private Button updateTeamBtn = new Button("Opdatere hold");
-
+	
 	private Layout layout = new Layout();
 
 	private Validation validate = new Validation();
@@ -62,15 +62,16 @@ public class LigaMenu {
 		stage.setScene(scene);
 		stage.show();
 	}
-
+	
 	private void ligaButtonFunctionality(Stage stage) {
 		Menu menu = new Menu();
+		LeagueTableView leagueTableView = new LeagueTableView(layout);
 		createLeagueBtn.setOnAction(e -> createLeague());
 		updateLeagueBtn.setOnAction(e -> updateLeague());
 		deleteLigaBtn.setOnAction(e -> deleteLeague());
 		backBtn.setOnAction(e -> menu.showMenu(stage));
-		updateTeamBtn.setOnAction(e -> new CreateTeam());
-//		createTeamBtn.setOnAction(e -> holdMenu.showCreateTeamWindow());
+		createTeamBtn.setOnAction(e -> new CreateTeam());
+		updateTeamBtn.setOnAction(e -> new UpdateTeam());
 	}
 
 	/**
@@ -92,7 +93,8 @@ public class LigaMenu {
 		leagueNameField.setPromptText("Liga navn");
 		Button addBtn = new Button("OK");
 		Button cancelBtn = new Button("Annuller");
-		Scene scene = new Scene(layout.childRoot, 600, 400);
+		Scene scene = new Scene(layout.childRoot);
+		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
 		Stage stage = new Stage();
 		stage.setScene(scene);
 		stage.show();
@@ -125,7 +127,8 @@ public class LigaMenu {
 		Button cancelBtn = new Button("Annuller");
 		layout.childCenter.add(addBtn, 0, 1);
 		layout.childCenter.add(cancelBtn, 1, 1);
-		Scene scene = new Scene(layout.childRoot, 600, 400);
+		Scene scene = new Scene(layout.childRoot);
+		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
 		Stage stage = new Stage();
 		stage.setScene(scene);
 		stage.show();
@@ -157,7 +160,8 @@ public class LigaMenu {
 		Button cancelBtn = new Button("Annuller");
 		layout.childCenter.add(addBtn, 0, 2);
 		layout.childCenter.add(cancelBtn, 1, 2);
-		Scene scene = new Scene(layout.childRoot, 600, 400);
+		Scene scene = new Scene(layout.childRoot);
+		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
 		Stage stage = new Stage();
 		stage.setScene(scene);
 		stage.show();

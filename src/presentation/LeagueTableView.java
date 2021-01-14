@@ -72,5 +72,4 @@ public class LeagueTableView {
         layout.root.setCenter(leagueTable);
         leagueTable.getItems().addAll(teamImpl.getAllTeams(1));
 	}
-
 }

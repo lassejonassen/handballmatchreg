@@ -33,7 +33,6 @@ public class MatchMenu {
 		stage.show();
 	}
 	
-	
 	private void matchBtnFunctionality(Stage stage) {
 		Menu menu = new Menu();
 		backBtn.setOnAction(e -> menu.showMenu(stage));
