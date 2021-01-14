@@ -36,7 +36,6 @@
 	-fx-background-radius: 0;
 	-fx-border-color: #e7e7e7;
 	-fx-border-size: 5px;
-
 }
 
 #right
@@ -53,20 +52,23 @@
 {
 	-fx-pref-height: 50px;
 	-fx-font-family: 'Helvetica', Arial, sans-serif;
-	-fx-font-size:20;
+	-fx-font-size:30;
 	-fx-font-weight:bold;
 	-fx-padding:15,5,15,5;
+	-fx-alignment:center;
 }
 
 #childBottom
 {
 	-fx-pref-height: 50px;
+	-fx-padding: 15px;
 }
 
 #childCenter
 {
 	-fx-pref-height:600px;
 	-fx-pref-width:600px;
+	-fx-alignment:center;
 }
 
 #childLeft
