@@ -46,15 +46,19 @@ public class MatchMenu {
 	private void deleteMatch() {
 		iMatchImpl matchImpl = new iMatchImpl();
 		ChildLayout layout = new ChildLayout();
-		Label header = new Label("Slet Kamp");
+		Label header = new Label("Slet en kamp");
 		layout.childTop.getChildren().add(header);
-		
-		
+		Label guideLabel = new Label("Vælg kamp du vil slette: ");
+		layout.childCenter.add(guideLabel, 0, 0);
 		
 		
 	}
 	
 	private void updateMatch() {
 		iMatchImpl matchImpl = new iMatchImpl();
+		ChildLayout layout = new ChildLayout();
+		Label header = new Label("Opdater Kamp");
+		layout.childTop.getChildren().add(header); 
+		
 	}
 }
