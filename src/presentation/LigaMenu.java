@@ -3,22 +3,11 @@ package presentation;
 import logic.LeagueImpl;
 import data.League;
 
-import java.util.ArrayList;
-import java.util.Optional;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class LigaMenu {
@@ -44,18 +33,16 @@ public class LigaMenu {
 
 	}
 
+	@SuppressWarnings("static-access")
 	private void showLeagueMenu(Stage stage) {
 		layout.left.getChildren().addAll(createLeagueBtn, updateLeagueBtn, deleteLigaBtn, backBtn, leagueDropdown);
 		layout.bottom.getChildren().addAll(updateTeamBtn, createTeamBtn);
-
 		layout.left.setTopAnchor(createLeagueBtn, 0.0);
 		layout.left.setTopAnchor(updateLeagueBtn, 50.0);
 		layout.left.setTopAnchor(deleteLigaBtn, 100.0);
 		layout.left.setTopAnchor(leagueDropdown, 150.0);
 		layout.left.setBottomAnchor(backBtn, 0.0);
-
 		new LeagueTableView(layout);
-
 		Scene scene = new Scene(layout.root);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
 		stage.setScene(scene);
@@ -68,8 +55,8 @@ public class LigaMenu {
 		updateLeagueBtn.setOnAction(e -> updateLeague());
 		deleteLigaBtn.setOnAction(e -> deleteLeague());
 		backBtn.setOnAction(e -> menu.showMenu(stage));
-		updateTeamBtn.setOnAction(e -> new CreateTeam());
-//		createTeamBtn.setOnAction(e -> holdMenu.showCreateTeamWindow());
+//		updateTeamBtn.setOnAction(e -> new CreateTeam());
+		createTeamBtn.setOnAction(e -> new CreateTeam());
 	}
 
 	/**

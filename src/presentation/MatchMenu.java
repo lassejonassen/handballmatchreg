@@ -12,6 +12,7 @@ public class MatchMenu {
 	private Button backBtn = new Button("Tilbage");
 	private Layout layout = new Layout();
 	
+	@SuppressWarnings("static-access")
 	public MatchMenu(Stage stage) {
 		layout.left.getChildren().addAll(createMatchBtn, deleteMatchBtn, updateMatchBtn,backBtn);
 		layout.left.setBottomAnchor(backBtn, 0.0);
