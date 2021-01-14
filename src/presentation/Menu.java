@@ -36,10 +36,7 @@ public class Menu
 	
 	public void buttonFunctionality(Stage stage)
 	{
-		LigaMenu ligaMenu = new LigaMenu();
-		MatchMenu matchMenu = new MatchMenu();
-		showLigaBtn.setOnAction(e -> ligaMenu.ligaShowMenu(stage));
-		showMatchBtn.setOnAction(e -> matchMenu.showMatchMenu(stage));
+		showMatchBtn.setOnAction(e -> new MatchMenu(stage));
 		showLigaBtn.setOnAction(e -> new LigaMenu(stage));
   }
 }
