@@ -9,7 +9,6 @@ public class MatchMenu {
 	private Button createMatchBtn = new Button("Opret Kamp");
 	private Button backBtn = new Button("Tilbage");
 	
-	
 	private Layout layout = new Layout();
 	
 	public MatchMenu(Stage stage)
@@ -33,9 +32,8 @@ public class MatchMenu {
 	
 	private void matchBtnFunctionality(Stage stage) {
 		Menu menu = new Menu();
-		CreateMatch createMatch = new CreateMatch();
 		backBtn.setOnAction(e -> menu.showMenu(stage));
-		createMatchBtn.setOnAction(e-> createMatch.showMatchCreate());
+		createMatchBtn.setOnAction(e-> new CreateMatch());
 	}
 	
 
