@@ -1,8 +1,9 @@
 package presentation;
 
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 
-public class HoldLayout 
+public class ChildLayout 
 {
 	protected BorderPane childRoot = new BorderPane();
 	protected HBox childTop = new HBox();
@@ -11,19 +12,25 @@ public class HoldLayout
 	protected VBox childLeft = new VBox();
 	protected VBox childRight = new VBox();
 	
-	public HoldLayout()
+	public ChildLayout()
 	{
 		childTopLayout();
 		childBottomLayout();
 		childLeftLayout();
 		childRightLayout();
 		childCenterLayout();
+		childRootId();
+	}
+	
+	private void childRootId()
+	{
+		childRoot.setId("childRoot");
 	}
 	
 	private void childTopLayout()
 	{
 		childRoot.setTop(childTop);
-		childTop.setId("childTop");
+		childTop.setId("childTop");	
 	}
 	
 	private void childBottomLayout()

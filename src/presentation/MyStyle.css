@@ -1,6 +1,6 @@
 #root
 {
-	-fx-background-color: red;
+	-fx-background-color: linear-gradient(to bottom right, #dcdcdc, #d3d3d3);
 }
 #top
 {
@@ -42,4 +42,39 @@
 #right
 {
 	-fx-pref-width: 10px;
+}
+
+#childRoot
+{
+	-fx-background-color: linear-gradient(to bottom right, #dcdcdc, #d3d3d3);
+}
+
+#childTop
+{
+	-fx-pref-height: 50px;
+	-fx-font-family: 'Helvetica', Arial, sans-serif;
+	-fx-font-size:20;
+	-fx-font-weight:bold;
+	-fx-padding:15,5,15,5;
+}
+
+#childBottom
+{
+	-fx-pref-height: 50px;
+}
+
+#childCenter
+{
+	-fx-pref-height:600px;
+	-fx-pref-width:600px;
+}
+
+#childLeft
+{
+	-fx-pref-width: 50px;
+}
+
+#childRight
+{
+	-fx-pref-width:50px;
 }
