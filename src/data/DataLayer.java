@@ -127,12 +127,11 @@ public class DataLayer {
 	 * @Created $ 14-01-2021
 	 */
 	
-	public boolean deleteMatch(int team1ID, int team2ID) {
+	public boolean deleteMatch(int ID) {
 		try {
-			String sql = "{call spDeleteMatch(?, ?)}";
+			String sql = "{call spDeleteMatch(?)}";
 			try (CallableStatement stmt = connection.prepareCall(sql)) {
-				stmt.setInt(1, team1ID);
-				stmt.setInt(2, team2ID);
+				stmt.setInt(1, ID);
 				stmt.execute();
 			}
 			return true;
