@@ -40,7 +40,8 @@ public class ChildLayout
 		childBottom.setAlignment(Pos.CENTER_RIGHT);
 	}
 	
-	private void childCenterLayout() {
+	private void childCenterLayout() 
+	{
 		childRoot.setCenter(childCenter);
 		childCenter.setId("childCenter");
 		childCenter.setGridLinesVisible(true);
