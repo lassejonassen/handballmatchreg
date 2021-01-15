@@ -30,7 +30,7 @@ CREATE TABLE Team (
 	PRIMARY KEY (id),
 
 	CONSTRAINT Team_League_Relation FOREIGN KEY (league_id) 
-	REFERENCES League(id)
+	REFERENCES League(id) ON DELETE CASCADE
 );
 
 CREATE TABLE TMatch (
