@@ -72,12 +72,13 @@ public class DataLayer {
 		}
 	}
 	
-	public boolean updateTeam(int id, String newName) {
+	public boolean updateTeam(int id, String newName, int idOther) {
 		try {
-			String sql = "{call spUpdateTeam(?, ?)}";
+			String sql = "{call spUpdateTeam(?, ?, ?)}";
 			try (CallableStatement stmt = connection.prepareCall(sql)) {
 				stmt.setInt(1, id);
 				stmt.setString(2, newName);
+				stmt.setInt(3, idOther);
 				stmt.execute();
 			}
 			return true;

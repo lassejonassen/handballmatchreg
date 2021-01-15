@@ -32,12 +32,14 @@ public class CreateTeam
 	private void showTeamCreate()
 	{ 
 		leagueChoice.getItems().addAll(leagueImpl.getAllLeagues());
+		
 		childLayout.childTop.getChildren().add(new Label("Opret hold"));
 		childLayout.childBottom.getChildren().addAll(confirmCreateBtn, cancelCreateBtn);
 		childLayout.childCenter.add(new Label("Hold navn"), 0, 0);
 		childLayout.childCenter.add(teamName, 1, 0);
 		childLayout.childCenter.add(new Label("Vælg liga"), 0, 1);
 		childLayout.childCenter.add(leagueChoice, 1, 1);
+		
 		scene = new Scene(childLayout.childRoot);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
 		window.setScene(scene);
