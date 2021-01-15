@@ -14,8 +14,8 @@ public class TeamImpl implements TeamInterface {
 		dataLayer.createTeam(new Team(name).getName(), league.getId());
 	}
 	
-	public boolean updateTeam(League league, String newName) {
-		dataLayer.updateTeam(league.getId(), newName);
+	public boolean updateTeam(Team team, String newName, League league) {
+		dataLayer.updateTeam(team.getId(), newName, league.getId());
 		return true;
 	}
 	
