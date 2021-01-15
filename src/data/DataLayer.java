@@ -267,6 +267,22 @@ public class DataLayer {
 		}
 		return leagueList;
 	}
+	
+	public League getLeagueById(int id) {
+		League league = new League();
+		String sql = "{call spGetLeagueById(?) }";
+		try (CallableStatement stmt = connection.prepareCall(sql)) 
+		{
+			ResultSet resultSet = stmt.executeQuery();
+			league.setId(resultSet.getInt("id"));
+			league.setName(resultSet.getString("league_name"));			
+		} catch (SQLException e) 
+			{
+				e.printStackTrace();
+				System.out.println("Skete en fejl");
+			}
+		return league;
+		}
 
 	public boolean updateLeague(int id, String newName) {
 		try {
