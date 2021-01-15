@@ -2,6 +2,12 @@
 {
 	-fx-background-color: linear-gradient(to bottom right, #dcdcdc, #d3d3d3);
 }
+.combo-box
+{
+	-fx-pref-width: 150px;
+	-fx-pref-height: 50px;
+	-fx-font-size:15;
+}
 #top
 {
 	-fx-pref-height: 100px;
@@ -16,7 +22,6 @@
 	-fx-pref-height: 100px;
 	-fx-padding: 15px;
 }
-
 #center
 {
 	-fx-background-color: blue;
