@@ -25,6 +25,11 @@ public class LeagueImpl implements iLeague {
 		return dataLayer.getAllLeagues();
 	}
 	
+	public League getLeagueById(int id)
+	{
+		return dataLayer.getLeagueById(id);
+	}
+	
 	public boolean updateLeague(League league, String newName) {
 		dataLayer.updateLeague(league.getId(), newName);
 		return true;

@@ -31,6 +31,7 @@ public class UpdateTeam
 	private TeamImpl teamImpl = new TeamImpl();
 	
 	private int leagueId = 0;
+	private String newLeagueName;
 	
 	public UpdateTeam()
 	{
@@ -50,8 +51,8 @@ public class UpdateTeam
 		childLayout.childCenter.add(teamChoice, 1, 1);
 		childLayout.childCenter.add(new Label("Vælg holdets nye navn"), 0, 2);
 		childLayout.childCenter.add(teamName, 1, 2);
-		
-		
+		childLayout.childCenter.add(new Label("Vælg holdets liga"), 0, 3);
+		childLayout.childCenter.add(updateTeamLeague, 1, 3);
 		
 		scene = new Scene(childLayout.childRoot);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
@@ -62,14 +63,35 @@ public class UpdateTeam
 	
 	private void teamAndLeagueChoice()
 	{
-		leagueId = leagueChoice.getSelectionModel().getSelectedItem().getId();
 		teamChoice.getItems().clear();
+		leagueId = leagueChoice.getSelectionModel().getSelectedItem().getId();
 		teamChoice.getItems().addAll(teamImpl.getAllTeams(leagueId));
+	}
+	
+	private void teamChoiceSelection()
+	{
+		
+		teamName.setText(teamChoice.getSelectionModel().getSelectedItem().getName());
+		updateTeamLeague.getItems().addAll(leagueImpl.getAllLeagues());
+//		leagueImpl.getLeagueById(teamChoice.getSelectionModel().getSelectedItem().getLeagueId());
+		updateTeamLeague.setValue(leagueImpl.getLeagueById(teamChoice.getSelectionModel().getSelectedItem().getLeagueId()));
+//		leagueImpl.getLeagueById(teamChoice.getSelectionModel().getSelectedItem().getLeagueId());	
+//		updateTeamLeague.setValue(teamChoice.getSelectionModel().getSelectedItem().getLeagueId());
+
+	}
+	
+	private void testTest()
+	{
+		teamChoice.getItems().clear();
+		teamName.setText("");
+		updateTeamLeague.getItems().clear();
 	}
 	
 	private void updateTeamBtnFunctionality()
 	{
+		leagueChoice.setOnMouseClicked(e -> testTest());
 		leagueChoice.setOnAction(e -> teamAndLeagueChoice());
+		teamChoice.setOnAction(e -> teamChoiceSelection());
 		cancelUpdateBtn.setOnAction(e -> window.close());
 		confirmUpdateBtn.setOnAction(e -> updateConfirm());
 	}
@@ -79,7 +101,7 @@ public class UpdateTeam
 		if(validation.emptyStringWarning(teamName.getText()))
 			if(validation.confirmChanges())
 			{
-				teamImpl.updateTeam(teamChoice.getSelectionModel().getSelectedItem(), teamName.getText(), leagueChoice.getSelectionModel().getSelectedItem());
+				teamImpl.updateTeam(teamChoice.getSelectionModel().getSelectedItem(), teamName.getText(), updateTeamLeague.getSelectionModel().getSelectedItem());
 				window.close();
 			}
 	}
