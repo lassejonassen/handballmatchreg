@@ -123,7 +123,6 @@ public class DataLayer {
 				team.setPoints(points);
 				team.setLeagueId(leagueId);
 				teamList.add(team);
-				System.out.println(team);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -269,20 +268,19 @@ public class DataLayer {
 	}
 	
 	public League getLeagueById(int id) {
-		League league = new League();
-		String sql = "{call spGetLeagueById(?) }";
-		try (CallableStatement stmt = connection.prepareCall(sql)) 
-		{
+		ArrayList<League> leagues = new ArrayList<League>();
+		String sql = "{call spGetLeagueById(?)}";
+		try (CallableStatement stmt = connection.prepareCall(sql)) {
 			ResultSet resultSet = stmt.executeQuery();
-			league.setId(resultSet.getInt("id"));
-			league.setName(resultSet.getString("league_name"));			
-		} catch (SQLException e) 
-			{
-				e.printStackTrace();
-				System.out.println("Skete en fejl");
+			while (resultSet.next()) {
+				String name = resultSet.getString("league_name");
+				leagues.add(new League(id, name));
 			}
-		return league;
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
+		return leagues.get(0);
+	}
 
 	public boolean updateLeague(int id, String newName) {
 		try {

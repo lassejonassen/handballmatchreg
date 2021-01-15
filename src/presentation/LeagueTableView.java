@@ -79,4 +79,8 @@ public class LeagueTableView {
         leagueTable.getItems().addAll(teamImpl.getAllTeams(league.getId()));
         System.out.println(league.getId());
 	}
+	
+	private Team getSelected() {
+		return leagueTable.getSelectionModel().getSelectedItem();
+	}
 }

@@ -34,6 +34,11 @@ public class LigaMenu {
 		});
 	}
 	
+	private void updateTeam() {
+		League league = leagueDropdown.getSelectionModel().getSelectedItem();
+		System.out.println(league);
+	}
+	
 	@SuppressWarnings("static-access")
 	private void showLeagueMenu(Stage stage) {
 		layout.left.getChildren().addAll(createLeagueBtn, updateLeagueBtn, deleteLigaBtn, backBtn, leagueDropdown);
@@ -71,7 +76,7 @@ public class LigaMenu {
 	private void leagueDropDown() {
 		LeagueImpl leagueImpl = new LeagueImpl();
 		leagueDropdown.getItems().addAll(leagueImpl.getAllLeagues());
-		leagueDropdown.setPromptText("Vælg liga");
+		leagueDropdown.setPromptText("Vï¿½lg liga");
 		
 	}
 
@@ -79,7 +84,7 @@ public class LigaMenu {
 		LeagueImpl leagueImpl = new LeagueImpl();
 		ChildLayout layout = new ChildLayout();
 		Label header = new Label("Opret ny liga");
-		Label guideLabel = new Label("Skriv venligst navnet på den nye liga: ");
+		Label guideLabel = new Label("Skriv venligst navnet pï¿½ den nye liga: ");
 		TextField leagueNameField = new TextField();
 		leagueNameField.setPromptText("Liga navn");
 		Button addBtn = new Button("OK");
