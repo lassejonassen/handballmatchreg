@@ -12,6 +12,7 @@ public class MatchMenu {
 	private Button createMatchBtn = new Button("Opret Kamp");
 	private Button deleteMatchBtn = new Button("Slet Kamp");
 	private Button updateMatchBtn = new Button("Opdater Kamp");
+	
 	private Button backBtn = new Button("Tilbage");
 	private Layout layout = new Layout();
 	
