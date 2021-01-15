@@ -34,6 +34,11 @@ public class LigaMenu {
 		});
 	}
 	
+	private void updateTeam() {
+		League league = leagueDropdown.getSelectionModel().getSelectedItem();
+		System.out.println(league);
+	}
+	
 	@SuppressWarnings("static-access")
 	private void showLeagueMenu(Stage stage) {
 		layout.left.getChildren().addAll(createLeagueBtn, updateLeagueBtn, deleteLigaBtn, backBtn, leagueDropdown);
@@ -56,7 +61,7 @@ public class LigaMenu {
 		updateLeagueBtn.setOnAction(e -> updateLeague());
 		deleteLigaBtn.setOnAction(e -> deleteLeague());
 		backBtn.setOnAction(e -> menu.showMenu(stage));
-//		updateTeamBtn.setOnAction(e -> new CreateTeam());
+		updateTeamBtn.setOnAction(e -> updateTeam());
 		createTeamBtn.setOnAction(e -> {
 			new CreateTeam();
 		});
