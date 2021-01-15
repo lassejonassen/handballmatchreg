@@ -9,6 +9,12 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class MatchMenu {
+	
+	/*
+	 * Author: Lucas Elley
+	 * Date: 14/01/2021
+	 */
+	
 	private Button createMatchBtn = new Button("Opret Kamp");
 	private Button deleteMatchBtn = new Button("Slet Kamp");
 	private Button updateMatchBtn = new Button("Opdater Kamp");

@@ -38,6 +38,8 @@ public class DataLayer {
 			return false;
 		}
 	}
+	String connectionString = "jdbc:sqlserver://localhost:1433;" + "instanceName=SQLSERVER;" + "databaseName="
+			+ "HbmrDb" + ";" + "integratedSecurity=true;";
 
 	/*
 	 * Author: Lucas Elley Date: 12/01/2021
