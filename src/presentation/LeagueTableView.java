@@ -18,6 +18,7 @@ public class LeagueTableView {
 	private TeamImpl teamImpl = new TeamImpl();
 	private TableView<Team> leagueTable = new TableView<>();
 	private ArrayList<TableColumn<Team, String>> columns = new ArrayList<TableColumn<Team, String>>();
+	
 	public LeagueTableView(Layout layout, League league) {
 		leagueTable.setPrefHeight(640);
 		
@@ -77,5 +78,9 @@ public class LeagueTableView {
         layout.root.setCenter(leagueTable);
         leagueTable.getItems().addAll(teamImpl.getAllTeams(league.getId()));
         System.out.println(league.getId());
+	}
+	
+	private Team getSelected() {
+		return leagueTable.getSelectionModel().getSelectedItem();
 	}
 }
