@@ -63,33 +63,36 @@ public class UpdateTeam
 	
 	private void teamAndLeagueChoice()
 	{
+		teamChoice.getSelectionModel().clearSelection();
 		teamChoice.getItems().clear();
+		teamName.setText("");
+		updateTeamLeague.getSelectionModel().clearSelection();
+		updateTeamLeague.getItems().clear();
+		updateTeamLeague.setValue(null);
 		leagueId = leagueChoice.getSelectionModel().getSelectedItem().getId();
 		teamChoice.getItems().addAll(teamImpl.getAllTeams(leagueId));
 	}
 	
 	private void teamChoiceSelection()
 	{
-		
 		teamName.setText(teamChoice.getSelectionModel().getSelectedItem().getName());
 		updateTeamLeague.getItems().addAll(leagueImpl.getAllLeagues());
-//		leagueImpl.getLeagueById(teamChoice.getSelectionModel().getSelectedItem().getLeagueId());
 		updateTeamLeague.setValue(leagueImpl.getLeagueById(teamChoice.getSelectionModel().getSelectedItem().getLeagueId()));
-//		leagueImpl.getLeagueById(teamChoice.getSelectionModel().getSelectedItem().getLeagueId());	
-//		updateTeamLeague.setValue(teamChoice.getSelectionModel().getSelectedItem().getLeagueId());
-
 	}
 	
-	private void testTest()
-	{
-		teamChoice.getItems().clear();
-		teamName.setText("");
-		updateTeamLeague.getItems().clear();
-	}
+//	private void testTest()
+//	{
+//		teamChoice.getSelectionModel().clearSelection();
+//		teamChoice.getItems().clear();
+//		teamName.setText("");
+//		updateTeamLeague.getSelectionModel().clearSelection();
+//		updateTeamLeague.getItems().clear();
+//		updateTeamLeague.setValue(null);
+//	}
 	
 	private void updateTeamBtnFunctionality()
 	{
-		leagueChoice.setOnMouseClicked(e -> testTest());
+//		leagueChoice.setOnMouseClicked(e -> testTest());
 		leagueChoice.setOnAction(e -> teamAndLeagueChoice());
 		teamChoice.setOnAction(e -> teamChoiceSelection());
 		cancelUpdateBtn.setOnAction(e -> window.close());

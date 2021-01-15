@@ -38,6 +38,8 @@ public class DataLayer {
 			return false;
 		}
 	}
+	String connectionString = "jdbc:sqlserver://localhost:1433;" + "instanceName=SQLSERVER;" + "databaseName="
+			+ "HbmrDb" + ";" + "integratedSecurity=true;";
 
 	/*
 	 * Author: Lucas Elley Date: 12/01/2021
@@ -84,6 +86,7 @@ public class DataLayer {
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			System.out.println("fejl");
 			return false;
 		}
 		
@@ -271,6 +274,7 @@ public class DataLayer {
 		ArrayList<League> leagues = new ArrayList<League>();
 		String sql = "{call spGetLeagueById(?)}";
 		try (CallableStatement stmt = connection.prepareCall(sql)) {
+			stmt.setInt(1, id);
 			ResultSet resultSet = stmt.executeQuery();
 			while (resultSet.next()) {
 				String name = resultSet.getString("league_name");
