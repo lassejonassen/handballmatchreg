@@ -123,7 +123,6 @@ public class DataLayer {
 				team.setPoints(points);
 				team.setLeagueId(leagueId);
 				teamList.add(team);
-				System.out.println(team);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -266,6 +265,21 @@ public class DataLayer {
 			System.out.println("Couldnt find any teams.");
 		}
 		return leagueList;
+	}
+	
+	public League getLeagueById(int id) {
+		ArrayList<League> leagues = new ArrayList<League>();
+		String sql = "{call spGetLeagueById(?)}";
+		try (CallableStatement stmt = connection.prepareCall(sql)) {
+			ResultSet resultSet = stmt.executeQuery();
+			while (resultSet.next()) {
+				String name = resultSet.getString("league_name");
+				leagues.add(new League(id, name));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return leagues.get(0);
 	}
 
 	public boolean updateLeague(int id, String newName) {
