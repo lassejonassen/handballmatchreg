@@ -1,10 +1,13 @@
 package logic;
 
 
+import java.util.ArrayList;
+
 import data.DataLayer;
 import data.League;
 import data.Match;
 import data.Team;
+import presentation.LigaMenu;
 
 public class iMatchImpl implements iMatch {
 	DataLayer dataLayer = new DataLayer();
@@ -32,6 +35,9 @@ public class iMatchImpl implements iMatch {
 		dataLayer.deleteMatch(match.getId());
 	}
 	
+	public ArrayList<Match> getAllMatches(int leagueID) {
+		return dataLayer.getAllMatches(leagueID);
+	}
 //	public void updateMatch(Match match) {
 //		dataLayer.updateMatch(match.getId());
 //	}

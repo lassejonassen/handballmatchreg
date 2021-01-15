@@ -48,6 +48,7 @@ public class MatchMenu {
 		Menu menu = new Menu();
 		backBtn.setOnAction(e -> menu.showMenu(stage));
 		createMatchBtn.setOnAction(e-> new CreateMatch());
+		deleteMatchBtn.setOnAction(e -> new DeleteMatch());
 	}
 	
 	private void deleteMatch() {
