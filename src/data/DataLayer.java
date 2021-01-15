@@ -91,6 +91,29 @@ public class DataLayer {
 		}
 		
 	}
+	
+	public ArrayList<Match> getAllMatches(int ligaId) {
+		ArrayList<Match> matchList = new ArrayList<>();
+		String sql = "{call spGetAllMatches(?)}";
+		try (CallableStatement stmt = connection.prepareCall(sql)) {
+			stmt.setInt(1, ligaId);
+			ResultSet matches = stmt.executeQuery();
+			while(matches.next()) {
+				int id = matches.getInt("id");
+				int team1Id = matches.getInt("team1_id");
+				int team2Id = matches.getInt("team2_id");
+				int team1Goals = matches.getInt("team1_goals");
+				int team2Goals = matches.getInt("team2_goals");
+				
+				matchList.add(new Match(id, team1Id, team2Id, team1Goals, team2Goals));
+			} 
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Couldnt find any matches.");
+		}
+		return matchList;
+	}
 
 	/**
 	 * @author $ Lasse Jonassen & Lucas Elley
@@ -161,7 +184,7 @@ public class DataLayer {
 	 */
 	public boolean createMatch(int team1ID, int team2ID, int leagueID) {
 		try {
-			String sql = "{call spCreateMatch(?, ?,?)}";
+			String sql = "{call spCreateMatch(?, ?, ?)}";
 			try (CallableStatement stmt = connection.prepareCall(sql)) {
 				stmt.setInt(1, team1ID);
 				stmt.setInt(2, team2ID);

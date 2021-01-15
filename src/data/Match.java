@@ -7,6 +7,19 @@ public class Match {
 	private int team1Goals;
 	private int team2Goals;
 	
+	
+	public Match(int id, int team1Id, int team2Id, int team1Goals, int team2Goals) {
+		this.id = id;
+		this.team1Id = team1Id;
+		this.team2Id = team2Id;
+		this.team1Goals = team1Goals;
+		this.team2Goals = team2Goals;
+	}
+	
+	public Match() {
+		
+	}
+	
 	public int getId() {
 		return id;
 	}
