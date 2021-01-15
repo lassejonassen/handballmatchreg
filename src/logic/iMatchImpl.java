@@ -2,6 +2,7 @@ package logic;
 
 
 import data.DataLayer;
+import data.League;
 import data.Match;
 import data.Team;
 
@@ -13,8 +14,8 @@ public class iMatchImpl implements iMatch {
 	 *
 	 * @tags $ { Create match, create suspension }
 	 */
-	public void createMatch(Team team, Team team2) {
-		dataLayer.createMatch(team.getId(), team2.getId());
+	public void createMatch(Team team, Team team2, int leagueID) {
+		dataLayer.createMatch(team.getId(), team2.getId(), leagueID);
 	}
 	
 	public void createSuspension(Match match, Team team, String time) {
