@@ -159,12 +159,13 @@ public class DataLayer {
 	 * 
 	 * @Created $ 11-01-2021
 	 */
-	public boolean createMatch(int team1ID, int team2ID) {
+	public boolean createMatch(int team1ID, int team2ID, int leagueID) {
 		try {
-			String sql = "{call spCreateMatch(?, ?)}";
+			String sql = "{call spCreateMatch(?, ?,?)}";
 			try (CallableStatement stmt = connection.prepareCall(sql)) {
 				stmt.setInt(1, team1ID);
 				stmt.setInt(2, team2ID);
+				stmt.setInt(3, leagueID);
 				stmt.execute();
 			}
 			return true;
