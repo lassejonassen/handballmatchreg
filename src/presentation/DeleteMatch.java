@@ -12,6 +12,10 @@ import logic.iMatchImpl;
 
 public class DeleteMatch {
 	
+	/*
+	 * Author: Lucas Elley
+	 * Date: 15/01/2021
+	 */
 	private int id = 0;
 	private Button deleteMatchBtn = new Button ("Slet Kamp");
 	
@@ -19,7 +23,6 @@ public class DeleteMatch {
 	private ComboBox<League> ligaChoice = new ComboBox();
 	
 	private Stage window = new Stage();
-	private Scene scene;
 	private ChildLayout teamLayout = new ChildLayout();
 	
 	
@@ -28,7 +31,6 @@ public class DeleteMatch {
 		matchDeleteCenter();
 		comboBoxData();
 		btnFunctionality();
-		
 	}
 	
 	protected void showMatchDelete() {
@@ -40,10 +42,11 @@ public class DeleteMatch {
 	}
 	
 	private void matchDeleteCenter() {
+		teamLayout.childBottom.getChildren().addAll(deleteMatchBtn);
 		teamLayout.childCenter.add(new Label("Valg af liga"), 0, 0);
 		teamLayout.childCenter.add(ligaChoice, 2, 0);
 		teamLayout.childCenter.add(new Label("Valg af kamp"), 0, 1);
-		teamLayout.childCenter.add(matchChoice, 0, 2);
+		teamLayout.childCenter.add(matchChoice, 2, 1);
 	}
 	
 	private void comboBoxData() {
@@ -58,9 +61,13 @@ public class DeleteMatch {
 	}
 	
 	private void btnFunctionality() {
-		
-		
-	}
+		iMatchImpl matchImpl = new iMatchImpl();
+		deleteMatchBtn.setOnAction(e -> {
+			matchImpl.deleteMatch(matchChoice.getSelectionModel().getSelectedItem());
+		window.close();
+		} 
+	);
+}
 	
 	
 }
