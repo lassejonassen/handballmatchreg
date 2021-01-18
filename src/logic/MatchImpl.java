@@ -4,10 +4,11 @@ package logic;
 import java.util.ArrayList;
 
 import data.DataLayer;
+import data.League;
 import data.Match;
 import data.Team;
 
-public class iMatchImpl implements iMatch {
+public class MatchImpl implements iMatch {
 	DataLayer dataLayer = new DataLayer();
 	
 	public void createMatch(Team team, Team team2, int leagueID) {
@@ -22,8 +23,12 @@ public class iMatchImpl implements iMatch {
 		dataLayer.deleteMatch(match.getId());
 	}
 	
-	public ArrayList<Match> getAllMatches(int leagueID) {
-		return dataLayer.getAllMatches(leagueID);
+	public ArrayList<Match> getAllMatches(League league) {
+		return dataLayer.getAllMatches(league.getId());
+	}
+	
+	public ArrayList<Match> getAllMatches(int league) {
+		return dataLayer.getAllMatches(league);
 	}
 	
 	public void getAllMatchesTest() {

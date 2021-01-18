@@ -8,6 +8,7 @@ public class Match {
 	private String team2Name;
 	private int team1Goals;
 	private int team2Goals;
+	private char divider = '-';
 	
 	
 	public Match(int id, int team1Id, int team2Id, int team1Goals, int team2Goals, String team1Name, String team2Name) {
@@ -18,6 +19,13 @@ public class Match {
 		this.team2Goals = team2Goals;
 		this.team1Name = team1Name;
 		this.team2Name = team2Name;
+	}
+	public Match(int id, int team1Id, int team2Id, int team1Goals, int team2Goals) {
+		this.id = id;
+		this.team1Id = team1Id;
+		this.team2Id = team2Id;
+		this.team1Goals = team1Goals;
+		this.team2Goals = team2Goals;
 	}
 	public Match() {}
 	
@@ -80,6 +88,12 @@ public class Match {
 	@Override
 	public String toString() {	
 		return "Kamp: " + team1Name + " - " + team2Name;
+	}
+	public char getDivider() {
+		return divider;
+	}
+	public void setDivider(char divider) {
+		this.divider = divider;
 	}
 	
 }

@@ -8,7 +8,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import logic.LeagueImpl;
-import logic.iMatchImpl;
+import logic.MatchImpl;
 
 public class DeleteMatch {
 	
@@ -51,7 +51,7 @@ public class DeleteMatch {
 	
 	private void comboBoxData() {
 		LeagueImpl leagueImpl = new LeagueImpl();
-		iMatchImpl matchImpl = new iMatchImpl();
+		MatchImpl matchImpl = new MatchImpl();
 		
 		ligaChoice.getItems().addAll(leagueImpl.getAllLeagues());
 		ligaChoice.setOnAction(e -> {
@@ -61,7 +61,7 @@ public class DeleteMatch {
 	}
 	
 	private void btnFunctionality() {
-		iMatchImpl matchImpl = new iMatchImpl();
+		MatchImpl matchImpl = new MatchImpl();
 		deleteMatchBtn.setOnAction(e -> {
 			matchImpl.deleteMatch(matchChoice.getSelectionModel().getSelectedItem());
 		window.close();
