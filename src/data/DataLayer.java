@@ -107,8 +107,10 @@ public class DataLayer {
 				int team2Id = matches.getInt("team2_id");
 				int team1Goals = matches.getInt("team1_goals");
 				int team2Goals = matches.getInt("team2_goals");
+				String team1Name = matches.getString("team1_name");
+				String team2Name = matches.getString("team2_name");
 				
-				matchList.add(new Match(id, team1Id, team2Id, team1Goals, team2Goals));
+				matchList.add(new Match(id, team1Id, team2Id, team1Goals, team2Goals, team1Name, team2Name));
 			} 
 			
 		} catch (SQLException e) {
