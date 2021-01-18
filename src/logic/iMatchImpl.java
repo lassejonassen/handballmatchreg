@@ -26,7 +26,7 @@ public class iMatchImpl implements iMatch {
 	/**
 	 * @author $ Lucas Elley
 	 *
-	 * @tags $ { Delete match, Update match }
+	 * @tags $ { Delete match, Update match, getAllMatches }
 	 */
 	
 	public void deleteMatch(Match match) {

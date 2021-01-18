@@ -92,11 +92,14 @@ public class DataLayer {
 		
 	}
 	
+	/*
+	 * Author: Lucas Elley
+	 * Date: 15/01/2021
+	 */
 	public ArrayList<Match> getAllMatches(int ligaId) {
 		ArrayList<Match> matchList = new ArrayList<>();
-		String sql = "{call spGetAllMatches(?)}";
+		String sql = "{call spGetAllMatches()}";
 		try (CallableStatement stmt = connection.prepareCall(sql)) {
-			stmt.setInt(1, ligaId);
 			ResultSet matches = stmt.executeQuery();
 			while(matches.next()) {
 				int id = matches.getInt("id");

@@ -66,7 +66,7 @@ public class MatchMenu {
 	private void leagueDropDown() {
 		LeagueImpl leagueImpl = new LeagueImpl();
 		leagueDropdown.getItems().addAll(leagueImpl.getAllLeagues());
-		leagueDropdown.setPromptText("V�lg liga");
+		leagueDropdown.setPromptText("Vï¿½lg liga");
 
 	}
 	
@@ -82,7 +82,7 @@ public class MatchMenu {
 		ChildLayout layout = new ChildLayout();
 		Label header = new Label("Slet en kamp");
 		layout.childTop.getChildren().add(header);
-		Label guideLabel = new Label("V�lg kamp du vil slette: ");
+		Label guideLabel = new Label("Vælg kamp du vil slette: ");
 		layout.childCenter.add(guideLabel, 0, 0);
 		
 		
@@ -106,7 +106,7 @@ public class MatchMenu {
 		nameColumn.setCellValueFactory(new PropertyValueFactory<>("team_name"));
 		columns.add(nameColumn);
 
-		TableColumn<Match, String> matchesTotalColumn = new TableColumn<>("M�L");
+		TableColumn<Match, String> matchesTotalColumn = new TableColumn<>("MÅL");
 		matchesTotalColumn.setPrefWidth(50);
 		matchesTotalColumn.setCellValueFactory(new PropertyValueFactory<>("team_goals"));
 		columns.add(matchesTotalColumn);
@@ -116,7 +116,7 @@ public class MatchMenu {
 		matchesWonColumn.setCellValueFactory(new PropertyValueFactory<>(""));
 		columns.add(matchesWonColumn);
 
-		TableColumn<Match, String> matchesLostColumn = new TableColumn<>("M�L");
+		TableColumn<Match, String> matchesLostColumn = new TableColumn<>("MÅL");
 		matchesLostColumn.setPrefWidth(50);
 		matchesLostColumn.setCellValueFactory(new PropertyValueFactory<>("team_goals"));
 		columns.add(matchesLostColumn);
