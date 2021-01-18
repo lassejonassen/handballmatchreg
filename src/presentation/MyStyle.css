@@ -74,6 +74,8 @@
 	-fx-pref-height:600px;
 	-fx-pref-width:600px;
 	-fx-alignment:center;
+	-fx-hgap:5px;
+	-fx-vgap:5px;
 }
 
 #childLeft

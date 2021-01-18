@@ -8,7 +8,7 @@ public class Menu
 {
 	private Button showLigaBtn = new Button("Liga");
 	private Button showMatchBtn = new Button("Kamp");
-	private Button btn4 = new Button("this is button 4");
+	private Button btn4 = new Button("placeHolder vis kamp halløj");
 	
 	
 	@SuppressWarnings("static-access")
@@ -34,5 +34,6 @@ public class Menu
 	{
 		showMatchBtn.setOnAction(e -> new MatchMenu(stage));
 		showLigaBtn.setOnAction(e -> new LigaMenu(stage));
+		btn4.setOnAction(e -> new MatchDetails());
   }
 }
