@@ -1,13 +1,20 @@
 package presentation;
 
 import logic.LeagueImpl;
-import data.League;
+import logic.TeamImpl;
 
+import java.util.ArrayList;
+
+import data.League;
+import data.Team;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class LigaMenu {
@@ -20,25 +27,21 @@ public class LigaMenu {
 	private Button updateTeamBtn = new Button("Opdatere hold");
 	private Layout layout = new Layout();
 	private Validation validate = new Validation();
-	
+	private TableView<Team> leagueTable = new TableView<>();
+
 	public LigaMenu(Stage stage) {
 		ligaButtonFunctionality(stage);
 		leagueDropDown();
 		showLeagueMenu(stage);
 		updateTableView();
 	}
-	
+
 	private void updateTableView() {
 		leagueDropdown.setOnAction(e -> {
-			new LeagueTableView(layout, leagueDropdown.getSelectionModel().getSelectedItem());
+			loadTableView(leagueDropdown.getSelectionModel().getSelectedItem());
 		});
 	}
-	
-	private void updateTeam() {
-		League league = leagueDropdown.getSelectionModel().getSelectedItem();
-		System.out.println(league);
-	}
-	
+
 	@SuppressWarnings("static-access")
 	private void showLeagueMenu(Stage stage) {
 		layout.left.getChildren().addAll(createLeagueBtn, updateLeagueBtn, deleteLigaBtn, backBtn, leagueDropdown);
@@ -49,15 +52,16 @@ public class LigaMenu {
 		layout.left.setTopAnchor(deleteLigaBtn, 100.0);
 		layout.left.setTopAnchor(leagueDropdown, 150.0);
 		layout.left.setBottomAnchor(backBtn, 0.0);
+		layout.root.setCenter(leagueTable);
+
 		Scene scene = new Scene(layout.root);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
 		stage.setScene(scene);
 		stage.show();
 	}
-	
+
 	private void ligaButtonFunctionality(Stage stage) {
 		Menu menu = new Menu();
-//		LeagueTableView leagueTableView = new LeagueTableView(layout);
 		createLeagueBtn.setOnAction(e -> createLeague());
 		updateLeagueBtn.setOnAction(e -> updateLeague());
 		deleteLigaBtn.setOnAction(e -> deleteLeague());
@@ -77,7 +81,7 @@ public class LigaMenu {
 		LeagueImpl leagueImpl = new LeagueImpl();
 		leagueDropdown.getItems().addAll(leagueImpl.getAllLeagues());
 		leagueDropdown.setPromptText("V�lg liga");
-		
+
 	}
 
 	private void createLeague() {
@@ -168,6 +172,57 @@ public class LigaMenu {
 			}
 		});
 		cancelBtn.setOnAction(e -> stage.close());
+	}
+
+	private void loadTableView(League league) {
+		TeamImpl teamImpl = new TeamImpl();
+		ArrayList<TableColumn<Team, String>> columns = new ArrayList<TableColumn<Team, String>>();
+		leagueTable.setPrefHeight(640);
+
+		TableColumn<Team, String> nameColumn = new TableColumn<>("NAME");
+		nameColumn.setPrefWidth(150);
+		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+		columns.add(nameColumn);
+
+		TableColumn<Team, String> matchesTotalColumn = new TableColumn<>("TOTAL");
+		matchesTotalColumn.setPrefWidth(50);
+		matchesTotalColumn.setCellValueFactory(new PropertyValueFactory<>("matchesTotal"));
+		columns.add(matchesTotalColumn);
+
+		TableColumn<Team, String> matchesWonColumn = new TableColumn<>("WON");
+		matchesWonColumn.setPrefWidth(50);
+		matchesWonColumn.setCellValueFactory(new PropertyValueFactory<>("matchesWon"));
+		columns.add(matchesWonColumn);
+
+		TableColumn<Team, String> matchesLostColumn = new TableColumn<>("LOST");
+		matchesLostColumn.setPrefWidth(50);
+		matchesLostColumn.setCellValueFactory(new PropertyValueFactory<>("matchesLost"));
+		columns.add(matchesLostColumn);
+
+		TableColumn<Team, String> matchesDrawColumn = new TableColumn<>("DRAW");
+		matchesDrawColumn.setPrefWidth(50);
+		matchesDrawColumn.setCellValueFactory(new PropertyValueFactory<>("matchesDraw"));
+		columns.add(matchesDrawColumn);
+
+		TableColumn<Team, String> goalsColumn = new TableColumn<>("GOALS");
+		goalsColumn.setPrefWidth(50);
+		goalsColumn.setCellValueFactory(new PropertyValueFactory<>("goals"));
+		columns.add(goalsColumn);
+
+		TableColumn<Team, String> goalsInColumn = new TableColumn<>("GOALS IN");
+		goalsInColumn.setPrefWidth(150);
+		goalsInColumn.setCellValueFactory(new PropertyValueFactory<>("goalsIn"));
+		columns.add(goalsInColumn);
+		TableColumn<Team, String> pointsColumn = new TableColumn<>("POINTS");
+		pointsColumn.setPrefWidth(150);
+		pointsColumn.setCellValueFactory(new PropertyValueFactory<>("points"));
+		columns.add(pointsColumn);
+
+		for (TableColumn<Team, String> tc : columns)
+			leagueTable.getColumns().add(tc);
+
+		layout.root.setCenter(leagueTable);
+		leagueTable.getItems().addAll(teamImpl.getAllTeams(league.getId()));
 	}
 
 }
