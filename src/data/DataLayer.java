@@ -1,5 +1,4 @@
 package data;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -38,235 +37,13 @@ public class DataLayer {
 			return false;
 		}
 	}
-	String connectionString = "jdbc:sqlserver://localhost:1433;" + "instanceName=SQLSERVER;" + "databaseName="
-			+ "HbmrDb" + ";" + "integratedSecurity=true;";
-
-	/*
-	 * Author: Lucas Elley Date: 12/01/2021
-	 */
-	public boolean createTeam(String name, int ligaId) {
-		try {
-			String sql = "{call spCreateTeam(?,?)}";
-			try (CallableStatement stmt = connection.prepareCall(sql)) {
-				stmt.setString(1, name);
-				stmt.setInt(2, ligaId);
-				stmt.execute();
-				return true;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-	
-	public boolean deleteTeam(String name, int ligaId) {
-		try {
-			String sql = "{call spDeleteTeam(?, ?)}";
-			try (CallableStatement stmt = connection.prepareCall(sql)) {
-				stmt.setString(1, name);
-				stmt.setInt(2, ligaId);
-				stmt.execute();
-			}
-			return true;
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-			return false;
-		}
-	}
-	
-	public boolean updateTeam(int id, String newName, int idOther) {
-		try {
-			String sql = "{call spUpdateTeam(?, ?, ?)}";
-			try (CallableStatement stmt = connection.prepareCall(sql)) {
-				stmt.setInt(1, id);
-				stmt.setString(2, newName);
-				stmt.setInt(3, idOther);
-				stmt.execute();
-			}
-			return true;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("fejl");
-			return false;
-		}
-		
-	}
-	
-	/*
-	 * Author: Lucas Elley
-	 * Date: 15/01/2021
-	 */
-	public ArrayList<Match> getAllMatches(int ligaId) {
-		ArrayList<Match> matchList = new ArrayList<>();
-		String sql = "{call spGetAllMatches()}";
-		try (CallableStatement stmt = connection.prepareCall(sql)) {
-			ResultSet matches = stmt.executeQuery();
-			while(matches.next()) {
-				int id = matches.getInt("id");
-				int team1Id = matches.getInt("team1_id");
-				int team2Id = matches.getInt("team2_id");
-				int team1Goals = matches.getInt("team1_goals");
-				int team2Goals = matches.getInt("team2_goals");
-				String team1Name = matches.getString("team1_name");
-				String team2Name = matches.getString("team2_name");
-				
-				matchList.add(new Match(id, team1Id, team2Id, team1Goals, team2Goals, team1Name, team2Name));
-			} 
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("Couldnt find any matches.");
-		}
-		return matchList;
-	}
-
-	/**
-	 * @author $ Lasse Jonassen & Lucas Elley
-	 * 
-	 * @Created $ 12-01-2021
-	 */
-	public ArrayList<Team> getAllTeams(int ligaId) {
-		ArrayList<Team> teamList = new ArrayList<>();
-		String sql = "{call spGetAllTeams(?)}";
-		try (CallableStatement stmt = connection.prepareCall(sql)) {
-			stmt.setInt(1, ligaId);
-			ResultSet teams = stmt.executeQuery();
-			while (teams.next()) {
-				Team team = new Team();
-				int id = teams.getInt("id");
-				String name = teams.getString("team_name");
-				int matchesTotal = teams.getInt("matches_total");
-				int matchesWon = teams.getInt("matches_won");
-				int matchesLost = teams.getInt("matches_lost");
-				int matchesDraw = teams.getInt("matches_draw");
-				int goals = teams.getInt("goals");
-				int goalsIn = teams.getInt("goals_in");
-				int points = teams.getInt("points");
-				int leagueId = teams.getInt("league_id");
-				team.setId(id);
-				team.setName(name);
-				team.setMatchesTotal(matchesTotal);
-				team.setMatchesWon(matchesWon);
-				team.setMatchesLost(matchesLost);
-				team.setMatchesDraw(matchesDraw);
-				team.setGoals(goals);
-				team.setGoalsIn(goalsIn);
-				team.setPoints(points);
-				team.setLeagueId(leagueId);
-				teamList.add(team);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("Couldnt find any teams.");
-		}
-		return teamList;
-
-	}
-	
-	
 	
 	/**
-	 * @author $ Lasse Jonassen
-	 * 
-	 * @Created $ 11-01-2021
+	 * @About League
+	 * @tags {Create, Read, Update, Delete}
+	 * @author Lasse Jonassen
+	 * @created 11/01/2021 - 13/01/2021 
 	 */
-	public boolean deleteTeam(int teamId) {
-		String sql = "{call spDeleteTeam(?)}";
-		try (CallableStatement stmt = connection.prepareCall(sql)) {
-			stmt.setInt(1,  teamId);
-			stmt.execute();
-			return true;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-
-	/**
-	 * @author $ Lasse Jonassen
-	 * 
-	 * @Created $ 11-01-2021
-	 */
-	public boolean createMatch(int team1ID, int team2ID, int leagueID) {
-		try {
-			String sql = "{call spCreateMatch(?, ?, ?)}";
-			try (CallableStatement stmt = connection.prepareCall(sql)) {
-				stmt.setInt(1, team1ID);
-				stmt.setInt(2, team2ID);
-				stmt.setInt(3, leagueID);
-				stmt.execute();
-			}
-			return true;
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-			return false;
-		}
-	}
-	
-	/**
-	 * @author $ Lucas Elley
-	 * 
-	 * @Created $ 14-01-2021
-	 */
-	
-	public boolean deleteMatch(int ID) {
-		try {
-			String sql = "{call spDeleteMatch(?)}";
-			try (CallableStatement stmt = connection.prepareCall(sql)) {
-				stmt.setInt(1, ID);
-				stmt.execute();
-			}
-			return true;
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-			return false;
-		}
-	}
-	
-	public boolean updateMatch(int team1ID, int team2ID) {
-		try {
-			String sql = "{call spUpdateMatch(?, ?)}";
-			try (CallableStatement stmt = connection.prepareCall(sql)) {
-				stmt.setInt(1, team1ID);
-				stmt.setInt(2, team2ID);
-				stmt.execute();
-			}
-			return true;
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-			return false;
-		}
-	}
-
-	/**
-	 * @author $ Lasse Jonassen
-	 * 
-	 * @Created $ 11-01-2021
-	 */
-	public boolean createSuspension(int matchId, int teamId, String matchTime) {
-		try {
-			String sql = "{call spCreateSuspension(?, ? ,?)}";
-			try (CallableStatement stmt = connection.prepareCall(sql)) {
-				stmt.setInt(1, matchId);
-				stmt.setInt(2, teamId);
-				stmt.setString(3, matchTime);
-				stmt.execute();
-			}
-			return true;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-
-	
-	/**
-	 * @author $ Lasse Jonassen
-	 * 
-	 * @created $ 11-01-2021 - 13-01-2021
-	 * 
-	 * @tags $ CRUD On League
- 	 */
 	public boolean createLeague(String leagueName) {
 		try {
 			String sql = "{call spCreateLeague(?)}";
@@ -280,7 +57,7 @@ public class DataLayer {
 			return false;
 		}
 	}
-
+	
 	public ArrayList<League> getAllLeagues() {
 		ArrayList<League> leagueList = new ArrayList<League>();
 		String sql = "{call spGetAllLeagues}";
@@ -342,8 +119,196 @@ public class DataLayer {
 			return false;
 		}
 	}
-
+	
+	/**
+	 * @About Team
+	 * @tags {Create, Read, Update, Delete}
+	 * @author Lucas Elley & Lasse Jonassen
+	 * @created 11/01/2021 - 13/01/2021 
+	 */
+	public boolean createTeam(String name, int ligaId) {
+		try {
+			String sql = "{call spCreateTeam(?,?)}";
+			try (CallableStatement stmt = connection.prepareCall(sql)) {
+				stmt.setString(1, name);
+				stmt.setInt(2, ligaId);
+				stmt.execute();
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public ArrayList<Team> getAllTeams(int ligaId) {
+		ArrayList<Team> teamList = new ArrayList<>();
+		String sql = "{call spGetAllTeams(?)}";
+		try (CallableStatement stmt = connection.prepareCall(sql)) {
+			stmt.setInt(1, ligaId);
+			ResultSet teams = stmt.executeQuery();
+			while (teams.next()) {
+				Team team = new Team();
+				int id = teams.getInt("id");
+				String name = teams.getString("team_name");
+				int matchesTotal = teams.getInt("matches_total");
+				int matchesWon = teams.getInt("matches_won");
+				int matchesLost = teams.getInt("matches_lost");
+				int matchesDraw = teams.getInt("matches_draw");
+				int goals = teams.getInt("goals");
+				int goalsIn = teams.getInt("goals_in");
+				int points = teams.getInt("points");
+				int leagueId = teams.getInt("league_id");
+				team.setId(id);
+				team.setName(name);
+				team.setMatchesTotal(matchesTotal);
+				team.setMatchesWon(matchesWon);
+				team.setMatchesLost(matchesLost);
+				team.setMatchesDraw(matchesDraw);
+				team.setGoals(goals);
+				team.setGoalsIn(goalsIn);
+				team.setPoints(points);
+				team.setLeagueId(leagueId);
+				teamList.add(team);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Couldnt find any teams.");
+		}
+		return teamList;
+	}
+	
+	public boolean updateTeam(int id, String newName, int idOther) {
+		try {
+			String sql = "{call spUpdateTeam(?, ?, ?)}";
+			try (CallableStatement stmt = connection.prepareCall(sql)) {
+				stmt.setInt(1, id);
+				stmt.setString(2, newName);
+				stmt.setInt(3, idOther);
+				stmt.execute();
+			}
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("fejl");
+			return false;
+		}
+	}
+	
+	public boolean deleteTeam(int teamId) {
+		String sql = "{call spDeleteTeam(?)}";
+		try (CallableStatement stmt = connection.prepareCall(sql)) {
+			stmt.setInt(1,  teamId);
+			stmt.execute();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	
+	
+	
+	/**
+	 * @About Match
+	 * @tags {Create, Read, Update, Delete}
+	 * @author Lucas Elley & Lasse Jonassen
+	 * @created 15/01/2021
+	 */
+	public boolean createMatch(int team1ID, int team2ID, int leagueID) {
+		try {
+			String sql = "{call spCreateMatch(?, ?, ?)}";
+			try (CallableStatement stmt = connection.prepareCall(sql)) {
+				stmt.setInt(1, team1ID);
+				stmt.setInt(2, team2ID);
+				stmt.setInt(3, leagueID);
+				stmt.execute();
+			}
+			return true;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
+	
+	public ArrayList<Match> getAllMatches(int ligaId) {
+		ArrayList<Match> matchList = new ArrayList<>();
+		String sql = "{call spGetAllMatches()}";
+		try (CallableStatement stmt = connection.prepareCall(sql)) {
+			ResultSet matches = stmt.executeQuery();
+			while(matches.next()) {
+				int id = matches.getInt("id");
+				int team1Id = matches.getInt("team1_id");
+				int team2Id = matches.getInt("team2_id");
+				int team1Goals = matches.getInt("team1_goals");
+				int team2Goals = matches.getInt("team2_goals");
+				String team1Name = matches.getString("team1_name");
+				String team2Name = matches.getString("team2_name");
+				
+				matchList.add(new Match(id, team1Id, team2Id, team1Goals, team2Goals, team1Name, team2Name));
+			} 
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Couldnt find any matches.");
+		}
+		return matchList;
+	}
+	
+	public boolean updateMatch(int team1ID, int team2ID) {
+		try {
+			String sql = "{call spUpdateMatch(?, ?)}";
+			try (CallableStatement stmt = connection.prepareCall(sql)) {
+				stmt.setInt(1, team1ID);
+				stmt.setInt(2, team2ID);
+				stmt.execute();
+			}
+			return true;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean deleteMatch(int ID) {
+		try {
+			String sql = "{call spDeleteMatch(?)}";
+			try (CallableStatement stmt = connection.prepareCall(sql)) {
+				stmt.setInt(1, ID);
+				stmt.execute();
+			}
+			return true;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	public boolean createSuspension(int matchId, int teamId, String matchTime) {
+		try {
+			String sql = "{call spCreateSuspension(?, ? ,?)}";
+			try (CallableStatement stmt = connection.prepareCall(sql)) {
+				stmt.setInt(1, matchId);
+				stmt.setInt(2, teamId);
+				stmt.setString(3, matchTime);
+				stmt.execute();
+			}
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 	public ArrayList<Match> getAllMatchesTest() {
+		ArrayList<Match> matchList = new ArrayList<Match>();
 		String sql = "{call spGetMatches}";
 		try (CallableStatement stmt = connection.prepareCall(sql)) {
 			ResultSet resultSet = stmt.executeQuery();
@@ -352,13 +317,12 @@ public class DataLayer {
 				String team2 = resultSet.getString("HOLDNAVN_U");
 				int team1Goals = resultSet.getInt("MÅL_H");
 				int team2Goals = resultSet.getInt("MÅL_U");
-				
+				System.out.println(team1 + team2 + team1Goals + team2Goals);
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return matchList;
 	}
-	
-	
 }

@@ -19,10 +19,7 @@ public class Match {
 		this.team1Name = team1Name;
 		this.team2Name = team2Name;
 	}
-	
-	public Match() {
-		
-	}
+	public Match() {}
 	
 	public String getTeam1Name() {
 		return team1Name;

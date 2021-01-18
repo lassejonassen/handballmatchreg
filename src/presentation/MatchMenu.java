@@ -33,12 +33,15 @@ public class MatchMenu {
 	
 	private TableView<Match> matchTable = new TableView<>();
 	private ComboBox<League> leagueDropdown = new ComboBox<League>();
+	private iMatchImpl matchImpl = new iMatchImpl();
 	
 	public MatchMenu(Stage stage) {
+		matchImpl.getAllMatchesTest();
 		updateTableView();
 		leagueDropDown();
 		matchBtnFunctionality(stage);
 		showMatchMenu(stage);
+		
 		
 	}
 	@SuppressWarnings("static-access")

@@ -1,5 +1,4 @@
 package logic;
-
 import java.util.ArrayList;
 import data.League;
 
@@ -8,5 +7,4 @@ public interface iLeague {
 	public ArrayList<League> getAllLeagues();
 	public boolean updateLeague(League league, String newName);
 	public boolean deleteLeague(League league);
-	
 }
