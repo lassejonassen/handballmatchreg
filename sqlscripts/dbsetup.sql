@@ -35,8 +35,8 @@ CREATE TABLE Team (
 
 CREATE TABLE TMatch (
 	id int IDENTITY (1000, 1) NOT NULL,
-	team1_id INT NOT NULL,
-	team2_id INT NOT NULL,
+	team1_name INT NOT NULL,
+	team2_name INT NOT NULL,
 	team1_goals INT NOT NULL,
 	team2_goals INT NOT NULL,
 	league_id INT NOT NULL,

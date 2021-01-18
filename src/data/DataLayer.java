@@ -338,4 +338,22 @@ public class DataLayer {
 		}
 	}
 
+	public ArrayList<Match> getAllMatchesTest() {
+		String sql = "{call spGetMatches}";
+		try (CallableStatement stmt = connection.prepareCall(sql)) {
+			ResultSet resultSet = stmt.executeQuery();
+			while (resultSet.next()) {
+				String team1 = resultSet.getString("HOLDNAVN_H");
+				String team2 = resultSet.getString("HOLDNAVN_U");
+				int team1Goals = resultSet.getInt("MÅL_H");
+				int team2Goals = resultSet.getInt("MÅL_U");
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 }
