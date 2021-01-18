@@ -1,9 +1,9 @@
 USE [HbmrDb];
 GO
-CREATE PROCEDURE spDeleteLeague @league_id INT
+CREATE PROCEDURE spDeleteMatch @match_id INT
 AS
 BEGIN
-	DELETE FROM League
-	WHERE id = @league_id
+	DELETE FROM TMatch
+	WHERE id = @match_id
 END
 GO

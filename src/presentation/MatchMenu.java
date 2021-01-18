@@ -32,7 +32,7 @@ public class MatchMenu {
 	
 	private void showMatchMenu(Stage stage)
 	{
-		layout.left.getChildren().addAll(createMatchBtn, deleteMatchBtn, updateMatchBtn,backBtn);
+		layout.left.getChildren().addAll(createMatchBtn, deleteMatchBtn, updateMatchBtn, backBtn);
 		layout.left.setBottomAnchor(backBtn, 0.0);
 		layout.left.setTopAnchor(createMatchBtn, 0.0);
 		layout.left.setTopAnchor(updateMatchBtn, 50.0);

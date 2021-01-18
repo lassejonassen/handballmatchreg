@@ -59,4 +59,10 @@ public class Match {
 	public void setTeam2Goals(int team2Goals) {
 		this.team2Goals = team2Goals;
 	}
+	
+	@Override
+	public String toString() {	
+		return "Kamp: " + team1Id + " - " + team2Id;
+	}
+	
 }

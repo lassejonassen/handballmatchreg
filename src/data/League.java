@@ -13,7 +13,9 @@ public class League {
 		this.name = name;
 	}
 	
-	public League() {}
+	public League() {
+		
+	}
 	
 	public int getId() {
 		return id;
