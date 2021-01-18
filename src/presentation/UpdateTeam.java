@@ -54,7 +54,7 @@ public class UpdateTeam
 		scene = new Scene(childLayout.childRoot);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
 		window.setScene(scene);
-		window.setTitle("Opret hold");
+		window.setTitle("Opdater hold");
 		window.show();
 	}
 	

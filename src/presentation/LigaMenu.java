@@ -49,6 +49,7 @@ public class LigaMenu {
 		layout.left.setTopAnchor(deleteLigaBtn, 100.0);
 		layout.left.setTopAnchor(leagueDropdown, 150.0);
 		layout.left.setBottomAnchor(backBtn, 0.0);
+		
 		Scene scene = new Scene(layout.root);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
 		stage.setScene(scene);
@@ -63,9 +64,7 @@ public class LigaMenu {
 		deleteLigaBtn.setOnAction(e -> deleteLeague());
 		backBtn.setOnAction(e -> menu.showMenu(stage));
 		updateTeamBtn.setOnAction(e -> new UpdateTeam());
-		createTeamBtn.setOnAction(e -> {
-			new CreateTeam();
-		});
+		createTeamBtn.setOnAction(e -> new CreateTeam());
 	}
 
 	/**

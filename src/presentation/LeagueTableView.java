@@ -22,10 +22,10 @@ public class LeagueTableView {
 	public LeagueTableView(Layout layout, League league) {
 		leagueTable.setPrefHeight(640);
 		
-		TableColumn<Team, String> idColumn = new TableColumn<>("ID");
-		idColumn.setPrefWidth(50);
-		idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-		columns.add(idColumn);
+//		TableColumn<Team, String> idColumn = new TableColumn<>("ID");
+//		idColumn.setPrefWidth(50);
+//		idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+//		columns.add(idColumn);
 		
         TableColumn<Team, String> nameColumn = new TableColumn<>("NAME");
         nameColumn.setPrefWidth(150);
@@ -58,19 +58,19 @@ public class LeagueTableView {
         columns.add(goalsColumn);
         
         TableColumn<Team, String> goalsInColumn = new TableColumn<>("GOALS IN");
-        goalsInColumn.setPrefWidth(150);
+        goalsInColumn.setPrefWidth(100);
         goalsInColumn.setCellValueFactory(new PropertyValueFactory<>("goalsIn"));
         columns.add(goalsInColumn);
         
         TableColumn<Team, String> pointsColumn = new TableColumn<>("POINTS");
-        pointsColumn.setPrefWidth(150);
+        pointsColumn.setPrefWidth(100);
         pointsColumn.setCellValueFactory(new PropertyValueFactory<>("points"));
         columns.add(pointsColumn);
         
-        TableColumn<Team, String> leagueIdColumn = new TableColumn<>("LEAGUE ID");
-        leagueIdColumn.setPrefWidth(150);
-        leagueIdColumn.setCellValueFactory(new PropertyValueFactory<>("leagueId"));
-        columns.add(leagueIdColumn);
+//        TableColumn<Team, String> leagueIdColumn = new TableColumn<>("LEAGUE ID");
+//        leagueIdColumn.setPrefWidth(150);
+//        leagueIdColumn.setCellValueFactory(new PropertyValueFactory<>("leagueId"));
+//        columns.add(leagueIdColumn);
         
         for (TableColumn<Team, String> tc : columns)
         	leagueTable.getColumns().add(tc);
