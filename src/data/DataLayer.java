@@ -283,6 +283,12 @@ public class DataLayer {
 		}
 	}
 	
+	/**
+	 * @About Suspension
+	 * @tags {Create, delete}
+	 * @author 
+	 * @created 15/01/2021
+	 */
 	public boolean createSuspension(int matchId, int teamId, String matchTime) {
 		try {
 			String sql = "{call spCreateSuspension(?, ? ,?)}";
@@ -313,31 +319,5 @@ public class DataLayer {
 			e.printStackTrace();
 			return false;
 		}
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	public ArrayList<Match> getAllMatchesTest() {
-		ArrayList<Match> matchList = new ArrayList<Match>();
-		String sql = "{call spGetMatches}";
-		try (CallableStatement stmt = connection.prepareCall(sql)) {
-			ResultSet resultSet = stmt.executeQuery();
-			while (resultSet.next()) {
-				String team1 = resultSet.getString("HOLDNAVN_H");
-				String team2 = resultSet.getString("HOLDNAVN_U");
-				int team1Goals = resultSet.getInt("MÅL_H");
-				int team2Goals = resultSet.getInt("MÅL_U");
-				System.out.println(team1 + team2 + team1Goals + team2Goals);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return matchList;
 	}
 }

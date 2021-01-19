@@ -15,28 +15,24 @@ public class MatchImpl implements iMatch {
 		dataLayer.createMatch(team.getId(), team2.getId(), leagueID);
 	}
 	
-	public void createSuspension(Match match, Team team, String time) {
-		dataLayer.createSuspension(match.getId(), team.getId(), time);
-	}
-	
-	public void deleteSuspension(Match match, Team team, String time) {
-		dataLayer.deleteSuspension(match.getId(), team.getId(), time);
-	}
-	
-	public void deleteMatch(Match match) {
-		dataLayer.deleteMatch(match.getId());
-	}
-	
 	public ArrayList<Match> getMatchesByLeagueID(League league) {
 		return dataLayer.getAllMatchesByLeagueID(league.getId());
 	}
 	
-	
-	public void getAllMatchesTest() {
-		dataLayer.getAllMatchesTest();
-	}
-	
 	public void updateMatch(Match match, int team1Goals, int team2Goals) {
-		dataLayer.updateMatch(match.getId(), team1Goals, team2Goals);
+		dataLayer.updateMatch(match.getMatchID(), team1Goals, team2Goals);
 	}
+	
+	public void deleteMatch(Match match) {
+		dataLayer.deleteMatch(match.getMatchID());
+	}
+	
+	public void createSuspension(Match match, Team team, String time) {
+		dataLayer.createSuspension(match.getMatchID(), team.getId(), time);
+	}
+	
+	public void deleteSuspension(Match match, Team team, String time) {
+		dataLayer.deleteSuspension(match.getMatchID(), team.getId(), time);
+	}
+	
 }
