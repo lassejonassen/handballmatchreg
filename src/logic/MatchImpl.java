@@ -27,13 +27,10 @@ public class MatchImpl implements iMatch {
 		dataLayer.deleteMatch(match.getId());
 	}
 	
-	public ArrayList<Match> getAllMatches(League league) {
-		return dataLayer.getAllMatches(league.getId());
+	public ArrayList<Match> getMatchesByLeagueID(League league) {
+		return dataLayer.getAllMatchesByLeagueID(league.getId());
 	}
 	
-	public ArrayList<Match> getAllMatches(int league) {
-		return dataLayer.getAllMatches(league);
-	}
 	
 	public void getAllMatchesTest() {
 		dataLayer.getAllMatchesTest();

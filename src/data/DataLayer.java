@@ -232,19 +232,20 @@ public class DataLayer {
 		}
 	}
 	
-	public ArrayList<Match> getAllMatches(int ligaId) {
+	public ArrayList<Match> getAllMatchesByLeagueID(int leagueID) {
 		ArrayList<Match> matchList = new ArrayList<>();
-		String sql = "{call spGetAllMatches()}";
+		String sql = "{call spGetMatchesByLeagueID(?)}";
 		try (CallableStatement stmt = connection.prepareCall(sql)) {
+			stmt.setInt(1, leagueID);
 			ResultSet matches = stmt.executeQuery();
 			while(matches.next()) {
-				int id = matches.getInt("id");
-				int team1Id = matches.getInt("team1_id");
-				int team2Id = matches.getInt("team2_id");
-				int team1Goals = matches.getInt("team1_goals");
-				int team2Goals = matches.getInt("team2_goals");
-				
-				matchList.add(new Match(id, team1Id, team2Id, team1Goals, team2Goals));
+				int id = matches.getInt("ID");
+				String team1Name = matches.getString("HOLDNAVN_H");
+				int team1Goals = matches.getInt("MÅL_H");
+				int team2Goals = matches.getInt("MÅL_U");
+				String team2Name = matches.getString("HOLDNAVN_U");
+				System.out.println(team1Name + team1Goals + team2Goals + team2Name);
+				matchList.add(new Match(id, team1Goals, team2Goals, team1Name, team2Name));
 			} 
 			
 		} catch (SQLException e) {

@@ -2,19 +2,14 @@ package data;
 
 public class Match {
 	private int id;
-	private int team1Id;
-	private int team2Id;
 	private String team1Name;
 	private String team2Name;
 	private int team1Goals;
 	private int team2Goals;
 	private char divider = '-';
 	
-	
-	public Match(int id, int team1Id, int team2Id, int team1Goals, int team2Goals, String team1Name, String team2Name) {
+	public Match(int id, int team1Goals, int team2Goals, String team1Name, String team2Name) {
 		this.id = id;
-		this.team1Id = team1Id;
-		this.team2Id = team2Id;
 		this.team1Goals = team1Goals;
 		this.team2Goals = team2Goals;
 		this.team1Name = team1Name;
@@ -22,8 +17,6 @@ public class Match {
 	}
 	public Match(int id, int team1Id, int team2Id, int team1Goals, int team2Goals) {
 		this.id = id;
-		this.team1Id = team1Id;
-		this.team2Id = team2Id;
 		this.team1Goals = team1Goals;
 		this.team2Goals = team2Goals;
 	}
@@ -53,22 +46,6 @@ public class Match {
 		this.id = id;
 	}
 	
-	public int getTeam1Id() {
-		return team1Id;
-	}
-	
-	public void setTeam1Id(int team1Id) {
-		this.team1Id = team1Id;
-	}
-	
-	public int getTeam2Id() {
-		return team2Id;
-	}
-	
-	public void setTeam2Id(int team2Id) {
-		this.team2Id = team2Id;
-	}
-	
 	public int getTeam1Goals() {
 		return team1Goals;
 	}
@@ -85,10 +62,6 @@ public class Match {
 		this.team2Goals = team2Goals;
 	}
 	
-	@Override
-	public String toString() {	
-		return "Kamp: " + team1Id + " - " + team2Id;
-	}
 	public char getDivider() {
 		return divider;
 	}
