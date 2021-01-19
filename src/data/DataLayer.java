@@ -299,13 +299,13 @@ public class DataLayer {
 		}
 	}
 	
-	public boolean deleteSuspension(int matchId, int teamId, String matchTime) {
+	public boolean deleteSuspension(int matchId, int teamId, int suspensionID) {
 		try {
 			String sql = "{call spDeleteSuspension(?, ? ,?)}";
 			try (CallableStatement stmt = connection.prepareCall(sql)) {
 				stmt.setInt(1, matchId);
 				stmt.setInt(2, teamId);
-				stmt.setString(3, matchTime);
+				stmt.setInt(3, suspensionID);
 				stmt.execute();
 			}
 			return true;
@@ -314,11 +314,6 @@ public class DataLayer {
 			return false;
 		}
 	}
-	
-	
-	
-	
-	
 	
 	
 	
