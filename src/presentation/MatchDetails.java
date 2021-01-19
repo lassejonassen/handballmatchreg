@@ -15,6 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import logic.MatchImpl;
 
 public class MatchDetails 
 {
@@ -28,29 +29,36 @@ public class MatchDetails
 	private Timeline timeline;
 	private Label timerLabel = new Label();
 	private Integer timeSeconds = STARTTIME;
-	private int gameLength = 20;
+	private int gameLength = 5;
 	
-	private Label homeTeamName = new Label("Hjemme holdets navn");
-	private Label awayTeamName = new Label("Ude holdets navn");
-	private Label homeScore = new Label("Hjemme holdets score");
-	private Label awayScore = new Label("Ude holdets score");
+	private Label homeTeamName = new Label();
+	private Label awayTeamName = new Label();
+	private Label homeScore = new Label();
+	private Label awayScore = new Label();
+	
+	private int i = 0;
+	private int j = 0;
+	
+	private int team1Goals;
+	private int team2Goals;
 	
 	private Scene scene;
 	private Stage window = new Stage();
 	
 	private ChildLayout childLayout = new ChildLayout();
+	private MatchImpl matchImpl = new MatchImpl();
 	
 	public MatchDetails(Match match)
 	{
-		showMatchDetails();
-		detailBtnFunctionality();
-		timerLabelUpdate();
+		showMatchDetails(match);
+		detailBtnFunctionality(match);
+		timerLabelUpdate(match);
+		matchTeamDetails(match);
 	}
 	
-	public void showMatchDetails()
+	public void showMatchDetails(Match match)
 	{
 		childLayout.childCenter.add(timerLabel, 2, 0);
-		
 		childLayout.childCenter.add(homeTeamName, 0, 1);
 		childLayout.childCenter.add(homeScore, 1, 1);
 		childLayout.childCenter.add(awayScore, 3, 1);
@@ -72,7 +80,6 @@ public class MatchDetails
 		
 		timerLabel.setText(timeSeconds.toString());
 		timerLabel.setStyle("-fx-font-size: 4em;");
-//		timerLabel.setTextAlignment(TextAlignment.CENTER);
 		GridPane.setHalignment(timerLabel, HPos.CENTER);
 		
 		scene = new Scene(childLayout.childRoot);
@@ -82,11 +89,53 @@ public class MatchDetails
 		window.show();
 	}
 	
+	private void matchTeamDetails(Match match)
+	{
+		homeTeamName.setText("" + match.getTeam1Id());
+		awayTeamName.setText("" + match.getTeam2Id());
+		homeScore.setText(""+ match.getTeam1Goals());
+		awayScore.setText("" + match.getTeam2Goals());	
+	}
+	
+	private void homeTeamScoreUpdate(Match match)
+	{ 
+		if(timeSeconds < gameLength)
+		{
+			i++;
+			match.setTeam1Goals(i);
+			homeScore.setText("" + match.getTeam1Goals());
+			System.out.println(match.getTeam1Id() + " Mål: " + match.getTeam1Goals() + "Tid: " + timeSeconds);
+		}else
+		{
+			System.out.println("Kamp over STAPH");
+		}
+	}
+	private void awayTeamScoreUpdate(Match match)
+	{ 
+		if(timeSeconds < gameLength)
+		{
+			j++;
+			match.setTeam2Goals(j);
+			awayScore.setText("" + match.getTeam2Goals());
+		}else
+		{
+			System.out.println("Kamp over STAPH");
+		}
+	}
+	
+	private void matchDataUpdate(Match match)
+	{
+		team1Goals = match.getTeam1Goals();
+		team2Goals = match.getTeam2Goals();
+		System.out.println("Hold 1s mål: " + team1Goals);
+		System.out.println("Hold 2s mål: " + team2Goals);
+//		matchImpl.updateMatch(match, team1Goals, team2Goals);
+	}
+	
 	@SuppressWarnings("unchecked")
-	private void timerLabelUpdate()
+	private void timerLabelUpdate(Match match)
 	{
 		timeSeconds = STARTTIME;
-		
 		timerLabel.setText(timeSeconds.toString());
 		timeline = new Timeline();
 		timeline.setCycleCount(Timeline.INDEFINITE);
@@ -99,15 +148,18 @@ public class MatchDetails
 				if(timeSeconds == gameLength)
 				{
 					timeline.stop();
+					matchDataUpdate(match);
 				}
 			}
 		}));
 		timeline.playFromStart();
 	}
 	
-	private void detailBtnFunctionality()
+	private void detailBtnFunctionality(Match match)
 	{
-		matchReportBtn.setOnAction(e -> new MatchReport());
+		homeTeamScored.setOnAction(e -> homeTeamScoreUpdate(match));
+		awayTeamScored.setOnAction(e -> awayTeamScoreUpdate(match));
+		matchReportBtn.setOnAction(e -> new MatchReport(match));
 	}
 
 }
