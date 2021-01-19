@@ -24,6 +24,8 @@ public class MatchDetails
 	private Button homeTeamSuspension = new Button("Hjemme udvisning");
 	private Button awayTeamSuspension = new Button("Ude udvisning");
 	private Button matchReportBtn = new Button("Kamp rapport");
+	private Button deleteSuspensionAwayBtn = new Button("Fjern Udvisning - Ude");
+	private Button deleteSuspensionHomeBtn = new Button("Fjern Udvisning - Hjemme");
 	
 	private Integer STARTTIME = 0;
 	private Timeline timeline;
@@ -47,6 +49,9 @@ public class MatchDetails
 	
 	private ChildLayout childLayout = new ChildLayout();
 	private MatchImpl matchImpl = new MatchImpl();
+	private int teamID;
+	private int suspensionID;
+	private String time;
 	
 	public MatchDetails(Match match)
 	{
@@ -77,7 +82,9 @@ public class MatchDetails
 		childLayout.childCenter.add(awayTeamSuspension, 3, 2);
 		childLayout.childCenter.add(awayTeamScored, 4, 2);
 		childLayout.childCenter.add(matchReportBtn, 2, 3);
-		
+		childLayout.childCenter.add(deleteSuspensionAwayBtn, 3, 3);
+		childLayout.childCenter.add(deleteSuspensionHomeBtn, 1, 3);
+
 		timerLabel.setText(timeSeconds.toString());
 		timerLabel.setStyle("-fx-font-size: 4em;");
 		GridPane.setHalignment(timerLabel, HPos.CENTER);
@@ -91,8 +98,8 @@ public class MatchDetails
 	
 	private void matchTeamDetails(Match match)
 	{
-		homeTeamName.setText("" + match.getTeam1Id());
-		awayTeamName.setText("" + match.getTeam2Id());
+		homeTeamName.setText("" + match.getTeam1Name());
+		awayTeamName.setText("" + match.getTeam2Name());
 		homeScore.setText(""+ match.getTeam1Goals());
 		awayScore.setText("" + match.getTeam2Goals());	
 	}
@@ -104,7 +111,7 @@ public class MatchDetails
 			i++;
 			match.setTeam1Goals(i);
 			homeScore.setText("" + match.getTeam1Goals());
-			System.out.println(match.getTeam1Id() + " Mål: " + match.getTeam1Goals() + "Tid: " + timeSeconds);
+			System.out.println(match.getTeam1Name() + " Mål: " + match.getTeam1Goals() + "Tid: " + timeSeconds);
 		}else
 		{
 			System.out.println("Kamp over STAPH");
@@ -155,11 +162,35 @@ public class MatchDetails
 		timeline.playFromStart();
 	}
 	
+	private void createSuspensionHome(Match match, int teamID, String time) {
+		teamID = match.getId();
+		matchImpl.createSuspension(match, teamID, time);
+	}
+	
+	private void createSuspensionAway(Match match, int teamID, String time) {
+		teamID = match.getId();
+		matchImpl.createSuspension(match, teamID, time);
+	}
+	
+	private void deleteSuspensionHome(Match match, int teamID, int suspensionID) {
+		teamID = match.getId();
+		matchImpl.deleteSuspension(match, teamID, suspensionID);
+	}
+	
+	private void deleteSuspensionAway(Match match, int teamID, int suspensionID) {
+		teamID = match.getId();
+		matchImpl.deleteSuspension(match, teamID, suspensionID);
+	}
+	
 	private void detailBtnFunctionality(Match match)
 	{
 		homeTeamScored.setOnAction(e -> homeTeamScoreUpdate(match));
 		awayTeamScored.setOnAction(e -> awayTeamScoreUpdate(match));
 		matchReportBtn.setOnAction(e -> new MatchReport(match));
+		homeTeamSuspension.setOnAction(e -> createSuspensionHome(match, teamID, time));
+		awayTeamSuspension.setOnAction(e -> createSuspensionAway(match, teamID, time));
+		deleteSuspensionHomeBtn.setOnAction(e -> deleteSuspensionHome(match, teamID, suspensionID));
+		deleteSuspensionAwayBtn.setOnAction(e -> deleteSuspensionAway(match, teamID, suspensionID));
 	}
 
 }
