@@ -1,24 +1,19 @@
 package data;
 
 public class Match {
-	private int id;
+	private int matchID;
 	private String team1Name;
 	private String team2Name;
 	private int team1Goals;
 	private int team2Goals;
-	private char divider = '-';
+	private String divider = "-";
 	
 	public Match(int id, int team1Goals, int team2Goals, String team1Name, String team2Name) {
-		this.id = id;
+		this.matchID = id;
 		this.team1Goals = team1Goals;
 		this.team2Goals = team2Goals;
 		this.team1Name = team1Name;
 		this.team2Name = team2Name;
-	}
-	public Match(int id, int team1Id, int team2Id, int team1Goals, int team2Goals) {
-		this.id = id;
-		this.team1Goals = team1Goals;
-		this.team2Goals = team2Goals;
 	}
 	public Match() {}
 	
@@ -37,15 +32,13 @@ public class Match {
 	public void setTeam2Name(String team2Name) {
 		this.team2Name = team2Name;
 	}
-
-	public int getId() {
-		return id;
-	}
 	
-	public void setId(int id) {
-		this.id = id;
+	public int getMatchID() {
+		return matchID;
 	}
-	
+	public void setMatchID(int matchID) {
+		this.matchID = matchID;
+	}
 	public int getTeam1Goals() {
 		return team1Goals;
 	}
@@ -62,11 +55,18 @@ public class Match {
 		this.team2Goals = team2Goals;
 	}
 	
-	public char getDivider() {
+	public String getDivider() {
 		return divider;
 	}
-	public void setDivider(char divider) {
+	public void setDivider(String divider) {
 		this.divider = divider;
 	}
+	@Override
+	public String toString() {
+		return matchID + " " + team1Name + " " + divider + " " + team2Name;
+	}
+	
+	
+	
 	
 }

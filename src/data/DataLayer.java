@@ -244,10 +244,8 @@ public class DataLayer {
 				int team1Goals = matches.getInt("MÅL_H");
 				int team2Goals = matches.getInt("MÅL_U");
 				String team2Name = matches.getString("HOLDNAVN_U");
-				System.out.println(team1Name + team1Goals + team2Goals + team2Name);
 				matchList.add(new Match(id, team1Goals, team2Goals, team1Name, team2Name));
 			} 
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Couldnt find any matches.");
