@@ -283,15 +283,25 @@ public class DataLayer {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
 	public boolean createSuspension(int matchId, int teamId, String matchTime) {
 		try {
 			String sql = "{call spCreateSuspension(?, ? ,?)}";
+			try (CallableStatement stmt = connection.prepareCall(sql)) {
+				stmt.setInt(1, matchId);
+				stmt.setInt(2, teamId);
+				stmt.setString(3, matchTime);
+				stmt.execute();
+			}
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean deleteSuspension(int matchId, int teamId, String matchTime) {
+		try {
+			String sql = "{call spDeleteSuspension(?, ? ,?)}";
 			try (CallableStatement stmt = connection.prepareCall(sql)) {
 				stmt.setInt(1, matchId);
 				stmt.setInt(2, teamId);

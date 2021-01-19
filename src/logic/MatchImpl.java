@@ -19,6 +19,10 @@ public class MatchImpl implements iMatch {
 		dataLayer.createSuspension(match.getId(), team.getId(), time);
 	}
 	
+	public void deleteSuspension(Match match, Team team, String time) {
+		dataLayer.deleteSuspension(match.getId(), team.getId(), time);
+	}
+	
 	public void deleteMatch(Match match) {
 		dataLayer.deleteMatch(match.getId());
 	}
