@@ -1,5 +1,6 @@
 package presentation;
 
+import data.Match;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -39,7 +40,7 @@ public class MatchDetails
 	
 	private ChildLayout childLayout = new ChildLayout();
 	
-	public MatchDetails()
+	public MatchDetails(Match match)
 	{
 		showMatchDetails();
 		detailBtnFunctionality();

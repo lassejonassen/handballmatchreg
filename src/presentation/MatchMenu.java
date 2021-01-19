@@ -33,10 +33,8 @@ public class MatchMenu {
 		updateTableView();
 		matchBtnFunctionality(stage);
 		showMatchMenu(stage);
-		
-		leagueDropdown.setOnAction(e -> {
-			loadTableView(leagueDropdown.getSelectionModel().getSelectedItem());
-		});
+		leagueDropDown();
+		openMatchDetails();
 	}
 	
 	@SuppressWarnings("static-access")
@@ -74,24 +72,14 @@ public class MatchMenu {
 		deleteMatchBtn.setOnAction(e -> new DeleteMatch());
 	}
 	
-	private void deleteMatch() {
-		ChildLayout layout = new ChildLayout();
-		Label header = new Label("Slet en kamp");
-		layout.childTop.getChildren().add(header);
-		Label guideLabel = new Label("Vælg kamp du vil slette: ");
-		layout.childCenter.add(guideLabel, 0, 0);
-		
-		
-	}
-	
 	private void updateMatch() {
 		ChildLayout layout = new ChildLayout();
 		Label header = new Label("Opdater Kamp");
 		layout.childTop.getChildren().add(header); 
-		
 	}
 	
 	private void loadTableView(League league) {
+		matchTable.getItems().clear();
 		ArrayList<TableColumn<Match, String>> columns = new ArrayList<TableColumn<Match, String>>();
 		matchTable.setPrefHeight(640);
 
@@ -129,5 +117,15 @@ public class MatchMenu {
 		for (TableColumn<Match, String> tc : columns)
 			matchTable.getColumns().add(tc);
 		matchTable.getItems().addAll(matchImpl.getAllMatches(league));
+		
+		
+	}
+	
+	private void openMatchDetails() {
+		matchTable.setOnMouseClicked(event -> {
+		    if (matchTable.getSelectionModel().getSelectedItem() != null) {
+		        new MatchDetails(matchTable.getSelectionModel().getSelectedItem());
+		    }
+		});
 	}
 }

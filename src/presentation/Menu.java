@@ -34,6 +34,5 @@ public class Menu
 	{
 		showMatchBtn.setOnAction(e -> new MatchMenu(stage));
 		showLigaBtn.setOnAction(e -> new LigaMenu(stage));
-		btn4.setOnAction(e -> new MatchDetails());
   }
 }
