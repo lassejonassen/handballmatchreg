@@ -241,8 +241,8 @@ public class DataLayer {
 			while(matches.next()) {
 				int id = matches.getInt("ID");
 				String team1Name = matches.getString("HOLDNAVN_H");
-				int team1Goals = matches.getInt("MÅL_H");
-				int team2Goals = matches.getInt("MÅL_U");
+				int team1Goals = matches.getInt("MÃ…L_H");
+				int team2Goals = matches.getInt("MÃ…L_U");
 				String team2Name = matches.getString("HOLDNAVN_U");
 				matchList.add(new Match(id, team1Goals, team2Goals, team1Name, team2Name));
 			} 
@@ -305,13 +305,13 @@ public class DataLayer {
 		}
 	}
 	
-	public boolean deleteSuspension(int matchId, int teamId, String matchTime) {
+	public boolean deleteSuspension(int matchId, int teamId, int suspensionID) {
 		try {
 			String sql = "{call spDeleteSuspension(?, ? ,?)}";
 			try (CallableStatement stmt = connection.prepareCall(sql)) {
 				stmt.setInt(1, matchId);
 				stmt.setInt(2, teamId);
-				stmt.setString(3, matchTime);
+				stmt.setInt(3, suspensionID);
 				stmt.execute();
 			}
 			return true;
