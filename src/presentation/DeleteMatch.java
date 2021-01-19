@@ -55,7 +55,6 @@ public class DeleteMatch {
 		
 		ligaChoice.getItems().addAll(leagueImpl.getAllLeagues());
 		ligaChoice.setOnAction(e -> {
-			id = ligaChoice.getSelectionModel().getSelectedItem().getId();
 			matchChoice.getItems().addAll(matchImpl.getMatchesByLeagueID(ligaChoice.getSelectionModel().getSelectedItem()));
 		});
 	}
