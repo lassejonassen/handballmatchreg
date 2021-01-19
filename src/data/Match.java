@@ -87,7 +87,7 @@ public class Match {
 	
 	@Override
 	public String toString() {	
-		return "Kamp: " + team1Name + " - " + team2Name;
+		return "Kamp: " + team1Id + " - " + team2Id;
 	}
 	public char getDivider() {
 		return divider;
