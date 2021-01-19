@@ -24,7 +24,7 @@ public class LigaMenu {
 	private Button updateTeamBtn = new Button("Opdatere hold");
 	private Layout layout = new Layout();
 	private Validation validate = new Validation();
-	private TableView<Team> leagueTable = new TableView<>();
+	private TableView<Team> leagueTable = new TableView<Team>();
 	private ComboBox<League> leagueDropdown = new ComboBox<League>();
 	private LeagueImpl leagueImpl = new LeagueImpl();
 	private TeamImpl teamImpl = new TeamImpl();
@@ -37,7 +37,6 @@ public class LigaMenu {
 	}
 
 	private void updateTableView() {
-		leagueTable.getItems().clear();
 		leagueDropdown.setOnAction(e -> {
 			loadTableView(leagueDropdown.getSelectionModel().getSelectedItem());
 		});
@@ -61,11 +60,10 @@ public class LigaMenu {
 	}
 
 	private void ligaButtonFunctionality(Stage stage) {
-		Menu menu = new Menu();
 		createLeagueBtn.setOnAction(e -> createLeague());
 		updateLeagueBtn.setOnAction(e -> updateLeague());
 		deleteLigaBtn.setOnAction(e -> deleteLeague());
-		backBtn.setOnAction(e -> menu.showMenu(stage));
+		backBtn.setOnAction(e -> new Menu(stage));
 		updateTeamBtn.setOnAction(e -> new UpdateTeam());
 		createTeamBtn.setOnAction(e -> new CreateTeam());
 	}
@@ -73,14 +71,13 @@ public class LigaMenu {
 	private void leagueDropDown() {
 		leagueDropdown.getItems().clear();
 		leagueDropdown.getItems().addAll(leagueImpl.getAllLeagues());
-		leagueDropdown.setPromptText("V�lg liga");
-
+		leagueDropdown.setPromptText("Vaelg liga");
 	}
 
 	private void createLeague() {
 		ChildLayout layout = new ChildLayout();
 		Label header = new Label("Opret ny liga");
-		Label guideLabel = new Label("Skriv venligst navnet p� den nye liga: ");
+		Label guideLabel = new Label("Skriv venligst navnet paa den nye liga: ");
 		TextField leagueNameField = new TextField();
 		leagueNameField.setPromptText("Liga navn");
 		Button addBtn = new Button("OK");
@@ -157,17 +154,19 @@ public class LigaMenu {
 		Stage stage = new Stage();
 		stage.setScene(scene);
 		stage.show();
+		leagues.setOnAction(e -> leagueNameField.setText(""));
 		addBtn.setOnAction(e -> {
 			if (validate.confirmChanges()) {
 				leagueImpl.updateLeague(leagues.getSelectionModel().getSelectedItem(), leagueNameField.getText());
 				stage.close();
+				leagueDropDown();
 			}
 		});
 		cancelBtn.setOnAction(e -> stage.close());
 	}
 
 	private void loadTableView(League league) {
-		leagueTable.getItems().clear();
+		leagueTable = new TableView<Team>();
 		ArrayList<TableColumn<Team, String>> columns = 
 				new ArrayList<TableColumn<Team, String>>();
 		leagueTable.setPrefHeight(640);

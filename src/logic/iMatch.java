@@ -12,4 +12,5 @@ public interface iMatch {
 	public void deleteMatch(Match ID);
 	public ArrayList<Match> getAllMatches(League league);
 	public ArrayList<Match> getAllMatches(int league);
+	public void updateMatch(Match match, int team1Goals, int team2Goals);
 }
