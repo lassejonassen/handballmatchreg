@@ -75,6 +75,7 @@ public class LigaMenu {
 	 * @tags $ { Everything league regarded }
 	 */
 	private void leagueDropDown() {
+		leagueDropdown.getItems().clear();
 		LeagueImpl leagueImpl = new LeagueImpl();
 		leagueDropdown.getItems().addAll(leagueImpl.getAllLeagues());
 		leagueDropdown.setPromptText("V�lg liga");
@@ -105,9 +106,11 @@ public class LigaMenu {
 				if (validate.confirmChanges()) {
 					leagueImpl.createLeague(new League(leagueNameField.getText()));
 					stage.close();
+					leagueDropDown();
 				}
 		});
 		cancelBtn.setOnAction(e -> stage.close());
+		
 	}
 
 	private void deleteLeague() {
@@ -133,6 +136,7 @@ public class LigaMenu {
 			if (validate.confirmChanges()) {
 				leagueImpl.deleteLeague(leagues.getSelectionModel().getSelectedItem());
 				stage.close();
+				leagueDropDown();
 			}
 		});
 		cancelBtn.setOnAction(e -> stage.close());
@@ -172,6 +176,7 @@ public class LigaMenu {
 	}
 
 	private void loadTableView(League league) {
+		leagueTable.getItems().clear();
 		TeamImpl teamImpl = new TeamImpl();
 		ArrayList<TableColumn<Team, String>> columns = new ArrayList<TableColumn<Team, String>>();
 		leagueTable.setPrefHeight(640);

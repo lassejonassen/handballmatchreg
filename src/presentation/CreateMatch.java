@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import logic.LeagueImpl;
 import logic.TeamImpl;
-import logic.iMatchImpl;
+import logic.MatchImpl;
 
 public class CreateMatch {
 
@@ -65,7 +65,7 @@ public class CreateMatch {
 	}
 
 	private void btnFunctionality() {
-		iMatchImpl matchImpl = new iMatchImpl();
+		MatchImpl matchImpl = new MatchImpl();
 		createMatchBtn.setOnAction(e -> {
 			matchImpl.createMatch(homeChoice.getSelectionModel().getSelectedItem(),
 					awayChoice.getSelectionModel().getSelectedItem(), id);

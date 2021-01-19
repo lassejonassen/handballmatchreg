@@ -8,15 +8,9 @@ public class League {
 		this.id = id;
 		this.name = name;
 	}
-	
-	public League(String name) {
-		this.name = name;
-	}
-	
-	public League() {
-		
-	}
-	
+	public League(String name) { this.name = name; }
+	public League() {}
+
 	public int getId() {
 		return id;
 	}
