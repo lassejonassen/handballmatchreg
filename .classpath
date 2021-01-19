@@ -6,14 +6,14 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Calle/git/handballmatchreg/archives/javafx.base.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Calle/git/handballmatchreg/archives/javafx.controls.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Calle/git/handballmatchreg/archives/javafx.fxml.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Calle/git/handballmatchreg/archives/javafx.graphics.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Calle/git/handballmatchreg/archives/javafx.media.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Calle/git/handballmatchreg/archives/javafx.swing.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Calle/git/handballmatchreg/archives/javafx.web.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Calle/git/handballmatchreg/archives/javafx-swt.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Calle/git/handballmatchreg/archives/mssql-jdbc-8.4.1.jre14.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lasjn/Projects/handballmatchreg/archives/javafx.base.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lasjn/Projects/handballmatchreg/archives/javafx.controls.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lasjn/Projects/handballmatchreg/archives/javafx.fxml.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lasjn/Projects/handballmatchreg/archives/javafx.graphics.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lasjn/Projects/handballmatchreg/archives/javafx.media.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lasjn/Projects/handballmatchreg/archives/javafx.swing.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lasjn/Projects/handballmatchreg/archives/javafx.web.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lasjn/Projects/handballmatchreg/archives/javafx-swt.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lasjn/Projects/handballmatchreg/archives/mssql-jdbc-8.4.1.jre14.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
