@@ -12,7 +12,7 @@ public class Menu
 	
 	
 	@SuppressWarnings("static-access")
-	public void showMenu(Stage stage)
+	public Menu(Stage stage)
 	{
 		Layout layout = new Layout();
 		layout.left.getChildren().addAll(showLigaBtn,showMatchBtn,btn4);

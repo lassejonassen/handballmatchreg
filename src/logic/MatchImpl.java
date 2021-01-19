@@ -38,4 +38,8 @@ public class MatchImpl implements iMatch {
 	public void getAllMatchesTest() {
 		dataLayer.getAllMatchesTest();
 	}
+	
+	public void updateMatch(Match match, int team1Goals, int team2Goals) {
+		dataLayer.updateMatch(match.getId(), team1Goals, team2Goals);
+	}
 }

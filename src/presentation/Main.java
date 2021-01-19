@@ -12,8 +12,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) throws Exception 
 	{
-		Menu menu = new Menu();
 		stage.setTitle("Midtvejs projekt");
-		menu.showMenu(stage);
+		new Menu(stage);
 	}
 }

@@ -16,11 +16,11 @@ public class UpdateTeam
 	private Scene scene;
 	private Stage window = new Stage();
 	
-	private ComboBox<League> leagueChoice = new ComboBox();
-	private ComboBox<Team> teamChoice = new ComboBox();
+	private ComboBox<League> leagueChoice = new ComboBox<League>();
+	private ComboBox<Team> teamChoice = new ComboBox<Team>();
 	
 	private TextField teamName = new TextField();
-	private ComboBox<League> updateTeamLeague = new ComboBox();
+	private ComboBox<League> updateTeamLeague = new ComboBox<League>();
 	
 	private Button confirmUpdateBtn = new Button("Opdater");
 	private Button cancelUpdateBtn = new Button("Annullere"); 
@@ -66,7 +66,11 @@ public class UpdateTeam
 	
 	private void teamChoiceSelection()
 	{
-		teamName.setText(teamChoice.getSelectionModel().getSelectedItem().getName());
+		if (teamName.getText().isEmpty())
+			teamName.setText("");
+		else
+			teamName.setText(teamChoice.getSelectionModel().getSelectedItem().getName());
+		updateTeamLeague.getItems().clear();
 		updateTeamLeague.getItems().addAll(leagueImpl.getAllLeagues());
 		updateTeamLeague.setValue(leagueImpl.getLeagueById(teamChoice.getSelectionModel().getSelectedItem().getLeagueId()));
 	}
@@ -87,7 +91,7 @@ public class UpdateTeam
 		leagueChoice.setOnAction(e -> teamAndLeagueChoice());
 		teamChoice.setOnAction(e -> teamChoiceSelection());
 		cancelUpdateBtn.setOnAction(e -> window.close());
-		confirmUpdateBtn.setOnAction(e -> updateConfirm());
+		confirmUpdateBtn.setOnAction(e -> updateConfirm());	
 	}
 	
 	private void updateConfirm()

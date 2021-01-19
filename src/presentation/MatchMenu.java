@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 import data.League;
 import data.Match;
-import data.Team;
 import logic.LeagueImpl;
-import logic.TeamImpl;
 import logic.MatchImpl;
 
 import javafx.scene.Scene;
@@ -30,10 +28,10 @@ public class MatchMenu {
 	private ComboBox<League> leagueDropdown = new ComboBox<League>();
 	
 	public MatchMenu(Stage stage) {
-		updateTableView();
 		matchBtnFunctionality(stage);
 		showMatchMenu(stage);
 		leagueDropDown();
+		updateTableView();
 		openMatchDetails();
 	}
 	
@@ -62,12 +60,10 @@ public class MatchMenu {
 	private void leagueDropDown() {
 		leagueDropdown.getItems().addAll(leagueImpl.getAllLeagues());
 		leagueDropdown.setPromptText("Vï¿½lg liga");
-
 	}
 	
 	private void matchBtnFunctionality(Stage stage) {
-		Menu menu = new Menu();
-		backBtn.setOnAction(e -> menu.showMenu(stage));
+		backBtn.setOnAction(e -> new Menu(stage));
 		createMatchBtn.setOnAction(e-> new CreateMatch());
 		deleteMatchBtn.setOnAction(e -> new DeleteMatch());
 	}
@@ -79,6 +75,7 @@ public class MatchMenu {
 	}
 	
 	private void loadTableView(League league) {
+		matchTable = new TableView<Match>();
 		matchTable.getItems().clear();
 		ArrayList<TableColumn<Match, String>> columns = new ArrayList<TableColumn<Match, String>>();
 		matchTable.setPrefHeight(640);
@@ -97,12 +94,11 @@ public class MatchMenu {
 		team1Goals.setPrefWidth(50);
 		team1Goals.setCellValueFactory(new PropertyValueFactory<>("team1Goals"));
 		columns.add(team1Goals);
-		
-		
 
-		TableColumn<Match, String> matchesWonColumn = new TableColumn<>("-");
-		matchesWonColumn.setPrefWidth(50);
-		matchesWonColumn.setCellValueFactory(new PropertyValueFactory<>("divider"));
+		TableColumn<Match, String> dividerColumn = new TableColumn<>("-");
+		dividerColumn.setPrefWidth(50);
+		dividerColumn.setCellValueFactory(new PropertyValueFactory<>("divider"));
+		columns.add(dividerColumn);
 		
 		TableColumn<Match, String> team2Goals = new TableColumn<>("M�L");
 		team2Goals.setPrefWidth(50);

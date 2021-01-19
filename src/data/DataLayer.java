@@ -254,12 +254,13 @@ public class DataLayer {
 		return matchList;
 	}
 	
-	public boolean updateMatch(int team1ID, int team2ID) {
+	public boolean updateMatch(int matchID, int team1Goals, int team2Goals) {
 		try {
-			String sql = "{call spUpdateMatch(?, ?)}";
+			String sql = "{call spUpdateMatch(?, ?, ?)}";
 			try (CallableStatement stmt = connection.prepareCall(sql)) {
-				stmt.setInt(1, team1ID);
-				stmt.setInt(2, team2ID);
+				stmt.setInt(1, matchID);
+				stmt.setInt(2, team1Goals);
+				stmt.setInt(3, team2Goals);
 				stmt.execute();
 			}
 			return true;
@@ -314,6 +315,13 @@ public class DataLayer {
 			return false;
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 	public ArrayList<Match> getAllMatchesTest() {
 		ArrayList<Match> matchList = new ArrayList<Match>();
