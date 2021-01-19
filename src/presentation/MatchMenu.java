@@ -59,7 +59,7 @@ public class MatchMenu {
 	
 	private void leagueDropDown() {
 		leagueDropdown.getItems().addAll(leagueImpl.getAllLeagues());
-		leagueDropdown.setPromptText("Vï¿½lg liga");
+		leagueDropdown.setPromptText("Vaelg liga");
 	}
 	
 	private void matchBtnFunctionality(Stage stage) {
@@ -112,7 +112,7 @@ public class MatchMenu {
 		
 		for (TableColumn<Match, String> tc : columns)
 			matchTable.getColumns().add(tc);
-		matchTable.getItems().addAll(matchImpl.getAllMatches(league));
+		matchTable.getItems().addAll(matchImpl.getMatchesByLeagueID(league));
 		
 		
 	}
