@@ -41,8 +41,8 @@ public class MatchReport
 		homeScored.setStyle("-fx-font-size: 4em;");
 		awayScored.setStyle("-fx-font-size: 4em;");
 		
-		homeTeamName.setText("" + match.getTeam1Id());
-		awayTeamName.setText("" + match.getTeam2Id());
+		homeTeamName.setText("" + match.getTeam1Name());
+		awayTeamName.setText("" + match.getTeam2Name());
 		homeScored.setText("" + match.getTeam1Goals());
 		awayScored.setText("" + match.getTeam2Goals());
 		

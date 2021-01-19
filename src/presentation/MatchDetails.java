@@ -91,8 +91,8 @@ public class MatchDetails
 	
 	private void matchTeamDetails(Match match)
 	{
-		homeTeamName.setText("" + match.getTeam1Id());
-		awayTeamName.setText("" + match.getTeam2Id());
+		homeTeamName.setText("" + match.getTeam1Name());
+		awayTeamName.setText("" + match.getTeam2Name());
 		homeScore.setText(""+ match.getTeam1Goals());
 		awayScore.setText("" + match.getTeam2Goals());	
 	}
@@ -104,7 +104,7 @@ public class MatchDetails
 			i++;
 			match.setTeam1Goals(i);
 			homeScore.setText("" + match.getTeam1Goals());
-			System.out.println(match.getTeam1Id() + " Mål: " + match.getTeam1Goals() + "Tid: " + timeSeconds);
+			System.out.println(match.getTeam1Name() + " Mål: " + match.getTeam1Goals() + "Tid: " + timeSeconds);
 		}else
 		{
 			System.out.println("Kamp over STAPH");

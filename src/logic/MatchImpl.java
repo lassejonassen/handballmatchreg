@@ -16,15 +16,15 @@ public class MatchImpl implements iMatch {
 	}
 	
 	public void createSuspension(Match match, Team team, String time) {
-		dataLayer.createSuspension(match.getId(), team.getId(), time);
+		dataLayer.createSuspension(match.getMatchID(), team.getId(), time);
 	}
 	
 	public void deleteSuspension(Match match, Team team, String time) {
-		dataLayer.deleteSuspension(match.getId(), team.getId(), time);
+		dataLayer.deleteSuspension(match.getMatchID(), team.getId(), time);
 	}
 	
 	public void deleteMatch(Match match) {
-		dataLayer.deleteMatch(match.getId());
+		dataLayer.deleteMatch(match.getMatchID());
 	}
 	
 	public ArrayList<Match> getMatchesByLeagueID(League league) {
@@ -37,6 +37,6 @@ public class MatchImpl implements iMatch {
 	}
 	
 	public void updateMatch(Match match, int team1Goals, int team2Goals) {
-		dataLayer.updateMatch(match.getId(), team1Goals, team2Goals);
+		dataLayer.updateMatch(match.getMatchID(), team1Goals, team2Goals);
 	}
 }
