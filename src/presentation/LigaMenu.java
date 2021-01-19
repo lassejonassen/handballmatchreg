@@ -2,11 +2,9 @@ package presentation;
 
 import logic.LeagueImpl;
 import logic.TeamImpl;
-
-import java.util.ArrayList;
-
 import data.League;
 import data.Team;
+import java.util.ArrayList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -21,14 +19,16 @@ public class LigaMenu {
 	private Button createLeagueBtn = new Button("Opret Liga");
 	private Button updateLeagueBtn = new Button("Opdater Liga");
 	private Button deleteLigaBtn = new Button("Slet Liga");
-	private ComboBox<League> leagueDropdown = new ComboBox<League>();
 	private Button backBtn = new Button("Tilbage");
 	private Button createTeamBtn = new Button("Opret hold");
 	private Button updateTeamBtn = new Button("Opdatere hold");
 	private Layout layout = new Layout();
 	private Validation validate = new Validation();
 	private TableView<Team> leagueTable = new TableView<>();
-
+	private ComboBox<League> leagueDropdown = new ComboBox<League>();
+	private LeagueImpl leagueImpl = new LeagueImpl();
+	private TeamImpl teamImpl = new TeamImpl();
+	
 	public LigaMenu(Stage stage) {
 		ligaButtonFunctionality(stage);
 		leagueDropDown();
@@ -37,6 +37,7 @@ public class LigaMenu {
 	}
 
 	private void updateTableView() {
+		leagueTable.getItems().clear();
 		leagueDropdown.setOnAction(e -> {
 			loadTableView(leagueDropdown.getSelectionModel().getSelectedItem());
 		});
@@ -69,21 +70,14 @@ public class LigaMenu {
 		createTeamBtn.setOnAction(e -> new CreateTeam());
 	}
 
-	/**
-	 * @author $ Lasse Jonassen
-	 *
-	 * @tags $ { Everything league regarded }
-	 */
 	private void leagueDropDown() {
 		leagueDropdown.getItems().clear();
-		LeagueImpl leagueImpl = new LeagueImpl();
 		leagueDropdown.getItems().addAll(leagueImpl.getAllLeagues());
 		leagueDropdown.setPromptText("V�lg liga");
 
 	}
 
 	private void createLeague() {
-		LeagueImpl leagueImpl = new LeagueImpl();
 		ChildLayout layout = new ChildLayout();
 		Label header = new Label("Opret ny liga");
 		Label guideLabel = new Label("Skriv venligst navnet p� den nye liga: ");
@@ -110,11 +104,9 @@ public class LigaMenu {
 				}
 		});
 		cancelBtn.setOnAction(e -> stage.close());
-		
 	}
 
 	private void deleteLeague() {
-		LeagueImpl leagueImpl = new LeagueImpl();
 		ChildLayout layout = new ChildLayout();
 		Label header = new Label("Slet en liga");
 		layout.childTop.getChildren().add(header);
@@ -143,7 +135,6 @@ public class LigaMenu {
 	}
 
 	private void updateLeague() {
-		LeagueImpl leagueImpl = new LeagueImpl();
 		ChildLayout layout = new ChildLayout();
 		Label header = new Label("Opdater en liga");
 		layout.childTop.getChildren().add(header);
@@ -177,8 +168,8 @@ public class LigaMenu {
 
 	private void loadTableView(League league) {
 		leagueTable.getItems().clear();
-		TeamImpl teamImpl = new TeamImpl();
-		ArrayList<TableColumn<Team, String>> columns = new ArrayList<TableColumn<Team, String>>();
+		ArrayList<TableColumn<Team, String>> columns = 
+				new ArrayList<TableColumn<Team, String>>();
 		leagueTable.setPrefHeight(640);
 
 		TableColumn<Team, String> nameColumn = new TableColumn<>("NAME");
