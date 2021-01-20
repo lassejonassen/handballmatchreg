@@ -73,10 +73,6 @@ public class MatchMenu {
 		ArrayList<TableColumn<Match, String>> columns = 
 				new ArrayList<TableColumn<Match, String>>();
 		
-		TableColumn<Match, String> matchIDColumn = new TableColumn<Match, String>("ID");
-		matchIDColumn.setCellValueFactory(new PropertyValueFactory<>("matchID"));
-		columns.add(matchIDColumn);
-		
 		TableColumn<Match, String> team1NameColumn = new TableColumn<Match, String>("HOLDNAVN");
 		team1NameColumn.setCellValueFactory(new PropertyValueFactory<>("team1Name"));
 		columns.add(team1NameColumn);

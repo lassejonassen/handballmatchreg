@@ -97,7 +97,6 @@ public class MatchDetails
 		childLayout.childCenter.add(awayTeamSuspension, 3, 2);
 		childLayout.childCenter.add(awayTeamScored, 4, 2);
 		childLayout.childCenter.add(matchReportBtn, 2, 3);
-		childLayout.childCenter.add(deleteSuspensionAwayBtn, 3, 3);
 		childLayout.childCenter.add(deleteSuspensionHomeBtn, 1, 3);
 		childLayout.childCenter.add(showSuspensionsHomeBtn, 0, 4);
 		childLayout.childCenter.add(deleteSuspensionAwayBtn, 3, 4);
@@ -201,17 +200,12 @@ public class MatchDetails
 		suspensionImpl.delete(match, teamId, suspensionID);
 	}
 	
-	private void showSuspensionsHome(Match match, int teamID, int suspensionID, String time) { 
+	private void showSuspensionsHome(Match match, int teamID, int suspensionID, int time) { 
 		teamID = match.getTeam1Id();
-		time = timeSeconds.toString();
 	}
 
-	private void showSuspensionsAway(Match match, int teamId, int suspensionID, String time) { 
+	private void showSuspensionsAway(Match match, int teamId, int suspensionID, int time) { 
 		teamId = match.getTeam2Id();
-		time = timeSeconds.toString();
-		
-		Suspension suspension = new Suspension();
-		
 	}
 	
 	private void detailBtnFunctionality(Match match)

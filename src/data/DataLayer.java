@@ -1,4 +1,5 @@
 package data;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -37,12 +38,12 @@ public class DataLayer {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * @About League
 	 * @tags {Create, Read, Update, Delete}
 	 * @author Lasse Jonassen
-	 * @created 11/01/2021 - 13/01/2021 
+	 * @created 11/01/2021 - 13/01/2021
 	 */
 	public boolean createLeague(String leagueName) {
 		try {
@@ -57,7 +58,7 @@ public class DataLayer {
 			return false;
 		}
 	}
-	
+
 	public ArrayList<League> getAllLeagues() {
 		ArrayList<League> leagueList = new ArrayList<League>();
 		String sql = "{call spGetAllLeagues}";
@@ -75,7 +76,7 @@ public class DataLayer {
 		}
 		return leagueList;
 	}
-	
+
 	public League getLeagueById(int id) {
 		ArrayList<League> leagues = new ArrayList<League>();
 		String sql = "{call spGetLeagueById(?)}";
@@ -105,7 +106,7 @@ public class DataLayer {
 			e.printStackTrace();
 			return false;
 		}
-		
+
 	}
 
 	public boolean deleteLeague(int id) {
@@ -119,12 +120,12 @@ public class DataLayer {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * @About Team
 	 * @tags {Create, Read, Update, Delete}
 	 * @author Lucas Elley & Lasse Jonassen
-	 * @created 11/01/2021 - 13/01/2021 
+	 * @created 11/01/2021 - 13/01/2021
 	 */
 	public boolean createTeam(String name, int ligaId) {
 		try {
@@ -140,7 +141,7 @@ public class DataLayer {
 			return false;
 		}
 	}
-	
+
 	public ArrayList<Team> getAllTeams(int ligaId) {
 		ArrayList<Team> teamList = new ArrayList<>();
 		String sql = "{call spGetAllTeams(?)}";
@@ -175,17 +176,18 @@ public class DataLayer {
 			e.printStackTrace();
 			System.out.println("Couldnt find any teams.");
 		}
-		
+
 		return teamList;
 	}
-	
+
 	public Team getOneTeam(int teamId) {
-		ArrayList<Team> team = new ArrayList<Team>();
+		ArrayList<Team> teamList = new ArrayList<Team>();
 		String sql = "{call spGetOneTeam(?)}";
 		try (CallableStatement stmt = connection.prepareCall(sql)) {
 			stmt.setInt(1, teamId);
 			ResultSet resultSet = stmt.executeQuery();
 			while (resultSet.next()) {
+				Team team = new Team();
 				int id = resultSet.getInt("id");
 				String name = resultSet.getString("team_name");
 				int matchesTotal = resultSet.getInt("matches_total");
@@ -196,16 +198,26 @@ public class DataLayer {
 				int goalsIn = resultSet.getInt("goals_in");
 				int points = resultSet.getInt("points");
 				int leagueId = resultSet.getInt("league_id");
-				team.add(new Team(id, name, matchesTotal, matchesWon,
-						matchesLost, matchesDraw, goals, goalsIn, points, leagueId));
+				team.setId(id);
+				team.setName(name);
+				team.setMatchesTotal(matchesTotal);
+				team.setMatchesWon(matchesWon);
+				team.setMatchesLost(matchesLost);
+				team.setMatchesDraw(matchesDraw);
+				team.setGoals(goals);
+				team.setGoalsIn(goalsIn);
+				team.setPoints(points);
+				team.setLeagueId(leagueId);
+				teamList.add(team);
+				System.out.println(teamList);
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			System.out.println("Der kunne ikke findes et hold.");
 		}
-		return team.get(0);
+		return teamList.get(0);
 	}
-	
+
 	public boolean updateTeam(int id, String newName, int idOther) {
 		try {
 			String sql = "{call spUpdateTeam(?, ?, ?)}";
@@ -222,7 +234,7 @@ public class DataLayer {
 			return false;
 		}
 	}
-	
+
 	public boolean updateTeamScore(Team team) {
 		String sql = "{call spUpdateTeamScore(?, ?, ?, ?, ?, ?, ?, ?)}";
 		try (CallableStatement stmt = connection.prepareCall(sql)) {
@@ -241,11 +253,11 @@ public class DataLayer {
 			return false;
 		}
 	}
-	
+
 	public boolean deleteTeam(int teamId) {
 		String sql = "{call spDeleteTeam(?)}";
 		try (CallableStatement stmt = connection.prepareCall(sql)) {
-			stmt.setInt(1,  teamId);
+			stmt.setInt(1, teamId);
 			stmt.execute();
 			return true;
 		} catch (SQLException e) {
@@ -253,10 +265,7 @@ public class DataLayer {
 			return false;
 		}
 	}
-	
-	
-	
-	
+
 	/**
 	 * @About Match
 	 * @tags {Create, Read, Update, Delete}
@@ -278,28 +287,30 @@ public class DataLayer {
 			return false;
 		}
 	}
-	
+
 	public ArrayList<Match> getAllMatchesByLeagueID(int leagueID) {
 		ArrayList<Match> matchList = new ArrayList<>();
 		String sql = "{call spGetMatchesByLeagueID(?)}";
 		try (CallableStatement stmt = connection.prepareCall(sql)) {
 			stmt.setInt(1, leagueID);
 			ResultSet matches = stmt.executeQuery();
-			while(matches.next()) {
+			while (matches.next()) {
 				int id = matches.getInt("ID");
 				String team1Name = matches.getString("HOLDNAVN_H");
 				int team1Goals = matches.getInt("MAAL_H");
 				int team2Goals = matches.getInt("MAAL_U");
 				String team2Name = matches.getString("HOLDNAVN_U");
-				matchList.add(new Match(id, team1Goals, team2Goals, team1Name, team2Name));
-			} 
+				int team1Id = matches.getInt("TEAM1ID");
+				int team2Id = matches.getInt("TEAM2ID");
+				matchList.add(new Match(id, team1Goals, team2Goals, team1Name, team2Name, team1Id, team2Id));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Couldnt find any matches.");
 		}
 		return matchList;
 	}
-	
+
 	public boolean updateMatch(int matchID, int team1Goals, int team2Goals) {
 		try {
 			String sql = "{call spUpdateMatch(?, ?, ?)}";
@@ -315,7 +326,7 @@ public class DataLayer {
 			return false;
 		}
 	}
-	
+
 	public boolean deleteMatch(int ID) {
 		try {
 			String sql = "{call spDeleteMatch(?)}";
@@ -329,11 +340,11 @@ public class DataLayer {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * @About Suspension
 	 * @tags {Create, delete}
-	 * @author 
+	 * @author
 	 * @created 15/01/2021
 	 */
 	public boolean createSuspension(int matchId, int teamId, int matchTime) {
@@ -351,7 +362,7 @@ public class DataLayer {
 			return false;
 		}
 	}
-	
+
 	public boolean deleteSuspension(int matchId, int teamId, int suspensionID) {
 		try {
 			String sql = "{call spDeleteSuspension(?, ? ,?)}";
@@ -367,14 +378,14 @@ public class DataLayer {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * @About Goal
 	 * @tags {Create}
-	 * @author 
+	 * @author
 	 * @created 20/01/2021
 	 */
-	
+
 	public boolean createGoal(int matchId, int timeStamp, int teamId) {
 		String sql = "{call spCreateGoal(?, ?, ?)}";
 		try (CallableStatement stmt = connection.prepareCall(sql)) {
