@@ -189,11 +189,15 @@ public class MatchDetails
 	private void createSuspensionAway(Match match, int teamId, int time) {
 		teamId = match.getTeam2Id();
 <<<<<<< HEAD
+<<<<<<< HEAD
 //		matchImpl.createSuspension(match, teamId, time);
 		suspensionList.add(new Suspension(match.getMatchID(), time, teamId));
 =======
 		suspensionImpl.create(match, teamId, time);
 >>>>>>> 593495ff98286b0276472b66536842a8764c5e1b
+=======
+		suspensionImpl.create(match, teamId, time);
+>>>>>>> 810b9bb3e39186e713a0dbaa52abf65e5a419ad7
 	}
 	
 	private void deleteSuspensionHome(Match match, int teamId, int suspensionID) {
