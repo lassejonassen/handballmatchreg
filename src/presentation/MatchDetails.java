@@ -33,6 +33,8 @@ public class MatchDetails
 	private Button matchReportBtn = new Button("Kamp rapport");
 	private Button deleteSuspensionAwayBtn = new Button("Fjern Udvisning - Ude");
 	private Button deleteSuspensionHomeBtn = new Button("Fjern Udvisning - Hjemme");
+	private Button showSuspensionsHomeBtn = new Button("Vis udvisninger - Hjemme");
+	private Button showSuspensionsAwayBtn = new Button("Vis udvisninger - Ude");
 	
 	private int STARTTIME = 0;
 	private Timeline timeline;
@@ -66,7 +68,6 @@ public class MatchDetails
 	private ArrayList<Goal> goalList = new ArrayList<Goal>();
 	private ArrayList<Suspension> suspensionList = new ArrayList<Suspension>();
 	
-	
 	public MatchDetails(Match match)
 	{
 		showMatchDetails(match);
@@ -98,6 +99,8 @@ public class MatchDetails
 		childLayout.childCenter.add(matchReportBtn, 2, 3);
 		childLayout.childCenter.add(deleteSuspensionAwayBtn, 3, 3);
 		childLayout.childCenter.add(deleteSuspensionHomeBtn, 1, 3);
+		childLayout.childCenter.add(showSuspensionsHomeBtn, 0, 4);
+		childLayout.childCenter.add(deleteSuspensionAwayBtn, 3, 4);
 
 		timerLabel.setText("" + timeSeconds);
 		timerLabel.setStyle("-fx-font-size: 4em;");
@@ -198,15 +201,30 @@ public class MatchDetails
 		suspensionImpl.delete(match, teamId, suspensionID);
 	}
 	
+	private void showSuspensionsHome(Match match, int teamID, int suspensionID, String time) { 
+		teamID = match.getTeam1Id();
+		time = timeSeconds.toString();
+	}
+
+	private void showSuspensionsAway(Match match, int teamId, int suspensionID, String time) { 
+		teamId = match.getTeam2Id();
+		time = timeSeconds.toString();
+		
+		Suspension suspension = new Suspension();
+		
+	}
+	
 	private void detailBtnFunctionality(Match match)
 	{
 		homeTeamScored.setOnAction(e -> homeTeamScoreUpdate(match));
 		awayTeamScored.setOnAction(e -> awayTeamScoreUpdate(match));
 		matchReportBtn.setOnAction(e -> new MatchReport(match));
-		homeTeamSuspension.setOnAction(e -> createSuspensionHome(match, teamId, time));
-		awayTeamSuspension.setOnAction(e -> createSuspensionAway(match, teamId, time));
-		deleteSuspensionHomeBtn.setOnAction(e -> deleteSuspensionHome(match, teamId, suspensionID));
-		deleteSuspensionAwayBtn.setOnAction(e -> deleteSuspensionAway(match, teamId, suspensionID));
+		homeTeamSuspension.setOnAction(e -> createSuspensionHome(match, teamID, time));
+		awayTeamSuspension.setOnAction(e -> createSuspensionAway(match, teamID, time));
+		deleteSuspensionHomeBtn.setOnAction(e -> deleteSuspensionHome(match, teamID, suspensionID));
+		deleteSuspensionAwayBtn.setOnAction(e -> deleteSuspensionAway(match, teamID, suspensionID));
+		showSuspensionsHomeBtn.setOnAction(e -> showSuspensionsHome(match, teamID, suspensionID, time));
+		showSuspensionsAwayBtn.setOnAction(e -> showSuspensionsAway(match, teamID, suspensionID, time));
 	}
 
 }
