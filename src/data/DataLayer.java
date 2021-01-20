@@ -178,6 +178,33 @@ public class DataLayer {
 		return teamList;
 	}
 	
+	public Team getOneTeam(int teamId) {
+		ArrayList<Team> team = new ArrayList<Team>();
+		String sql = "{call spGetOneTeam(?)}";
+		try (CallableStatement stmt = connection.prepareCall(sql)) {
+			stmt.setInt(1, teamId);
+			ResultSet resultSet = stmt.executeQuery();
+			while (resultSet.next()) {
+				int id = resultSet.getInt("id");
+				String name = resultSet.getString("team_name");
+				int matchesTotal = resultSet.getInt("matches_total");
+				int matchesWon = resultSet.getInt("matches_won");
+				int matchesLost = resultSet.getInt("matches_lost");
+				int matchesDraw = resultSet.getInt("matches_draw");
+				int goals = resultSet.getInt("goals");
+				int goalsIn = resultSet.getInt("goals_in");
+				int points = resultSet.getInt("points");
+				int leagueId = resultSet.getInt("league_id");
+				team.add(new Team(id, name, matchesTotal, matchesWon,
+						matchesLost, matchesDraw, goals, goalsIn, points, leagueId));
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			System.out.println("Der kunne ikke findes et hold.");
+		}
+		return team.get(0);
+	}
+	
 	public boolean updateTeam(int id, String newName, int idOther) {
 		try {
 			String sql = "{call spUpdateTeam(?, ?, ?)}";
@@ -191,6 +218,25 @@ public class DataLayer {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("fejl");
+			return false;
+		}
+	}
+	
+	public boolean updateTeamScore(Team team) {
+		String sql = "{call spUpdateTeamScore(?, ?, ?, ?, ?, ?, ?, ?)}";
+		try (CallableStatement stmt = connection.prepareCall(sql)) {
+			stmt.setInt(1, team.getId());
+			stmt.setInt(2, team.getMatchesTotal());
+			stmt.setInt(3, team.getMatchesWon());
+			stmt.setInt(4, team.getMatchesLost());
+			stmt.setInt(5, team.getMatchesDraw());
+			stmt.setInt(6, team.getGoals());
+			stmt.setInt(7, team.getGoalsIn());
+			stmt.setInt(8, team.getPoints());
+			stmt.execute();
+			return true;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
 			return false;
 		}
 	}
@@ -289,13 +335,13 @@ public class DataLayer {
 	 * @author 
 	 * @created 15/01/2021
 	 */
-	public boolean createSuspension(int matchId, int teamId, String matchTime) {
+	public boolean createSuspension(int matchId, int teamId, int matchTime) {
 		try {
 			String sql = "{call spCreateSuspension(?, ? ,?)}";
 			try (CallableStatement stmt = connection.prepareCall(sql)) {
 				stmt.setInt(1, matchId);
 				stmt.setInt(2, teamId);
-				stmt.setString(3, matchTime);
+				stmt.setInt(3, matchTime);
 				stmt.execute();
 			}
 			return true;
@@ -317,6 +363,27 @@ public class DataLayer {
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	/**
+	 * @About Goal
+	 * @tags {Create}
+	 * @author 
+	 * @created 20/01/2021
+	 */
+	
+	public boolean createGoal(int matchId, int timeStamp, int teamId) {
+		String sql = "{call spCreateGoal(?, ?, ?)}";
+		try (CallableStatement stmt = connection.prepareCall(sql)) {
+			stmt.setInt(1, matchId);
+			stmt.setInt(2, timeStamp);
+			stmt.setInt(3, teamId);
+			stmt.execute();
+			return true;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
 			return false;
 		}
 	}
