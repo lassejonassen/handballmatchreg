@@ -10,12 +10,14 @@ public class Match {
 	private int team2Goals;
 	private String divider = "-";
 	
-	public Match(int id, int team1Goals, int team2Goals, String team1Name, String team2Name) {
+	public Match(int id, int team1Goals, int team2Goals, String team1Name, String team2Name, int team1Id, int team2Id) {
 		this.matchID = id;
 		this.team1Goals = team1Goals;
 		this.team2Goals = team2Goals;
 		this.team1Name = team1Name;
 		this.team2Name = team2Name;
+		this.team1Id = team1Id;
+		this.team2Id = team2Id;
 	}
 	public Match() {}
 	
