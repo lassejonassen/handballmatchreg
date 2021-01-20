@@ -1,0 +1,8 @@
+USE [HbmrDb];
+GO
+CREATE PROCEDURE spGetAllLeagues
+AS
+BEGIN
+	SELECT * FROM League
+END
+GO

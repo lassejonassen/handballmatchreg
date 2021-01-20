@@ -19,19 +19,40 @@ public class MatchImpl implements iMatch {
 		return dataLayer.getAllMatchesByLeagueID(league.getId());
 	}
 	
-	public void updateMatch(Match match, int team1Goals, int team2Goals) {
-		dataLayer.updateMatch(match.getMatchID(), team1Goals, team2Goals);
+	public void updateMatch(Match match) {
+		dataLayer.updateMatch(match.getMatchID(), match.getTeam1Goals(), match.getTeam2Goals());
+		Team team = dataLayer.getOneTeam(match.getTeam1Id());
+		Team team2 = dataLayer.getOneTeam(match.getTeam2Id());
+		team.setMatchesTotal(team.getMatchesTotal() + 1);
+		team2.setMatchesTotal(team2.getMatchesTotal() + 1);
+		team.setGoals(match.getTeam1Goals());
+		team.setGoalsIn(match.getTeam2Goals());
+		team2.setGoals(match.getTeam2Goals());
+		team2.setGoalsIn(match.getTeam1Goals());
+		
+		if (match.getTeam1Goals() >  match.getTeam2Goals()) {
+			team.setMatchesWon(team.getMatchesWon() + 1);
+			team2.setMatchesLost(team2.getMatchesLost() + 1);
+			team.setPoints(team.getPoints() + 2);
+			team2.setPoints(team2.getPoints() + 0);
+		} else if (match.getTeam1Goals() <  match.getTeam2Goals()) {
+			team.setMatchesLost(team.getMatchesLost() + 1);
+			team2.setMatchesWon(team2.getMatchesWon() + 1);
+			team.setPoints(team.getPoints() + 0);
+			team2.setPoints(team2.getPoints() + 2);
+		} else if (match.getTeam1Goals() == match.getTeam2Goals()) {
+			team.setMatchesDraw(team.getMatchesDraw() +1);
+			team2.setMatchesDraw(team2.getMatchesDraw() +1);
+			team.setPoints(team.getPoints() + 1);
+			team2.setPoints(team2.getPoints() + 1);
+		}
+		System.out.println(team);
+		System.out.println(team2);
+//		dataLayer.updateTeamScore(team);
+//		dataLayer.updateTeamScore(team2);
 	}
 	
 	public void deleteMatch(Match match) {
 		dataLayer.deleteMatch(match.getMatchID());
-	}
-	
-	public void createSuspension(Match match, int teamId, String time) {
-		dataLayer.createSuspension(match.getMatchID(), teamId, time);
-	}
-	
-	public void deleteSuspension(Match match, int teamId, int suspensionID) {
-		dataLayer.deleteSuspension(match.getMatchID(), teamId, suspensionID);
 	}
 }

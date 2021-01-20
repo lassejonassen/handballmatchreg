@@ -2,6 +2,7 @@ package presentation;
 
 import java.util.ArrayList;
 
+import data.Goal;
 import data.Match;
 import data.Suspension;
 import data.Team;
@@ -19,7 +20,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import logic.GoalImpl;
 import logic.MatchImpl;
+import logic.SuspensionImpl;
 
 public class MatchDetails 
 {
@@ -33,10 +36,10 @@ public class MatchDetails
 	private Button showSuspensionsHomeBtn = new Button("Vis udvisninger - Hjemme");
 	private Button showSuspensionsAwayBtn = new Button("Vis udvisninger - Ude");
 	
-	private Integer STARTTIME = 0;
+	private int STARTTIME = 0;
 	private Timeline timeline;
 	private Label timerLabel = new Label();
-	private Integer timeSeconds = STARTTIME;
+	private int timeSeconds = STARTTIME;
 	private int gameLength = 5;
 	
 	private Label homeTeamName = new Label();
@@ -55,11 +58,15 @@ public class MatchDetails
 	
 	private ChildLayout childLayout = new ChildLayout();
 	private MatchImpl matchImpl = new MatchImpl();
+	private SuspensionImpl suspensionImpl = new SuspensionImpl();
+	private GoalImpl goalImpl = new GoalImpl();
+	
 	private int teamID;
 	private int suspensionID;
 	private String time;
 	
-	private ArrayList suspensionList = new ArrayList<>();
+	private ArrayList<Goal> goalList = new ArrayList<Goal>();
+	private ArrayList<Suspension> suspensionList = new ArrayList<Suspension>();
 	
 	public MatchDetails(Match match)
 	{
@@ -95,7 +102,7 @@ public class MatchDetails
 		childLayout.childCenter.add(showSuspensionsHomeBtn, 0, 4);
 		childLayout.childCenter.add(deleteSuspensionAwayBtn, 3, 4);
 
-		timerLabel.setText(timeSeconds.toString());
+		timerLabel.setText("" + timeSeconds);
 		timerLabel.setStyle("-fx-font-size: 4em;");
 		GridPane.setHalignment(timerLabel, HPos.CENTER);
 		
@@ -118,10 +125,11 @@ public class MatchDetails
 	{ 
 		if(timeSeconds < gameLength)
 		{
+			goalImpl.create(match, match.getTeam1Id(), timeSeconds);
 			i++;
 			match.setTeam1Goals(i);
 			homeScore.setText("" + match.getTeam1Goals());
-			System.out.println(match.getTeam1Name() + " Mål: " + match.getTeam1Goals() + "Tid: " + timeSeconds);
+			System.out.println(match.getTeam1Name() + " MÃ¥l: " + match.getTeam1Goals() + "Tid: " + timeSeconds);
 		}else
 		{
 			System.out.println("Kamp over STAPH");
@@ -131,6 +139,7 @@ public class MatchDetails
 	{ 
 		if(timeSeconds < gameLength)
 		{
+			goalImpl.create(match, match.getTeam2Id(), timeSeconds);
 			j++;
 			match.setTeam2Goals(j);
 			awayScore.setText("" + match.getTeam2Goals());
@@ -144,16 +153,16 @@ public class MatchDetails
 	{
 		team1Goals = match.getTeam1Goals();
 		team2Goals = match.getTeam2Goals();
-		System.out.println("Hold 1s mål: " + team1Goals);
-		System.out.println("Hold 2s mål: " + team2Goals);
-//		matchImpl.updateMatch(match, team1Goals, team2Goals);
+		System.out.println("Hold 1s mÃ¥l: " + team1Goals);
+		System.out.println("Hold 2s mÃ¥l: " + team2Goals);
+		matchImpl.updateMatch(match);
 	}
 	
 	@SuppressWarnings("unchecked")
 	private void timerLabelUpdate(Match match)
 	{
 		timeSeconds = STARTTIME;
-		timerLabel.setText(timeSeconds.toString());
+		timerLabel.setText("" + timeSeconds);
 		timeline = new Timeline();
 		timeline.setCycleCount(Timeline.INDEFINITE);
 		timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler() 
@@ -161,7 +170,7 @@ public class MatchDetails
 			@Override
 			public void handle(Event arg0) {
 				timeSeconds++;
-				timerLabel.setText(timeSeconds.toString());
+				timerLabel.setText("" + timeSeconds);
 				if(timeSeconds == gameLength)
 				{
 					timeline.stop();
@@ -172,28 +181,24 @@ public class MatchDetails
 		timeline.playFromStart();
 	}
 	
-	private void createSuspensionHome(Match match, int teamId, String time) {
+	private void createSuspensionHome(Match match, int teamId, int time) {
 		teamId = match.getTeam1Id();
-		matchImpl.createSuspension(match, teamId, time);
-		
-		suspensionList.add(match.getTeam1Id());
+		suspensionImpl.create(match, teamId, time);
 	}
 	
-	private void createSuspensionAway(Match match, int teamId, String time) {
+	private void createSuspensionAway(Match match, int teamId, int time) {
 		teamId = match.getTeam2Id();
-		matchImpl.createSuspension(match, teamId, time);
-		
-		suspensionList.add(match.getTeam2Id());
+		suspensionImpl.create(match, teamId, time);
 	}
 	
 	private void deleteSuspensionHome(Match match, int teamId, int suspensionID) {
 		teamId = match.getTeam1Id();
-		matchImpl.deleteSuspension(match, teamId, suspensionID);
+		suspensionImpl.delete(match, teamId, suspensionID);
 	}
 	
 	private void deleteSuspensionAway(Match match, int teamId, int suspensionID) {
 		teamId = match.getTeam2Id();
-		matchImpl.deleteSuspension(match, teamId, suspensionID);
+		suspensionImpl.delete(match, teamId, suspensionID);
 	}
 	
 	private void showSuspensionsHome(Match match, int teamID, int suspensionID, String time) { 

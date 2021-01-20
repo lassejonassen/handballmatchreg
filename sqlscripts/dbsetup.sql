@@ -56,13 +56,26 @@ CREATE TABLE TMatch (
 CREATE TABLE Suspension (
 	id INT IDENTITY (10000, 1) NOT NULL,
 	match_id INT NOT NULL,
-	match_time nvarchar(10) NOT NULL,
+	match_time INT NOT NULL,
 	team_id INT NOT NULL,
 	
 	PRIMARY KEY (id),
 	CONSTRAINT Suspension_Match_Relation FOREIGN KEY (match_id) 
 	REFERENCES TMatch(id) ON DELETE CASCADE,
 	CONSTRAINT Suspension_Team_Relation FOREIGN KEY (team_id) 
+	REFERENCES Team(id) ON DELETE CASCADE
+);
+
+CREATE TABLE Goal (
+	id INT IDENTITY(100000, 1) NOT NULL,
+	match_id INT NOT NULL,
+	match_time INT NOT NULL,
+	team_id INT NOT NULL,
+
+	PRIMARY KEY (id),
+	CONSTRAINT Goal_Match_Relation FOREIGN KEY (match_id)
+	REFERENCES TMatch(id) ON DELETE CASCADE,
+	CONSTRAINT Goal_Team_Relation FOREIGN KEY (team_id)
 	REFERENCES Team(id) ON DELETE CASCADE
 );
 
