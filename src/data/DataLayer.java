@@ -241,8 +241,8 @@ public class DataLayer {
 			while(matches.next()) {
 				int id = matches.getInt("ID");
 				String team1Name = matches.getString("HOLDNAVN_H");
-				int team1Goals = matches.getInt("MÅL_H");
-				int team2Goals = matches.getInt("MÅL_U");
+				int team1Goals = matches.getInt("MAAL_H");
+				int team2Goals = matches.getInt("MAAL_U");
 				String team2Name = matches.getString("HOLDNAVN_U");
 				matchList.add(new Match(id, team1Goals, team2Goals, team1Name, team2Name));
 			} 
