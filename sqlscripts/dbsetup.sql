@@ -56,7 +56,7 @@ CREATE TABLE TMatch (
 CREATE TABLE Suspension (
 	id INT IDENTITY (10000, 1) NOT NULL,
 	match_id INT NOT NULL,
-	match_time nvarchar(10) NOT NULL,
+	match_time INT NOT NULL,
 	team_id INT NOT NULL,
 	
 	PRIMARY KEY (id),
@@ -69,7 +69,7 @@ CREATE TABLE Suspension (
 CREATE TABLE Goal (
 	id INT IDENTITY(100000, 1) NOT NULL,
 	match_id INT NOT NULL,
-	match_time nvarchar(10) NOT NULL,
+	match_time INT NOT NULL,
 	team_id INT NOT NULL,
 
 	PRIMARY KEY (id),
