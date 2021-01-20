@@ -12,9 +12,25 @@ public class Team {
 	private int points;
 	private int leagueId;
 	
+	public Team(int id, String name, int matchesTotal,int matchesWon, int matchesLost, int matchesDraw,
+			int goals, int goalsIn, int points, int leagueId) {
+		this.id = id;
+		this.name = name;
+		this.matchesTotal = matchesTotal;
+		this.matchesWon = matchesWon;
+		this.matchesLost = matchesLost;
+		this.matchesDraw = matchesDraw;
+		this.goals = goals;
+		this.goalsIn = goals;
+		this.points = points;
+		this.leagueId = leagueId;
+	}
+  
+	public Team (String name) { this.name = name; }
 	public Team (String name) { 
 		this.name = name; 
-		}
+	}
+  
 	public Team() {}
 	
 	public int getId() {
@@ -77,9 +93,12 @@ public class Team {
 	public void setLeagueId(int leagueId) {
 		this.leagueId = leagueId;
 	}
-
 	@Override
 	public String toString() {
-		return id + " " + name;
+		return "Team [id=" + id + ", name=" + name + ", matchesTotal=" + matchesTotal + ", matchesWon=" + matchesWon
+				+ ", matchesLost=" + matchesLost + ", matchesDraw=" + matchesDraw + ", goals=" + goals + ", goalsIn="
+				+ goalsIn + ", points=" + points + ", leagueId=" + leagueId + "]";
 	}
+
+	
 }
