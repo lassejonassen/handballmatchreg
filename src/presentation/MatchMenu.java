@@ -25,10 +25,7 @@ public class MatchMenu {
 	private Button updateMatchBtn = new Button("Opdater Kamp");
 	private Button backBtn = new Button("Tilbage");
 	private Layout layout = new Layout();
-	private TableView<Match> matchTable = new TableView<>();
 	private ComboBox<League> leagueDropdown = new ComboBox<League>();
-	
-	
 	private TableView<Match> tableViewMatches = new TableView<Match>();
 	
 	public MatchMenu(Stage stage) {
@@ -36,7 +33,6 @@ public class MatchMenu {
 		showMatchMenu(stage);
 		leagueDropDown();
 		updateTableView();
-		openMatchDetails();
 	}
 	
 	@SuppressWarnings("static-access")
@@ -70,12 +66,6 @@ public class MatchMenu {
 		backBtn.setOnAction(e -> new Menu(stage));
 		createMatchBtn.setOnAction(e-> new CreateMatch());
 		deleteMatchBtn.setOnAction(e -> new DeleteMatch());
-	}
-	
-	private void updateMatch() {
-		ChildLayout layout = new ChildLayout();
-		Label header = new Label("Opdater Kamp");
-		layout.childTop.getChildren().add(header); 
 	}
 	
 	private void loadTableView(League league) {
@@ -114,13 +104,12 @@ public class MatchMenu {
 		matchList.addAll(matchImpl.getMatchesByLeagueID(league));
 		tableViewMatches.getItems().addAll(matchList);
 		layout.root.setCenter(tableViewMatches);
-	}
-	
-	private void openMatchDetails() {
-		matchTable.setOnMouseClicked(event -> {
-		    if (matchTable.getSelectionModel().getSelectedItem() != null) {
-		        new MatchDetails(matchTable.getSelectionModel().getSelectedItem());
-		    }
+		
+		tableViewMatches.setOnMouseClicked(e -> {
+			System.out.println("halp");
+			if(tableViewMatches.getSelectionModel().getSelectedItem() != null) {
+				new MatchDetails(tableViewMatches.getSelectionModel().getSelectedItem());
+			}
 		});
 	}
 }

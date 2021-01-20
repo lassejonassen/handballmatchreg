@@ -7,7 +7,7 @@ import javafx.scene.layout.*;
 public class ChildLayout 
 {
 	protected BorderPane childRoot = new BorderPane();
-	protected HBox childTop = new HBox();
+	protected GridPane childTop = new GridPane();
 	protected HBox childBottom = new HBox();
 	protected GridPane childCenter = new GridPane();
 	protected VBox childLeft = new VBox();

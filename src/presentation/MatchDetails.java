@@ -63,7 +63,7 @@ public class MatchDetails
 	
 	private int teamID;
 	private int suspensionID;
-	private String time;
+	private int time;
 	
 	private ArrayList<Goal> goalList = new ArrayList<Goal>();
 	private ArrayList<Suspension> suspensionList = new ArrayList<Suspension>();
