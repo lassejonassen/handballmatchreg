@@ -19,8 +19,8 @@ public class DeleteMatch {
 	private int id = 0;
 	private Button deleteMatchBtn = new Button ("Slet Kamp");
 	
-	private ComboBox<Match> matchChoice = new ComboBox();
-	private ComboBox<League> ligaChoice = new ComboBox();
+	private ComboBox<Match> matchChoice = new ComboBox<Match>();
+	private ComboBox<League> ligaChoice = new ComboBox<League>();
 	
 	private Stage window = new Stage();
 	private ChildLayout teamLayout = new ChildLayout();

@@ -48,7 +48,6 @@ public class MatchMenu {
 		layout.left.setTopAnchor(updateMatchBtn, 50.0);
 		layout.left.setTopAnchor(deleteMatchBtn, 100.0);
 		layout.left.setTopAnchor(leagueDropdown, 150.0);
-//		layout.root.setCenter(matchTable);
 		Scene scene = new Scene(layout.root);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
 		stage.setScene(scene);
@@ -111,13 +110,10 @@ public class MatchMenu {
 		for (TableColumn<Match, String> tc : columns)
 			tableViewMatches.getColumns().add(tc);
 		
-		
 		ArrayList<Match> matchList = new ArrayList<Match>();
 		matchList.addAll(matchImpl.getMatchesByLeagueID(league));
 		tableViewMatches.getItems().addAll(matchList);
 		layout.root.setCenter(tableViewMatches);
-		
-		
 	}
 	
 	private void openMatchDetails() {

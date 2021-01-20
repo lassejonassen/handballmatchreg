@@ -241,8 +241,8 @@ public class DataLayer {
 			while(matches.next()) {
 				int id = matches.getInt("ID");
 				String team1Name = matches.getString("HOLDNAVN_H");
-				int team1Goals = matches.getInt("MÅL_H");
-				int team2Goals = matches.getInt("MÅL_U");
+				int team1Goals = matches.getInt("MÃ…L_H");
+				int team2Goals = matches.getInt("MÃ…L_U");
 				String team2Name = matches.getString("HOLDNAVN_U");
 				matchList.add(new Match(id, team1Goals, team2Goals, team1Name, team2Name));
 			} 
@@ -283,6 +283,12 @@ public class DataLayer {
 		}
 	}
 	
+	/**
+	 * @About Suspension
+	 * @tags {Create, delete}
+	 * @author 
+	 * @created 15/01/2021
+	 */
 	public boolean createSuspension(int matchId, int teamId, String matchTime) {
 		try {
 			String sql = "{call spCreateSuspension(?, ? ,?)}";
@@ -313,26 +319,5 @@ public class DataLayer {
 			e.printStackTrace();
 			return false;
 		}
-	}
-	
-	
-	
-	public ArrayList<Match> getAllMatchesTest() {
-		ArrayList<Match> matchList = new ArrayList<Match>();
-		String sql = "{call spGetMatches}";
-		try (CallableStatement stmt = connection.prepareCall(sql)) {
-			ResultSet resultSet = stmt.executeQuery();
-			while (resultSet.next()) {
-				String team1 = resultSet.getString("HOLDNAVN_H");
-				String team2 = resultSet.getString("HOLDNAVN_U");
-				int team1Goals = resultSet.getInt("MÅL_H");
-				int team2Goals = resultSet.getInt("MÅL_U");
-				System.out.println(team1 + team2 + team1Goals + team2Goals);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return matchList;
 	}
 }
