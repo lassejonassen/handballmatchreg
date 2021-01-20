@@ -27,11 +27,11 @@ public class MatchImpl implements iMatch {
 		dataLayer.deleteMatch(match.getMatchID());
 	}
 	
-	public void createSuspension(Match match, Team team, String time) {
-		dataLayer.createSuspension(match.getMatchID(), team.getId(), time);
+	public void createSuspension(Match match, int teamId, String time) {
+		dataLayer.createSuspension(match.getMatchID(), teamId, time);
 	}
 	
-	public void deleteSuspension(Match match, Team team, String time) {
-		dataLayer.deleteSuspension(match.getMatchID(), team.getId(), time);
+	public void deleteSuspension(Match match, int teamId, int suspensionID) {
+		dataLayer.deleteSuspension(match.getMatchID(), teamId, suspensionID);
 	}
 }
