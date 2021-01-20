@@ -5,6 +5,8 @@ import logic.TeamImpl;
 import data.League;
 import data.Team;
 import java.util.ArrayList;
+import java.util.Collection;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -212,9 +214,18 @@ public class LigaMenu {
 
 		for (TableColumn<Team, String> tc : columns)
 			leagueTable.getColumns().add(tc);
-
+		
 		layout.root.setCenter(leagueTable);
 		leagueTable.getItems().addAll(teamImpl.getAllTeams(league.getId()));
+		
+		
+//		ArrayList<Team> teamList = new ArrayList<>();
+//		if (teamList.size() <= 0) {
+//			leagueTable.getItems().addAll(teamImpl.getAllTeams(league.getId()));
+//				teamList.addAll(teamImpl.getAllTeams(league.getId()));
+//			} else if (teamList.size() > 0) {
+//				leagueTable.getItems().addAll(teamList);
+//			}
 	}
 
 }

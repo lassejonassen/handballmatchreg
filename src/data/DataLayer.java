@@ -175,6 +175,7 @@ public class DataLayer {
 			e.printStackTrace();
 			System.out.println("Couldnt find any teams.");
 		}
+		
 		return teamList;
 	}
 	
