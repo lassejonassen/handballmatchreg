@@ -56,7 +56,7 @@ public class MatchDetails
 	private MatchImpl matchImpl = new MatchImpl();
 	private int teamId;
 	private int suspensionID;
-	private String time;
+	private int time;
 	
 	private ArrayList<Goal> goalList = new ArrayList<Goal>();
 	private ArrayList<Suspension> suspensionList = new ArrayList<Suspension>();
@@ -180,7 +180,7 @@ public class MatchDetails
 	
 	private void createSuspensionAway(Match match, int teamId, int time) {
 		teamId = match.getTeam2Id();
-		matchImpl.createSuspension(match, teamId, time);
+//		matchImpl.createSuspension(match, teamId, time);
 		suspensionList.add(new Suspension(match.getMatchID(), time, teamId));
 	}
 	

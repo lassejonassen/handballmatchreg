@@ -1,9 +1,18 @@
 package presentation;
 
+import java.util.ArrayList;
+
+import data.League;
 import data.Match;
+import javafx.geometry.HPos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class MatchReport 
@@ -15,31 +24,41 @@ public class MatchReport
 	private Label homeScored = new Label();
 	private Label awayTeamName = new Label();
 	private Label awayScored = new Label();
-	private Label vsIndicator = new Label("-");
+	private Label vsIndicator = new Label(" - ");
 	
 	private Scene scene;
 	private Stage window = new Stage();
+	private TableView<Match> matchReportTable = new TableView<Match>();
+	private int i = 0;
 	
 	private ChildLayout childLayout = new ChildLayout();
 	
 	public MatchReport(Match match)
 	{
 		showMatchReport(match);
-		matchReportBtnFunctionality();
+		matchReportBtnFunctionality(match);
+//		loadTableView(match);
 	}
 	
 	private void showMatchReport(Match match)
 	{
 		childLayout.childBottom.getChildren().addAll(printReport, closeBtn);
-		childLayout.childCenter.add(homeTeamName, 0, 0);
-		childLayout.childCenter.add(vsIndicator, 1, 0);
-		childLayout.childCenter.add(awayTeamName, 2, 0);
-		childLayout.childCenter.add(homeScored, 0, 1);
-		childLayout.childCenter.add(awayScored, 2, 1);
-		homeTeamName.setStyle("-fx-font-size: 4em;");
-		awayTeamName.setStyle("-fx-font-size: 4em;");
-		homeScored.setStyle("-fx-font-size: 4em;");
-		awayScored.setStyle("-fx-font-size: 4em;");
+		childLayout.childTop.add(homeTeamName, 0, 0);
+		childLayout.childTop.add(vsIndicator, 1, 0);
+		childLayout.childTop.add(awayTeamName, 2, 0);
+		childLayout.childTop.add(homeScored, 0, 1);
+		childLayout.childTop.add(awayScored, 2, 1);
+		GridPane.setHalignment(homeTeamName, HPos.CENTER);
+		GridPane.setHalignment(vsIndicator, HPos.CENTER);
+		GridPane.setHalignment(awayTeamName, HPos.CENTER);
+		GridPane.setHalignment(homeScored, HPos.CENTER);
+		GridPane.setHalignment(awayScored, HPos.CENTER);
+		
+//		childLayout.childCenter.add(matchReportTable, 0, 2, 3, 4);
+//		homeTeamName.setStyle("-fx-font-size: 4em;");
+//		awayTeamName.setStyle("-fx-font-size: 4em;");
+//		homeScored.setStyle("-fx-font-size: 4em;");
+//		awayScored.setStyle("-fx-font-size: 4em;");
 		
 		homeTeamName.setText("" + match.getTeam1Name());
 		awayTeamName.setText("" + match.getTeam2Name());
@@ -53,9 +72,62 @@ public class MatchReport
 		window.show();
 	}
 	
-	private void matchReportBtnFunctionality()
+	private void testGridCellGet(Match match)
 	{
-//		printReport.setOnAction(e ->);
+		i++;
+		childLayout.childCenter.add(new Label("Test"), 0, i);
+		childLayout.childCenter.add(new Label(match.getTeam1Goals() + " - " + match.getTeam2Goals()), 1, i);
+	}
+	
+//	private void loadTableView(Match match)
+//	{
+//		ArrayList<TableColumn<Match, String>> columns = new ArrayList<TableColumn<Match,String>>();
+//		
+//		TableColumn<Match, String> team1TimeColumn = new TableColumn<Match, String>("Tidspunkt");
+////		team1NameColumn.setCellValueFactory(new ProperyValueFactory<>(""));
+//		columns.add(team1TimeColumn);
+//		
+//		TableColumn<Match, String> team1NameColumn = new TableColumn<Match, String>("Hjemme hold");
+////		team1NameColumn.setCellValueFactory(new ProperyValueFactory<>(""));
+//		columns.add(team1NameColumn);
+//		
+//		TableColumn<Match, String> team1EventColumn = new TableColumn<Match, String>("");
+////		team1NameColumn.setCellValueFactory(new ProperyValueFactory<>(""));
+//		columns.add(team1EventColumn);
+//		
+//		TableColumn<Match, String> team1Score = new TableColumn<Match, String>("");
+////		team1NameColumn.setCellValueFactory(new ProperyValueFactory<>(""));
+//		columns.add(team1Score);
+//		
+//		TableColumn<Match, String> dividerColumn = new TableColumn<Match, String>("-");
+////		dividerColumn.setCellValueFactory(new PropertyValueFactory<>("divider"));
+//		columns.add(dividerColumn);
+//		
+//		TableColumn<Match, String> team2Score = new TableColumn<Match, String>("");
+////		team1NameColumn.setCellValueFactory(new ProperyValueFactory<>(""));
+//		columns.add(team2Score);
+//		
+//		TableColumn<Match, String> team2EventColumn = new TableColumn<Match, String>("");
+////		team1NameColumn.setCellValueFactory(new ProperyValueFactory<>(""));
+//		columns.add(team2EventColumn);
+//		
+//		TableColumn<Match, String> team2NameColumn = new TableColumn<Match, String>("Hjemme hold");
+////		team1NameColumn.setCellValueFactory(new ProperyValueFactory<>(""));
+//		columns.add(team2NameColumn);
+//		
+//		TableColumn<Match, String> team2TimeColumn = new TableColumn<Match, String>("Tidspunkt");
+////		team1NameColumn.setCellValueFactory(new ProperyValueFactory<>(""));
+//		columns.add(team2TimeColumn);
+//		
+//		for(TableColumn<Match, String> tc : columns)
+//		{
+//			matchReportTable.getColumns().add(tc);
+//		}
+//	}
+		
+	private void matchReportBtnFunctionality(Match match)
+	{
+		printReport.setOnAction(e -> testGridCellGet(match));
 		closeBtn.setOnAction(e -> window.close());
 	}
 
