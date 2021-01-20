@@ -34,10 +34,10 @@ public class MatchDetails
 	private Button deleteSuspensionAwayBtn = new Button("Fjern Udvisning - Ude");
 	private Button deleteSuspensionHomeBtn = new Button("Fjern Udvisning - Hjemme");
 	
-	private Integer STARTTIME = 0;
+	private int STARTTIME = 0;
 	private Timeline timeline;
 	private Label timerLabel = new Label();
-	private Integer timeSeconds = STARTTIME;
+	private int timeSeconds = STARTTIME;
 	private int gameLength = 5;
 	
 	private Label homeTeamName = new Label();
@@ -99,7 +99,7 @@ public class MatchDetails
 		childLayout.childCenter.add(deleteSuspensionAwayBtn, 3, 3);
 		childLayout.childCenter.add(deleteSuspensionHomeBtn, 1, 3);
 
-		timerLabel.setText(timeSeconds.toString());
+		timerLabel.setText("" + timeSeconds);
 		timerLabel.setStyle("-fx-font-size: 4em;");
 		GridPane.setHalignment(timerLabel, HPos.CENTER);
 		
@@ -126,7 +126,7 @@ public class MatchDetails
 			i++;
 			match.setTeam1Goals(i);
 			homeScore.setText("" + match.getTeam1Goals());
-			System.out.println(match.getTeam1Name() + " Mål: " + match.getTeam1Goals() + "Tid: " + timeSeconds);
+			System.out.println(match.getTeam1Name() + " MÃ¥l: " + match.getTeam1Goals() + "Tid: " + timeSeconds);
 		}else
 		{
 			System.out.println("Kamp over STAPH");
@@ -150,8 +150,8 @@ public class MatchDetails
 	{
 		team1Goals = match.getTeam1Goals();
 		team2Goals = match.getTeam2Goals();
-		System.out.println("Hold 1s mål: " + team1Goals);
-		System.out.println("Hold 2s mål: " + team2Goals);
+		System.out.println("Hold 1s mÃ¥l: " + team1Goals);
+		System.out.println("Hold 2s mÃ¥l: " + team2Goals);
 		matchImpl.updateMatch(match);
 	}
 	
@@ -159,7 +159,7 @@ public class MatchDetails
 	private void timerLabelUpdate(Match match)
 	{
 		timeSeconds = STARTTIME;
-		timerLabel.setText(timeSeconds.toString());
+		timerLabel.setText("" + timeSeconds);
 		timeline = new Timeline();
 		timeline.setCycleCount(Timeline.INDEFINITE);
 		timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler() 
@@ -167,7 +167,7 @@ public class MatchDetails
 			@Override
 			public void handle(Event arg0) {
 				timeSeconds++;
-				timerLabel.setText(timeSeconds.toString());
+				timerLabel.setText("" + timeSeconds);
 				if(timeSeconds == gameLength)
 				{
 					timeline.stop();

@@ -25,7 +25,12 @@ public class Team {
 		this.points = points;
 		this.leagueId = leagueId;
 	}
+  
 	public Team (String name) { this.name = name; }
+	public Team (String name) { 
+		this.name = name; 
+	}
+  
 	public Team() {}
 	
 	public int getId() {
