@@ -6,8 +6,8 @@ BEGIN
 	SELECT
 	tm.id AS ID,
 	team1.team_name AS HOLDNAVN_H,
-	tm.team1_goals AS MÅL_H,
-	tm.team2_goals AS MÅL_U,
+	tm.team1_goals AS MAAL_H,
+	tm.team2_goals AS MAAL_U,
 	team2.team_name AS HOLDNAVN_U
 	FROM TMatch AS tm
 		JOIN Team as team1
