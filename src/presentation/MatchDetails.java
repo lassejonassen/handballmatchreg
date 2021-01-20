@@ -32,10 +32,10 @@ public class MatchDetails
 	private Button deleteSuspensionAwayBtn = new Button("Fjern Udvisning - Ude");
 	private Button deleteSuspensionHomeBtn = new Button("Fjern Udvisning - Hjemme");
 	
-	private Integer STARTTIME = 0;
+	private int STARTTIME = 0;
 	private Timeline timeline;
 	private Label timerLabel = new Label();
-	private Integer timeSeconds = STARTTIME;
+	private int timeSeconds = STARTTIME;
 	private int gameLength = 5;
 	
 	private Label homeTeamName = new Label();
@@ -54,7 +54,7 @@ public class MatchDetails
 	
 	private ChildLayout childLayout = new ChildLayout();
 	private MatchImpl matchImpl = new MatchImpl();
-	private int teamID;
+	private int teamId;
 	private int suspensionID;
 	private String time;
 	
@@ -94,7 +94,7 @@ public class MatchDetails
 		childLayout.childCenter.add(deleteSuspensionAwayBtn, 3, 3);
 		childLayout.childCenter.add(deleteSuspensionHomeBtn, 1, 3);
 
-		timerLabel.setText(timeSeconds.toString());
+		timerLabel.setText("" + timeSeconds);
 		timerLabel.setStyle("-fx-font-size: 4em;");
 		GridPane.setHalignment(timerLabel, HPos.CENTER);
 		
@@ -153,7 +153,7 @@ public class MatchDetails
 	private void timerLabelUpdate(Match match)
 	{
 		timeSeconds = STARTTIME;
-		timerLabel.setText(timeSeconds.toString());
+		timerLabel.setText("" + timeSeconds);
 		timeline = new Timeline();
 		timeline.setCycleCount(Timeline.INDEFINITE);
 		timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler() 
@@ -161,7 +161,7 @@ public class MatchDetails
 			@Override
 			public void handle(Event arg0) {
 				timeSeconds++;
-				timerLabel.setText(timeSeconds.toString());
+				timerLabel.setText("" + timeSeconds);
 				if(timeSeconds == gameLength)
 				{
 					timeline.stop();

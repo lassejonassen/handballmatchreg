@@ -12,7 +12,9 @@ public class Team {
 	private int points;
 	private int leagueId;
 	
-	public Team (String name) { this.name = name; }
+	public Team (String name) { 
+		this.name = name; 
+		}
 	public Team() {}
 	
 	public int getId() {
