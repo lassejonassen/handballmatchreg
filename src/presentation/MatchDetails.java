@@ -1,6 +1,9 @@
 package presentation;
 
 
+import java.util.ArrayList;
+
+import data.Goal;
 import data.Match;
 import data.ReportDTO;
 import data.Suspension;
