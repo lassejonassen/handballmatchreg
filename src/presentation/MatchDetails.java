@@ -3,8 +3,10 @@ package presentation;
 
 import data.Match;
 import data.ReportDTO;
+import data.Goal;
 import data.Suspension;
 import data.Team;
+import java.util.ArrayList;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.Event;
@@ -59,9 +61,7 @@ public class MatchDetails
 	
 	private int teamID;
 	private int suspensionID;
-	private ArrayList<Goal> goalList = new ArrayList<Goal>();
 	private ArrayList<ReportDTO> eventList = new ArrayList<ReportDTO>();
-	private ArrayList<Suspension> suspensionList = new ArrayList<Suspension>();
 
 	public MatchDetails(Match match)
 	{
@@ -92,9 +92,7 @@ public class MatchDetails
 		childLayout.childCenter.add(awayTeamSuspension, 3, 2);
 		childLayout.childCenter.add(awayTeamScored, 4, 2);
 		childLayout.childCenter.add(matchReportBtn, 2, 3);
-		childLayout.childCenter.add(deleteSuspensionHomeBtn, 1, 3);
 		childLayout.childCenter.add(showSuspensionsHomeBtn, 0, 4);
-		childLayout.childCenter.add(deleteSuspensionAwayBtn, 3, 4);
 
 		timerLabel.setText("" + timeSeconds);
 		timerLabel.setStyle("-fx-font-size: 4em;");
@@ -123,7 +121,7 @@ public class MatchDetails
 			i++;
 			match.setTeam1Goals(i);
 			homeScore.setText("" + match.getTeam1Goals());
-			goalList.add(new Goal(match.getMatchID(),timeSeconds,match.getTeam1Id()));
+			eventList.add(new ReportDTO(null, new Goal(match.getMatchID(),timeSeconds,match.getTeam1Id())));
 		}else
 		{
 			System.out.println("Kamp over STAPH");
@@ -138,7 +136,7 @@ public class MatchDetails
 			j++;
 			match.setTeam2Goals(j);
 			awayScore.setText("" + match.getTeam2Goals());
-			eventList.add(new ReportDTO(new Goal(match.getMatchID(),timeSeconds,match.getTeam2Id())));
+			eventList.add(new ReportDTO(null, new Goal(match.getMatchID(),timeSeconds,match.getTeam2Id())));
 		}else
 		{
 			System.out.println("Kamp over STAPH");
@@ -197,24 +195,14 @@ public class MatchDetails
 		suspensionImpl.delete(match, teamId, suspensionID);
 	}
 	
-	private void showSuspensionsHome(Match match, int teamID, int suspensionID, int timeSeconds) { 
-		teamID = match.getTeam1Id();
-	}
-
-	private void showSuspensionsAway(Match match, int teamId, int suspensionID, int timeSeconds) { 
-		teamId = match.getTeam2Id();
-	}
-	
 	private void detailBtnFunctionality(Match match)
 	{
 		homeTeamScored.setOnAction(e -> homeTeamScoreUpdate(match));
 		awayTeamScored.setOnAction(e -> awayTeamScoreUpdate(match));
-		matchReportBtn.setOnAction(e -> new MatchReport(match, goalList));
+		matchReportBtn.setOnAction(e -> new MatchReport(match, eventList));
 		homeTeamSuspension.setOnAction(e -> createSuspensionHome(match, teamID, timeSeconds));
 		awayTeamSuspension.setOnAction(e -> createSuspensionAway(match, teamID, timeSeconds));
 		deleteSuspensionHomeBtn.setOnAction(e -> deleteSuspensionHome(match, teamID, suspensionID));
 		deleteSuspensionAwayBtn.setOnAction(e -> deleteSuspensionAway(match, teamID, suspensionID));
-		showSuspensionsHomeBtn.setOnAction(e -> showSuspensionsHome(match, teamID, suspensionID, timeSeconds));
-		showSuspensionsAwayBtn.setOnAction(e -> showSuspensionsAway(match, teamID, suspensionID, timeSeconds));
 	}
 }

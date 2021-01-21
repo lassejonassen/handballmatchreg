@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import data.Goal;
 import data.League;
 import data.Match;
+import data.ReportDTO;
 import data.Team;
 import javafx.geometry.HPos;
 import javafx.scene.Node;
@@ -35,11 +36,11 @@ public class MatchReport
 	
 	private ChildLayout childLayout = new ChildLayout();
 	
-	public MatchReport(Match match, ArrayList<Goal> goalList)
+	public MatchReport(Match match, ArrayList<ReportDTO> eventList)
 	{
 		showMatchReport(match);
 		matchReportBtnFunctionality(match);
-		insertEvents(match, goalList);
+		insertEvents(match, eventList);
 //		loadTableView(match);
 	}
 	
@@ -75,20 +76,34 @@ public class MatchReport
 		window.show();
 	}
 	
-	private void insertEvents(Match match, ArrayList<Goal> goalList)
+	private void insertEvents(Match match, ArrayList<ReportDTO> eventList)
 	{
-		for(Goal goals : goalList)
+		String matchEvent;
+		for(ReportDTO dto : eventList)
 		{
 			childLayout.childCenter.add(new Label(match.getTeam1Goals() + " - " + match.getTeam2Goals()), 1, i);
-			if(goalList.get(i).getTeamId() == match.getTeam1Id())
+			if(eventList.get(i).getGoal() != null)
 			{
-				childLayout.childCenter.add(new Label(goalList.get(i).getTimeStamp() + " - " + match.getTeam1Name() + " GOAL!"), 0, i);
-				i++;
-			}else
+				matchEvent = " GOAL! ";
+				if(eventList.get(i).getGoal().getTeamId() == match.getTeam1Id())
+				{
+					childLayout.childCenter.add(new Label(eventList.get(i).getGoal().getTimeStamp() + " - " + match.getTeam1Name() + matchEvent), 0, i);
+				}else
+				{
+					childLayout.childCenter.add(new Label(matchEvent + match.getTeam2Name() + " - " + eventList.get(i).getGoal().getTimeStamp()), 2, i);
+				}
+			}else 
 			{
-				childLayout.childCenter.add(new Label("GOAL! " + match.getTeam2Name() + " - " + goalList.get(i).getTimeStamp()), 2, i);
-				i++;
+				matchEvent = " Udvisning! ";
+				if(eventList.get(i).getSuspension().getTeamId() == match.getTeam1Id())
+				{
+					childLayout.childCenter.add(new Label(eventList.get(i).getSuspension().getMatchTime() + " - " + match.getTeam1Name() + matchEvent), 0, i);
+				}else
+				{
+					childLayout.childCenter.add(new Label(matchEvent + match.getTeam2Name() + " - " + eventList.get(i).getSuspension().getMatchTime()), 2, i);
+				}
 			}
+			i++;	
 		}
 	}
 		
