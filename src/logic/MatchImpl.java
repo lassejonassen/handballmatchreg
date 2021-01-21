@@ -46,10 +46,8 @@ public class MatchImpl implements iMatch {
 			team.setPoints(team.getPoints() + 1);
 			team2.setPoints(team2.getPoints() + 1);
 		}
-		System.out.println(team);
-		System.out.println(team2);
-//		dataLayer.updateTeamScore(team);
-//		dataLayer.updateTeamScore(team2);
+		dataLayer.updateTeamScore(team);
+		dataLayer.updateTeamScore(team2);
 	}
 	
 	public void deleteMatch(Match match) {
