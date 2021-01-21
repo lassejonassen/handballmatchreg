@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import data.Goal;
 import data.Match;
+import data.ReportDTO;
 import data.Suspension;
 import data.Team;
 import javafx.animation.KeyFrame;
@@ -63,9 +64,9 @@ public class MatchDetails
 	
 	private int teamID;
 	private int suspensionID;
-	private int time;
 	
 	private ArrayList<Goal> goalList = new ArrayList<Goal>();
+	private ArrayList<ReportDTO> eventList = new ArrayList<ReportDTO>();
 	private ArrayList<Suspension> suspensionList = new ArrayList<Suspension>();
 	
 	public MatchDetails(Match match)
@@ -128,12 +129,13 @@ public class MatchDetails
 			i++;
 			match.setTeam1Goals(i);
 			homeScore.setText("" + match.getTeam1Goals());
-			System.out.println(match.getTeam1Name() + " Mål: " + match.getTeam1Goals() + "Tid: " + timeSeconds);
+			goalList.add(new Goal(match.getMatchID(),timeSeconds,match.getTeam1Id()));
 		}else
 		{
 			System.out.println("Kamp over STAPH");
 		}
 	}
+
 	private void awayTeamScoreUpdate(Match match)
 	{ 
 		if(timeSeconds < gameLength)
@@ -142,6 +144,7 @@ public class MatchDetails
 			j++;
 			match.setTeam2Goals(j);
 			awayScore.setText("" + match.getTeam2Goals());
+			eventList.add(new ReportDTO(new Goal(match.getMatchID(),timeSeconds,match.getTeam2Id())));
 		}else
 		{
 			System.out.println("Kamp over STAPH");
@@ -180,23 +183,14 @@ public class MatchDetails
 		timeline.playFromStart();
 	}
 	
-	private void createSuspensionHome(Match match, int teamId, int time) {
+	private void createSuspensionHome(Match match, int teamId, int timeSeconds) {
 		teamId = match.getTeam1Id();
-		suspensionImpl.create(match, teamId, time);
+		suspensionImpl.create(match, teamId, timeSeconds);
 	}
 	
-	private void createSuspensionAway(Match match, int teamId, int time) {
+	private void createSuspensionAway(Match match, int teamId, int timeSeconds) {
 		teamId = match.getTeam2Id();
-<<<<<<< HEAD
-<<<<<<< HEAD
-//		matchImpl.createSuspension(match, teamId, time);
-		suspensionList.add(new Suspension(match.getMatchID(), time, teamId));
-=======
-		suspensionImpl.create(match, teamId, time);
->>>>>>> 593495ff98286b0276472b66536842a8764c5e1b
-=======
-		suspensionImpl.create(match, teamId, time);
->>>>>>> 810b9bb3e39186e713a0dbaa52abf65e5a419ad7
+		suspensionImpl.create(match, teamId, timeSeconds);
 	}
 	
 	private void deleteSuspensionHome(Match match, int teamId, int suspensionID) {
@@ -209,11 +203,11 @@ public class MatchDetails
 		suspensionImpl.delete(match, teamId, suspensionID);
 	}
 	
-	private void showSuspensionsHome(Match match, int teamID, int suspensionID, int time) { 
+	private void showSuspensionsHome(Match match, int teamID, int suspensionID, int timeSeconds) { 
 		teamID = match.getTeam1Id();
 	}
 
-	private void showSuspensionsAway(Match match, int teamId, int suspensionID, int time) { 
+	private void showSuspensionsAway(Match match, int teamId, int suspensionID, int timeSeconds) { 
 		teamId = match.getTeam2Id();
 	}
 	
@@ -221,13 +215,12 @@ public class MatchDetails
 	{
 		homeTeamScored.setOnAction(e -> homeTeamScoreUpdate(match));
 		awayTeamScored.setOnAction(e -> awayTeamScoreUpdate(match));
-		matchReportBtn.setOnAction(e -> new MatchReport(match));
-		homeTeamSuspension.setOnAction(e -> createSuspensionHome(match, teamID, time));
-		awayTeamSuspension.setOnAction(e -> createSuspensionAway(match, teamID, time));
+		matchReportBtn.setOnAction(e -> new MatchReport(match, goalList));
+		homeTeamSuspension.setOnAction(e -> createSuspensionHome(match, teamID, timeSeconds));
+		awayTeamSuspension.setOnAction(e -> createSuspensionAway(match, teamID, timeSeconds));
 		deleteSuspensionHomeBtn.setOnAction(e -> deleteSuspensionHome(match, teamID, suspensionID));
 		deleteSuspensionAwayBtn.setOnAction(e -> deleteSuspensionAway(match, teamID, suspensionID));
-		showSuspensionsHomeBtn.setOnAction(e -> showSuspensionsHome(match, teamID, suspensionID, time));
-		showSuspensionsAwayBtn.setOnAction(e -> showSuspensionsAway(match, teamID, suspensionID, time));
+		showSuspensionsHomeBtn.setOnAction(e -> showSuspensionsHome(match, teamID, suspensionID, timeSeconds));
+		showSuspensionsAwayBtn.setOnAction(e -> showSuspensionsAway(match, teamID, suspensionID, timeSeconds));
 	}
-
 }
