@@ -48,6 +48,7 @@ public class MatchDetails
 	
 	private int i = 0;
 	private int j = 0;
+	private int k = 4;
 	
 	private int team1Goals;
 	private int team2Goals;
@@ -96,8 +97,7 @@ public class MatchDetails
 		childLayout.childCenter.add(awayTeamScored, 4, 2);
 		childLayout.childCenter.add(matchReportBtn, 2, 3);
 		childLayout.childCenter.add(deleteSuspensionHomeBtn, 1, 3);
-		childLayout.childCenter.add(showSuspensionsHomeBtn, 0, 4);
-		childLayout.childCenter.add(deleteSuspensionAwayBtn, 3, 4);
+		childLayout.childCenter.add(deleteSuspensionAwayBtn, 3, 3);
 
 		timerLabel.setText("" + timeSeconds);
 		timerLabel.setStyle("-fx-font-size: 4em;");
@@ -182,17 +182,47 @@ public class MatchDetails
 	
 	private void createSuspensionHome(Match match, int teamId, int timeSeconds) {
 		teamId = match.getTeam1Id();
-		suspensionImpl.create(match, teamId, timeSeconds);
+		
+		if (timeSeconds < gameLength) {
+			suspensionImpl.create(match, teamId, timeSeconds);
+			suspensionList.add(new Suspension(match.getMatchID(), timeSeconds, match.getTeam1Id()));
+			Label suspensionLabel = new Label();
+			Label teamNameLabel = new Label();
+			Label timeLabel = new Label();
+			suspensionLabel.setText("Udvisning - Hjemme");
+			teamNameLabel.setText(match.getTeam1Name());
+			timeLabel.setText("Tid: " + timeSeconds);
+			childLayout.childCenter.add(suspensionLabel, 0, k);
+			childLayout.childCenter.add(teamNameLabel, 1, k);
+			childLayout.childCenter.add(timeLabel, 2, k);
+			k++;
+		} 
 	}
 	
 	private void createSuspensionAway(Match match, int teamId, int timeSeconds) {
 		teamId = match.getTeam2Id();
-		suspensionImpl.create(match, teamId, timeSeconds);
+		
+		if (timeSeconds < gameLength) {
+			suspensionImpl.create(match, teamId, timeSeconds);
+			suspensionList.add(new Suspension(match.getMatchID(), timeSeconds, match.getTeam2Id()));
+			Label suspensionLabel = new Label();
+			Label teamNameLabel = new Label();
+			Label timeLabel = new Label();
+			suspensionLabel.setText("Udvisning - Ude");
+			teamNameLabel.setText(match.getTeam2Name());
+			timeLabel.setText("Tid: " + timeSeconds);
+			childLayout.childCenter.add(suspensionLabel, 0, k);
+			childLayout.childCenter.add(teamNameLabel, 1, k);
+			childLayout.childCenter.add(timeLabel, 2, k);
+			k++;
+		} 
 	}
 	
 	private void deleteSuspensionHome(Match match, int teamId, int suspensionID) {
 		teamId = match.getTeam1Id();
 		suspensionImpl.delete(match, teamId, suspensionID);
+		
+		
 	}
 	
 	private void deleteSuspensionAway(Match match, int teamId, int suspensionID) {
@@ -200,24 +230,14 @@ public class MatchDetails
 		suspensionImpl.delete(match, teamId, suspensionID);
 	}
 	
-	private void showSuspensionsHome(Match match, int teamID, int suspensionID, int timeSeconds) { 
-		teamID = match.getTeam1Id();
-	}
-
-	private void showSuspensionsAway(Match match, int teamId, int suspensionID, int timeSeconds) { 
-		teamId = match.getTeam2Id();
-	}
-	
 	private void detailBtnFunctionality(Match match)
 	{
 		homeTeamScored.setOnAction(e -> homeTeamScoreUpdate(match));
 		awayTeamScored.setOnAction(e -> awayTeamScoreUpdate(match));
-		matchReportBtn.setOnAction(e -> new MatchReport(match, goalList));
+		matchReportBtn.setOnAction(e -> new MatchReport(match));
 		homeTeamSuspension.setOnAction(e -> createSuspensionHome(match, teamID, timeSeconds));
 		awayTeamSuspension.setOnAction(e -> createSuspensionAway(match, teamID, timeSeconds));
 		deleteSuspensionHomeBtn.setOnAction(e -> deleteSuspensionHome(match, teamID, suspensionID));
 		deleteSuspensionAwayBtn.setOnAction(e -> deleteSuspensionAway(match, teamID, suspensionID));
-		showSuspensionsHomeBtn.setOnAction(e -> showSuspensionsHome(match, teamID, suspensionID, timeSeconds));
-		showSuspensionsAwayBtn.setOnAction(e -> showSuspensionsAway(match, teamID, suspensionID, timeSeconds));
 	}
 }
