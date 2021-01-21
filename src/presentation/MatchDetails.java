@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import data.Goal;
 import data.Match;
 import data.ReportDTO;
+import data.Goal;
 import data.Suspension;
 import data.Team;
+import java.util.ArrayList;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.Event;
@@ -63,9 +65,7 @@ public class MatchDetails
 	
 	private int teamID;
 	private int suspensionID;
-	private ArrayList<Goal> goalList = new ArrayList<Goal>();
 	private ArrayList<ReportDTO> eventList = new ArrayList<ReportDTO>();
-	private ArrayList<Suspension> suspensionList = new ArrayList<Suspension>();
 
 	public MatchDetails(Match match)
 	{
@@ -126,7 +126,7 @@ public class MatchDetails
 			i++;
 			match.setTeam1Goals(i);
 			homeScore.setText("" + match.getTeam1Goals());
-			goalList.add(new Goal(match.getMatchID(),timeSeconds,match.getTeam1Id()));
+			eventList.add(new ReportDTO(null, new Goal(match.getMatchID(),timeSeconds,match.getTeam1Id())));
 		}else
 		{
 			System.out.println("Kamp over STAPH");
@@ -141,7 +141,7 @@ public class MatchDetails
 			j++;
 			match.setTeam2Goals(j);
 			awayScore.setText("" + match.getTeam2Goals());
-			eventList.add(new ReportDTO(new Goal(match.getMatchID(),timeSeconds,match.getTeam2Id())));
+			eventList.add(new ReportDTO(null, new Goal(match.getMatchID(),timeSeconds,match.getTeam2Id())));
 		}else
 		{
 			System.out.println("Kamp over STAPH");
@@ -234,7 +234,7 @@ public class MatchDetails
 	{
 		homeTeamScored.setOnAction(e -> homeTeamScoreUpdate(match));
 		awayTeamScored.setOnAction(e -> awayTeamScoreUpdate(match));
-		matchReportBtn.setOnAction(e -> new MatchReport(match));
+		matchReportBtn.setOnAction(e -> new MatchReport(match, eventList));
 		homeTeamSuspension.setOnAction(e -> createSuspensionHome(match, teamID, timeSeconds));
 		awayTeamSuspension.setOnAction(e -> createSuspensionAway(match, teamID, timeSeconds));
 		deleteSuspensionHomeBtn.setOnAction(e -> deleteSuspensionHome(match, teamID, suspensionID));
