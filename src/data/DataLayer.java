@@ -209,7 +209,6 @@ public class DataLayer {
 				team.setPoints(points);
 				team.setLeagueId(leagueId);
 				teamList.add(team);
-				System.out.println(teamList);
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
@@ -399,4 +398,34 @@ public class DataLayer {
 			return false;
 		}
 	}
+	
+	/**
+	 * @About Goal and Suspension
+	 * @tags {Read}
+	 * @author
+	 * @created 21/01/2021
+	 */
+	public ArrayList<ReportDTO> getGoalsAndSuspensions(int matchId) {
+		String sql = "{call spGetGoalsAndSuspensions(?)}";
+		ArrayList<ReportDTO> list = new ArrayList<ReportDTO>();
+		try (CallableStatement stmt = connection.prepareCall(sql)) {
+			stmt.setInt(1, matchId);
+			ResultSet resultSet = stmt.executeQuery();
+			while (resultSet.next()) {
+				int id = resultSet.getInt("id");
+				int mId = resultSet.getInt("match_id");
+				int timeStamp = resultSet.getInt("match_time");
+				int teamId = resultSet.getInt("team_id");
+				if ((id > 9999) & (id < 99999))
+					list.add(new ReportDTO(new Suspension(id, mId, timeStamp, teamId))); 
+				else if ((id > 99999) & (id < 999999))
+					list.add(new ReportDTO(new Goal(id, mId, timeStamp, teamId)));
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return list;
+	
+	}
+
 }

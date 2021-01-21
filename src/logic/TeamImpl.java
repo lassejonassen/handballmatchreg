@@ -10,7 +10,6 @@ import data.League;
 public class TeamImpl implements TeamInterface {
 	DataLayer dataLayer = new DataLayer();
 	
-	private ArrayList teams = new ArrayList<>();
 	
 	public void createTeam(League league, String name) {
 		dataLayer.createTeam(new Team(name).getName(), league.getId());

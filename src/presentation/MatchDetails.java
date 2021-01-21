@@ -1,23 +1,22 @@
 package presentation;
 
+
 import java.util.ArrayList;
 
 import data.Goal;
 import data.Match;
+import data.ReportDTO;
 import data.Suspension;
 import data.Team;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import logic.GoalImpl;
@@ -64,11 +63,10 @@ public class MatchDetails
 	
 	private int teamID;
 	private int suspensionID;
-	private int time;
-	
 	private ArrayList<Goal> goalList = new ArrayList<Goal>();
+	private ArrayList<ReportDTO> eventList = new ArrayList<ReportDTO>();
 	private ArrayList<Suspension> suspensionList = new ArrayList<Suspension>();
-	
+
 	public MatchDetails(Match match)
 	{
 		showMatchDetails(match);
@@ -128,12 +126,13 @@ public class MatchDetails
 			i++;
 			match.setTeam1Goals(i);
 			homeScore.setText("" + match.getTeam1Goals());
-			System.out.println(match.getTeam1Name() + " Mål: " + match.getTeam1Goals() + "Tid: " + timeSeconds);
+			goalList.add(new Goal(match.getMatchID(),timeSeconds,match.getTeam1Id()));
 		}else
 		{
 			System.out.println("Kamp over STAPH");
 		}
 	}
+
 	private void awayTeamScoreUpdate(Match match)
 	{ 
 		if(timeSeconds < gameLength)
@@ -142,6 +141,7 @@ public class MatchDetails
 			j++;
 			match.setTeam2Goals(j);
 			awayScore.setText("" + match.getTeam2Goals());
+			eventList.add(new ReportDTO(new Goal(match.getMatchID(),timeSeconds,match.getTeam2Id())));
 		}else
 		{
 			System.out.println("Kamp over STAPH");
@@ -230,7 +230,6 @@ public class MatchDetails
 		suspensionImpl.delete(match, teamId, suspensionID);
 	}
 	
-	
 	private void detailBtnFunctionality(Match match)
 	{
 		homeTeamScored.setOnAction(e -> homeTeamScoreUpdate(match));
@@ -240,7 +239,5 @@ public class MatchDetails
 		awayTeamSuspension.setOnAction(e -> createSuspensionAway(match, teamID, timeSeconds));
 		deleteSuspensionHomeBtn.setOnAction(e -> deleteSuspensionHome(match, teamID, suspensionID));
 		deleteSuspensionAwayBtn.setOnAction(e -> deleteSuspensionAway(match, teamID, suspensionID));
-
 	}
-
 }

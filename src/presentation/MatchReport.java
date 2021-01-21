@@ -2,8 +2,10 @@ package presentation;
 
 import java.util.ArrayList;
 
+import data.Goal;
 import data.League;
 import data.Match;
+import data.Team;
 import javafx.geometry.HPos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -33,10 +35,11 @@ public class MatchReport
 	
 	private ChildLayout childLayout = new ChildLayout();
 	
-	public MatchReport(Match match)
+	public MatchReport(Match match, ArrayList<Goal> goalList)
 	{
 		showMatchReport(match);
 		matchReportBtnFunctionality(match);
+		insertEvents(match, goalList);
 //		loadTableView(match);
 	}
 	
@@ -72,62 +75,26 @@ public class MatchReport
 		window.show();
 	}
 	
-	private void testGridCellGet(Match match)
+	private void insertEvents(Match match, ArrayList<Goal> goalList)
 	{
-		i++;
-		childLayout.childCenter.add(new Label("Test"), 0, i);
-		childLayout.childCenter.add(new Label(match.getTeam1Goals() + " - " + match.getTeam2Goals()), 1, i);
+		for(Goal goals : goalList)
+		{
+			childLayout.childCenter.add(new Label(match.getTeam1Goals() + " - " + match.getTeam2Goals()), 1, i);
+			if(goalList.get(i).getTeamId() == match.getTeam1Id())
+			{
+				childLayout.childCenter.add(new Label(goalList.get(i).getTimeStamp() + " - " + match.getTeam1Name() + " GOAL!"), 0, i);
+				i++;
+			}else
+			{
+				childLayout.childCenter.add(new Label("GOAL! " + match.getTeam2Name() + " - " + goalList.get(i).getTimeStamp()), 2, i);
+				i++;
+			}
+		}
 	}
-	
-//	private void loadTableView(Match match)
-//	{
-//		ArrayList<TableColumn<Match, String>> columns = new ArrayList<TableColumn<Match,String>>();
-//		
-//		TableColumn<Match, String> team1TimeColumn = new TableColumn<Match, String>("Tidspunkt");
-////		team1NameColumn.setCellValueFactory(new ProperyValueFactory<>(""));
-//		columns.add(team1TimeColumn);
-//		
-//		TableColumn<Match, String> team1NameColumn = new TableColumn<Match, String>("Hjemme hold");
-////		team1NameColumn.setCellValueFactory(new ProperyValueFactory<>(""));
-//		columns.add(team1NameColumn);
-//		
-//		TableColumn<Match, String> team1EventColumn = new TableColumn<Match, String>("");
-////		team1NameColumn.setCellValueFactory(new ProperyValueFactory<>(""));
-//		columns.add(team1EventColumn);
-//		
-//		TableColumn<Match, String> team1Score = new TableColumn<Match, String>("");
-////		team1NameColumn.setCellValueFactory(new ProperyValueFactory<>(""));
-//		columns.add(team1Score);
-//		
-//		TableColumn<Match, String> dividerColumn = new TableColumn<Match, String>("-");
-////		dividerColumn.setCellValueFactory(new PropertyValueFactory<>("divider"));
-//		columns.add(dividerColumn);
-//		
-//		TableColumn<Match, String> team2Score = new TableColumn<Match, String>("");
-////		team1NameColumn.setCellValueFactory(new ProperyValueFactory<>(""));
-//		columns.add(team2Score);
-//		
-//		TableColumn<Match, String> team2EventColumn = new TableColumn<Match, String>("");
-////		team1NameColumn.setCellValueFactory(new ProperyValueFactory<>(""));
-//		columns.add(team2EventColumn);
-//		
-//		TableColumn<Match, String> team2NameColumn = new TableColumn<Match, String>("Hjemme hold");
-////		team1NameColumn.setCellValueFactory(new ProperyValueFactory<>(""));
-//		columns.add(team2NameColumn);
-//		
-//		TableColumn<Match, String> team2TimeColumn = new TableColumn<Match, String>("Tidspunkt");
-////		team1NameColumn.setCellValueFactory(new ProperyValueFactory<>(""));
-//		columns.add(team2TimeColumn);
-//		
-//		for(TableColumn<Match, String> tc : columns)
-//		{
-//			matchReportTable.getColumns().add(tc);
-//		}
-//	}
 		
 	private void matchReportBtnFunctionality(Match match)
 	{
-		printReport.setOnAction(e -> testGridCellGet(match));
+//		printReport.setOnAction(e -> testGridCellGet(match));
 		closeBtn.setOnAction(e -> window.close());
 	}
 

@@ -5,7 +5,6 @@ import logic.TeamImpl;
 import data.League;
 import data.Team;
 import java.util.ArrayList;
-import java.util.Collection;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
