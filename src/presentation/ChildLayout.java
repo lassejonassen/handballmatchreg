@@ -45,7 +45,7 @@ public class ChildLayout
 	{
 		childRoot.setCenter(childCenter);
 		childCenter.setId("childCenter");
-		childCenter.setGridLinesVisible(true);
+//		childCenter.setGridLinesVisible(true);
 	}
 	
 	private void childLeftLayout()
