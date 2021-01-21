@@ -1,6 +1,9 @@
 package presentation;
 
 
+import java.util.ArrayList;
+
+import data.Goal;
 import data.Match;
 import data.ReportDTO;
 import data.Goal;
@@ -47,6 +50,7 @@ public class MatchDetails
 	
 	private int i = 0;
 	private int j = 0;
+	private int k = 4;
 	
 	private int team1Goals;
 	private int team2Goals;
@@ -92,7 +96,8 @@ public class MatchDetails
 		childLayout.childCenter.add(awayTeamSuspension, 3, 2);
 		childLayout.childCenter.add(awayTeamScored, 4, 2);
 		childLayout.childCenter.add(matchReportBtn, 2, 3);
-		childLayout.childCenter.add(showSuspensionsHomeBtn, 0, 4);
+		childLayout.childCenter.add(deleteSuspensionHomeBtn, 1, 3);
+		childLayout.childCenter.add(deleteSuspensionAwayBtn, 3, 3);
 
 		timerLabel.setText("" + timeSeconds);
 		timerLabel.setStyle("-fx-font-size: 4em;");
@@ -177,17 +182,47 @@ public class MatchDetails
 	
 	private void createSuspensionHome(Match match, int teamId, int timeSeconds) {
 		teamId = match.getTeam1Id();
-		suspensionImpl.create(match, teamId, timeSeconds);
+		
+		if (timeSeconds < gameLength) {
+			suspensionImpl.create(match, teamId, timeSeconds);
+			suspensionList.add(new Suspension(match.getMatchID(), timeSeconds, match.getTeam1Id()));
+			Label suspensionLabel = new Label();
+			Label teamNameLabel = new Label();
+			Label timeLabel = new Label();
+			suspensionLabel.setText("Udvisning - Hjemme");
+			teamNameLabel.setText(match.getTeam1Name());
+			timeLabel.setText("Tid: " + timeSeconds);
+			childLayout.childCenter.add(suspensionLabel, 0, k);
+			childLayout.childCenter.add(teamNameLabel, 1, k);
+			childLayout.childCenter.add(timeLabel, 2, k);
+			k++;
+		} 
 	}
 	
 	private void createSuspensionAway(Match match, int teamId, int timeSeconds) {
 		teamId = match.getTeam2Id();
-		suspensionImpl.create(match, teamId, timeSeconds);
+		
+		if (timeSeconds < gameLength) {
+			suspensionImpl.create(match, teamId, timeSeconds);
+			suspensionList.add(new Suspension(match.getMatchID(), timeSeconds, match.getTeam2Id()));
+			Label suspensionLabel = new Label();
+			Label teamNameLabel = new Label();
+			Label timeLabel = new Label();
+			suspensionLabel.setText("Udvisning - Ude");
+			teamNameLabel.setText(match.getTeam2Name());
+			timeLabel.setText("Tid: " + timeSeconds);
+			childLayout.childCenter.add(suspensionLabel, 0, k);
+			childLayout.childCenter.add(teamNameLabel, 1, k);
+			childLayout.childCenter.add(timeLabel, 2, k);
+			k++;
+		} 
 	}
 	
 	private void deleteSuspensionHome(Match match, int teamId, int suspensionID) {
 		teamId = match.getTeam1Id();
 		suspensionImpl.delete(match, teamId, suspensionID);
+		
+		
 	}
 	
 	private void deleteSuspensionAway(Match match, int teamId, int suspensionID) {

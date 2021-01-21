@@ -6,6 +6,13 @@ public class Goal {
 	private int timeStamp;
 	private int teamId;
 	
+	public Goal(int id, int matchId, int timeStamp, int teamId) {
+		this.id = id;
+		this.matchId = matchId;
+		this.timeStamp = timeStamp;
+		this.teamId = teamId;
+	}
+	
 	public Goal(int matchId, int timeStamp, int teamId) {
 		this.matchId = matchId;
 		this.timeStamp = timeStamp;
@@ -37,6 +44,11 @@ public class Goal {
 	
 	public void setTeamId(int teamId) {
 		this.teamId = teamId;
+	}
+
+	@Override
+	public String toString() {
+		return "Goal [id=" + id + ", matchId=" + matchId + ", timeStamp=" + timeStamp + ", teamId=" + teamId + "]";
 	}
 	
 	
