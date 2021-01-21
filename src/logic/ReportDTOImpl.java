@@ -10,6 +10,6 @@ public class ReportDTOImpl implements iReportDTO {
 	DataLayer dataLayer = new DataLayer();
 	
 	public ArrayList<ReportDTO> read(Match match) {
-		System.out.println(dataLayer.getGoalsAndSuspensions(match.getMatchID()));
+		return dataLayer.getGoalsAndSuspensions(match.getMatchID());
 	}
 }
