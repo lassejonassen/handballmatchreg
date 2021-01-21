@@ -10,6 +10,14 @@ public class ReportDTO
 		this.suspension = suspension;
 		this.goal = goal;
 	}
+	
+	public ReportDTO(Suspension suspension) {
+		this.suspension = suspension;
+	}
+	
+	public ReportDTO(Goal goal) {
+		this.goal = goal;
+	}
 
 	public Suspension getSuspension() {
 		return suspension;
@@ -26,4 +34,13 @@ public class ReportDTO
 	public void setGoal(Goal goal) {
 		this.goal = goal;
 	}
+
+	@Override
+	public String toString() {
+		return "ReportDTO [suspension=" + suspension + ", goal=" + goal + "]";
+	}
+	
+	
+	
+	
 }

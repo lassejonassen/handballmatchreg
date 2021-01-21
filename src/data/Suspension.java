@@ -6,6 +6,13 @@ public class Suspension {
 	private int matchTime;
 	private int teamId;
 	
+	public Suspension(int id, int matchId, int timeStamp, int teamId) {
+		this.id = id;
+		this.matchId = matchId;
+		this.matchTime = timeStamp;
+		this.teamId = teamId;
+	}
+	
 	
 	public Suspension(int matchId, int timeStamp, int teamId) {
 		this.matchId = matchId;
@@ -44,4 +51,13 @@ public class Suspension {
 	public void setTeamId(int teamId) {
 		this.teamId = teamId;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Suspension [id=" + id + ", matchId=" + matchId + ", matchTime=" + matchTime + ", teamId=" + teamId
+				+ "]";
+	}
+	
+	
 }
