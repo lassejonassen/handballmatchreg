@@ -16,10 +16,11 @@ public class CreateMatch {
 	private Button createMatchBtn = new Button("Opret Kamp");
 	private Button cancelMatchBtn = new Button("Annuller Kamp");
 	private int id = 0;
-	private ComboBox<Team> homeChoice = new ComboBox();
-	private ComboBox<Team> awayChoice = new ComboBox();
-	private ComboBox<League> ligaChoice = new ComboBox();
+	private ComboBox<Team> homeChoice = new ComboBox<Team>();
+	private ComboBox<Team> awayChoice = new ComboBox<Team>();
+	private ComboBox<League> ligaChoice = new ComboBox<League>();
 	private Stage window = new Stage();
+	@SuppressWarnings("unused")
 	private Scene scene;
 	private ChildLayout teamLayout = new ChildLayout();
 

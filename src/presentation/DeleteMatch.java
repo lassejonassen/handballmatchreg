@@ -16,7 +16,6 @@ public class DeleteMatch {
 	 * Author: Lucas Elley
 	 * Date: 15/01/2021
 	 */
-	private int id = 0;
 	private Button deleteMatchBtn = new Button ("Slet Kamp");
 	
 	private ComboBox<Match> matchChoice = new ComboBox<Match>();

@@ -1,10 +1,8 @@
 package logic;
 import java.util.ArrayList;
 
-import data.Goal;
 import data.League;
 import data.Match;
-import data.Suspension;
 import data.Team;
 
 public interface iMatch {
