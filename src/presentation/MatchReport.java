@@ -79,8 +79,9 @@ public class MatchReport
 	private void insertEvents(Match match, ArrayList<ReportDTO> eventList)
 	{
 		String matchEvent;
-		for(ReportDTO dto : eventList)
+		for(int j = 0; j < eventList.size(); j++)
 		{
+			System.out.println("VI ER HER! RIGHT?!");
 			childLayout.childCenter.add(new Label(match.getTeam1Goals() + " - " + match.getTeam2Goals()), 1, i);
 			if(eventList.get(i).getGoal() != null)
 			{

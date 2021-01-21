@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import logic.GoalImpl;
 import logic.MatchImpl;
+import logic.ReportDTOImpl;
 import logic.SuspensionImpl;
 
 public class MatchDetails 
@@ -62,6 +63,7 @@ public class MatchDetails
 	private MatchImpl matchImpl = new MatchImpl();
 	private SuspensionImpl suspensionImpl = new SuspensionImpl();
 	private GoalImpl goalImpl = new GoalImpl();
+	private ReportDTOImpl reportDTOImpl = new ReportDTOImpl();
 	
 	private int teamID;
 	private int suspensionID;
@@ -126,7 +128,7 @@ public class MatchDetails
 			i++;
 			match.setTeam1Goals(i);
 			homeScore.setText("" + match.getTeam1Goals());
-			eventList.add(new ReportDTO(null, new Goal(match.getMatchID(),timeSeconds,match.getTeam1Id())));
+//			eventList.add(new ReportDTO(null, new Goal(match.getMatchID(),timeSeconds,match.getTeam1Id())));
 		}else
 		{
 			System.out.println("Kamp over STAPH");
@@ -141,7 +143,7 @@ public class MatchDetails
 			j++;
 			match.setTeam2Goals(j);
 			awayScore.setText("" + match.getTeam2Goals());
-			eventList.add(new ReportDTO(null, new Goal(match.getMatchID(),timeSeconds,match.getTeam2Id())));
+//			eventList.add(new ReportDTO(null, new Goal(match.getMatchID(),timeSeconds,match.getTeam2Id())));
 		}else
 		{
 			System.out.println("Kamp over STAPH");
@@ -185,7 +187,7 @@ public class MatchDetails
 		
 		if (timeSeconds < gameLength) {
 			suspensionImpl.create(match, teamId, timeSeconds);
-			suspensionList.add(new Suspension(match.getMatchID(), timeSeconds, match.getTeam1Id()));
+//			eventList.add(new ReportDTO(new Suspension(match.getMatchID(), timeSeconds, match.getTeam1Id())));
 			Label suspensionLabel = new Label();
 			Label teamNameLabel = new Label();
 			Label timeLabel = new Label();
@@ -204,7 +206,7 @@ public class MatchDetails
 		
 		if (timeSeconds < gameLength) {
 			suspensionImpl.create(match, teamId, timeSeconds);
-			suspensionList.add(new Suspension(match.getMatchID(), timeSeconds, match.getTeam2Id()));
+//			eventList.add(new ReportDTO(new Suspension(match.getMatchID(), timeSeconds, match.getTeam2Id())));
 			Label suspensionLabel = new Label();
 			Label teamNameLabel = new Label();
 			Label timeLabel = new Label();
@@ -220,9 +222,7 @@ public class MatchDetails
 	
 	private void deleteSuspensionHome(Match match, int teamId, int suspensionID) {
 		teamId = match.getTeam1Id();
-		suspensionImpl.delete(match, teamId, suspensionID);
-		
-		
+		suspensionImpl.delete(match, teamId, suspensionID);		
 	}
 	
 	private void deleteSuspensionAway(Match match, int teamId, int suspensionID) {
@@ -234,7 +234,7 @@ public class MatchDetails
 	{
 		homeTeamScored.setOnAction(e -> homeTeamScoreUpdate(match));
 		awayTeamScored.setOnAction(e -> awayTeamScoreUpdate(match));
-		matchReportBtn.setOnAction(e -> new MatchReport(match, eventList));
+		matchReportBtn.setOnAction(e -> new MatchReport(match,reportDTOImpl.read(match) ));
 		homeTeamSuspension.setOnAction(e -> createSuspensionHome(match, teamID, timeSeconds));
 		awayTeamSuspension.setOnAction(e -> createSuspensionAway(match, teamID, timeSeconds));
 		deleteSuspensionHomeBtn.setOnAction(e -> deleteSuspensionHome(match, teamID, suspensionID));
