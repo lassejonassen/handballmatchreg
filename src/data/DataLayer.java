@@ -209,7 +209,6 @@ public class DataLayer {
 				team.setPoints(points);
 				team.setLeagueId(leagueId);
 				teamList.add(team);
-				System.out.println(teamList);
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
@@ -399,4 +398,24 @@ public class DataLayer {
 			return false;
 		}
 	}
+	
+	/**
+	 * @About Goal and Suspension
+	 * @tags {Read}
+	 * @author
+	 * @created 21/01/2021
+	 */
+	public void getGoalsAndSuspension(int matchId) {
+		String sql = "{call spGetGoalsAndSuspension(?)}";
+		try (CallableStatement stmt = connection.prepareCall(sql)) {
+			stmt.setInt(1, matchId);
+			ResultSet resultSet = stmt.executeQuery();
+			while (resultSet.next()) {
+				
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+
 }

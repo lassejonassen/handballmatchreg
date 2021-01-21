@@ -1,24 +1,19 @@
 package presentation;
 
-import java.util.ArrayList;
 
-import data.Goal;
 import data.Match;
 import data.ReportDTO;
 import data.Suspension;
 import data.Team;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import logic.GoalImpl;
@@ -64,11 +59,10 @@ public class MatchDetails
 	
 	private int teamID;
 	private int suspensionID;
-	
 	private ArrayList<Goal> goalList = new ArrayList<Goal>();
 	private ArrayList<ReportDTO> eventList = new ArrayList<ReportDTO>();
 	private ArrayList<Suspension> suspensionList = new ArrayList<Suspension>();
-	
+
 	public MatchDetails(Match match)
 	{
 		showMatchDetails(match);
