@@ -38,7 +38,7 @@ public class Layout
 		top.setId("top");		
 		Label heading = new Label();
 		top.getChildren().add(heading);
-		heading.setText("Midtvejs Projekt test tekst!");
+		heading.setText("Midtvejsprojekt - Kampregistering");
 	}
 	
 	private void bottomLayout()

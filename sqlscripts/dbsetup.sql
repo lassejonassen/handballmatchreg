@@ -40,6 +40,7 @@ CREATE TABLE TMatch (
 	team1_goals INT NOT NULL,
 	team2_goals INT NOT NULL,
 	league_id INT NOT NULL,
+	played NVARCHAR(4) NOT NULL,
 
 	PRIMARY KEY (id),
 

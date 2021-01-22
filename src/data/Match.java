@@ -9,8 +9,9 @@ public class Match {
 	private int team1Goals;
 	private int team2Goals;
 	private String divider = "-";
+	private String played;
 	
-	public Match(int id, int team1Goals, int team2Goals, String team1Name, String team2Name, int team1Id, int team2Id) {
+	public Match(int id, int team1Goals, int team2Goals, String team1Name, String team2Name, int team1Id, int team2Id, String played) {
 		this.matchID = id;
 		this.team1Goals = team1Goals;
 		this.team2Goals = team2Goals;
@@ -18,6 +19,13 @@ public class Match {
 		this.team2Name = team2Name;
 		this.team1Id = team1Id;
 		this.team2Id = team2Id;
+		this.played = played;
+	}
+	public String getPlayed() {
+		return played;
+	}
+	public void setPlayed(String played) {
+		this.played = played;
 	}
 	public Match() {}
 	

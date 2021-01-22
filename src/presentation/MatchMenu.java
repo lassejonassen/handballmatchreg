@@ -70,6 +70,10 @@ public class MatchMenu {
 		ArrayList<TableColumn<Match, String>> columns = 
 				new ArrayList<TableColumn<Match, String>>();
 		
+		TableColumn<Match, String> idColumn = new TableColumn<Match, String>("ID");
+		idColumn.setCellValueFactory(new PropertyValueFactory<>("matchID"));
+		columns.add(idColumn);
+		
 		TableColumn<Match, String> team1NameColumn = new TableColumn<Match, String>("HOLDNAVN");
 		team1NameColumn.setCellValueFactory(new PropertyValueFactory<>("team1Name"));
 		columns.add(team1NameColumn);
@@ -89,6 +93,10 @@ public class MatchMenu {
 		TableColumn<Match, String> team2NameColumn = new TableColumn<Match, String>("HOLDNAVN");
 		team2NameColumn.setCellValueFactory(new PropertyValueFactory<>("team2Name"));
 		columns.add(team2NameColumn);
+		
+		TableColumn<Match, String> playedColumn = new TableColumn<Match, String>("PLAYED");
+		playedColumn.setCellValueFactory(new PropertyValueFactory<>("played"));
+		columns.add(playedColumn);
 		
 		for (TableColumn<Match, String> tc : columns)
 			tableViewMatches.getColumns().add(tc);
