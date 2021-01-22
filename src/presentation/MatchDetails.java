@@ -174,7 +174,7 @@ public class MatchDetails
 			goalImpl.delete(match, match.getTeam2Id(), goalId);
 			j--;
 			match.setTeam2Goals(j);
-			awayScore.setText("" + match.getTeam2Id());
+			awayScore.setText("" + match.getTeam2Goals());
 			}
 		}
 	}
@@ -250,7 +250,11 @@ public class MatchDetails
 	
 	private void deleteSuspensionHome(Match match, int teamId, int suspensionID) {
 		teamId = match.getTeam1Id();
-		suspensionImpl.delete(match, teamId, suspensionID);		
+		
+		if (timeSeconds < gameLength) {
+				suspensionImpl.delete(match, teamId, suspensionID);	
+				
+		}
 	}
 	
 	private void deleteSuspensionAway(Match match, int teamId, int suspensionID) {
