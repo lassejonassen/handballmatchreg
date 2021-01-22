@@ -2,21 +2,13 @@ package presentation;
 
 import java.util.ArrayList;
 
-import data.Goal;
-import data.League;
 import data.Match;
 import data.ReportDTO;
-import data.Team;
 import javafx.geometry.HPos;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
@@ -48,6 +40,7 @@ public class MatchReport
 		insertEvents(match, eventList);
 	}
 	
+	@SuppressWarnings("static-access")
 	private void showMatchReport(Match match)
 	{
 		childLayout.childBottom.getChildren().addAll(printReport, closeBtn);

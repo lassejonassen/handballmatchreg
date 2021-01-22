@@ -3,7 +3,6 @@ package presentation;
 import logic.LeagueImpl;
 import logic.TeamImpl;
 import data.League;
-import data.Match;
 import data.Team;
 import java.util.ArrayList;
 

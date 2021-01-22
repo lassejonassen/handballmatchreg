@@ -1,6 +1,5 @@
 package presentation;
 
-import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
 
@@ -45,7 +44,6 @@ public class ChildLayout
 	{
 		childRoot.setCenter(childCenter);
 		childCenter.setId("childCenter");
-//		childCenter.setGridLinesVisible(true);
 	}
 	
 	private void childLeftLayout()
