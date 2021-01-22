@@ -414,6 +414,20 @@ public class DataLayer {
 		}
 	}
 	
+	public boolean deleteGoal(int matchId, int timeStamp, int goalId) {
+		String sql = "{call spDeleteGoal(?, ?, ?)}";
+		try (CallableStatement stmt = connection.prepareCall(sql)) {
+			stmt.setInt(1, matchId);
+			stmt.setInt(2, timeStamp);
+			stmt.setInt(3, goalId);
+			stmt.execute();
+			return true;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
+	
 	/**
 	 * @About Goal and Suspension
 	 * @tags {Read}
