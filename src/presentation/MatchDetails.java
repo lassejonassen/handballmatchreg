@@ -1,15 +1,6 @@
 package presentation;
 
-
-import java.util.ArrayList;
-
-import data.Goal;
 import data.Match;
-import data.ReportDTO;
-import data.Goal;
-import data.Suspension;
-import data.Team;
-import java.util.ArrayList;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.Event;
@@ -106,8 +97,8 @@ public class MatchDetails
 		childLayout.childCenter.add(deleteSuspensionHomeBtn, 1, 3);
 		childLayout.childCenter.add(deleteSuspensionAwayBtn, 3, 3);
 		childLayout.childCenter.add(startMatchBtn, 2, 4);
-		childLayout.childCenter.add(stopMatchBtn, 2, 5);
-		childLayout.childCenter.add(resumeMatchBtn, 2, 6);
+		childLayout.childCenter.add(stopMatchBtn, 3, 4);
+		childLayout.childCenter.add(resumeMatchBtn, 4, 4);
 		timerLabel.setText("" + timeSeconds);
 		timerLabel.setStyle("-fx-font-size: 4em;");
 		GridPane.setHalignment(timerLabel, HPos.CENTER);
@@ -189,7 +180,7 @@ public class MatchDetails
 		matchImpl.matchPlayed(match);
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void timerLabelUpdate(Match match)
 	{
 		timeSeconds = STARTTIME;
