@@ -53,4 +53,9 @@ public class MatchImpl implements iMatch {
 	public void deleteMatch(Match match) {
 		dataLayer.deleteMatch(match.getMatchID());
 	}
+	
+	public void matchPlayed(Match match) {
+		match.setPlayed("yes");
+		dataLayer.updateMatch(match);
+	}
 }

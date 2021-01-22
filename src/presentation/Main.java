@@ -13,7 +13,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) throws Exception 
 	{
-		stage.setTitle("Midtvejs projekt");
+		stage.setTitle("Midtvejsprojekt - Kampregistering");
 		new Menu(stage);
 	}
 }
