@@ -8,14 +8,17 @@ import data.Match;
 import data.ReportDTO;
 import data.Team;
 import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
 public class MatchReport 
@@ -29,9 +32,11 @@ public class MatchReport
 	private Label awayScored = new Label();
 	private Label vsIndicator = new Label(" - ");
 	
+	private GridPane scrollingGrid = new GridPane();
+	private ScrollPane sp = new ScrollPane(scrollingGrid);
+	
 	private Scene scene;
 	private Stage window = new Stage();
-	private TableView<Match> matchReportTable = new TableView<Match>();
 	private int i = 0;
 	
 	private ChildLayout childLayout = new ChildLayout();
@@ -41,7 +46,6 @@ public class MatchReport
 		showMatchReport(match);
 		matchReportBtnFunctionality(match);
 		insertEvents(match, eventList);
-//		loadTableView(match);
 	}
 	
 	private void showMatchReport(Match match)
@@ -58,11 +62,11 @@ public class MatchReport
 		GridPane.setHalignment(homeScored, HPos.CENTER);
 		GridPane.setHalignment(awayScored, HPos.CENTER);
 		
-//		childLayout.childCenter.add(matchReportTable, 0, 2, 3, 4);
-//		homeTeamName.setStyle("-fx-font-size: 4em;");
-//		awayTeamName.setStyle("-fx-font-size: 4em;");
-//		homeScored.setStyle("-fx-font-size: 4em;");
-//		awayScored.setStyle("-fx-font-size: 4em;");
+		childLayout.childCenter.add(sp, 0, 0);
+		childLayout.childCenter.setHgrow(sp, Priority.ALWAYS);
+		sp.setId("sp");
+		sp.setFitToWidth(true);
+		scrollingGrid.setId("scrollingGrid");
 		
 		homeTeamName.setText("" + match.getTeam1Name());
 		awayTeamName.setText("" + match.getTeam2Name());
@@ -81,27 +85,26 @@ public class MatchReport
 		String matchEvent;
 		for(int j = 0; j < eventList.size(); j++)
 		{
-			System.out.println("VI ER HER! RIGHT?!");
-			childLayout.childCenter.add(new Label(match.getTeam1Goals() + " - " + match.getTeam2Goals()), 1, i);
+			scrollingGrid.add(new Label(match.getTeam1Goals() + " - " + match.getTeam2Goals()), 1, i);
 			if(eventList.get(i).getGoal() != null)
 			{
 				matchEvent = " GOAL! ";
 				if(eventList.get(i).getGoal().getTeamId() == match.getTeam1Id())
 				{
-					childLayout.childCenter.add(new Label(eventList.get(i).getGoal().getTimeStamp() + " - " + match.getTeam1Name() + matchEvent), 0, i);
+					scrollingGrid.add(new Label(eventList.get(i).getGoal().getTimeStamp() + " - " + match.getTeam1Name() + matchEvent), 0, i);
 				}else
 				{
-					childLayout.childCenter.add(new Label(matchEvent + match.getTeam2Name() + " - " + eventList.get(i).getGoal().getTimeStamp()), 2, i);
+					scrollingGrid.add(new Label(matchEvent + match.getTeam2Name() + " - " + eventList.get(i).getGoal().getTimeStamp()), 2, i);
 				}
 			}else 
 			{
 				matchEvent = " Udvisning! ";
 				if(eventList.get(i).getSuspension().getTeamId() == match.getTeam1Id())
 				{
-					childLayout.childCenter.add(new Label(eventList.get(i).getSuspension().getMatchTime() + " - " + match.getTeam1Name() + matchEvent), 0, i);
+					scrollingGrid.add(new Label(eventList.get(i).getSuspension().getMatchTime() + " - " + match.getTeam1Name() + matchEvent), 0, i);
 				}else
 				{
-					childLayout.childCenter.add(new Label(matchEvent + match.getTeam2Name() + " - " + eventList.get(i).getSuspension().getMatchTime()), 2, i);
+					scrollingGrid.add(new Label(matchEvent + match.getTeam2Name() + " - " + eventList.get(i).getSuspension().getMatchTime()), 2, i);
 				}
 			}
 			i++;	

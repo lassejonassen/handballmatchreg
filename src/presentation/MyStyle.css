@@ -81,6 +81,13 @@
 	-fx-vgap:5px;
 }
 
+#scrollingGrid
+{
+	-fx-alignment:center;
+	-fx-hgap:5px;
+	-fx-vgap:5px;	
+}
+
 #childLeft
 {
 	-fx-pref-width: 50px;
