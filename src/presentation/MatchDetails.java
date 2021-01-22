@@ -36,6 +36,7 @@ public class MatchDetails
 	private Button deleteSuspensionAwayBtn = new Button("Fjern Udvisning - Ude");
 	private Button deleteSuspensionHomeBtn = new Button("Fjern Udvisning - Hjemme");
 	private Button startMatchBtn = new Button("START kamp");
+	private Button resumeMatchBtn = new Button("Forsaet kamp");
 	private Button stopMatchBtn = new Button("STOP kamp");
 	
 	private int STARTTIME = 0;
@@ -101,7 +102,7 @@ public class MatchDetails
 		childLayout.childCenter.add(deleteSuspensionAwayBtn, 3, 3);
 		childLayout.childCenter.add(startMatchBtn, 2, 4);
 		childLayout.childCenter.add(stopMatchBtn, 2, 5);
-
+		childLayout.childCenter.add(resumeMatchBtn, 2, 6);
 		timerLabel.setText("" + timeSeconds);
 		timerLabel.setStyle("-fx-font-size: 4em;");
 		GridPane.setHalignment(timerLabel, HPos.CENTER);
@@ -240,8 +241,10 @@ public class MatchDetails
 		startMatchBtn.setOnAction(e -> {
 			if (match.getPlayed().equals("no"))
 				timerLabelUpdate(match);
-			else
+			else if (match.getPlayed().equals("yes"))
 				valid.matchPlayedWarning();
 		});
+		stopMatchBtn.setOnAction(e -> timeline.pause());
+		resumeMatchBtn.setOnAction(e -> timeline.play());
 	}
 }
