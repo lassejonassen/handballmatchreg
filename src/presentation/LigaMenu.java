@@ -3,6 +3,7 @@ package presentation;
 import logic.LeagueImpl;
 import logic.TeamImpl;
 import data.League;
+import data.Match;
 import data.Team;
 import java.util.ArrayList;
 
@@ -179,6 +180,10 @@ public class LigaMenu {
 		ArrayList<TableColumn<Team, String>> columns = 
 				new ArrayList<TableColumn<Team, String>>();
 		leagueTable.setPrefHeight(640);
+		
+		TableColumn<Team, String> idColumn = new TableColumn<Team, String>("ID");
+		idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+		columns.add(idColumn);
 
 		TableColumn<Team, String> nameColumn = new TableColumn<>("NAME");
 		nameColumn.setPrefWidth(150);

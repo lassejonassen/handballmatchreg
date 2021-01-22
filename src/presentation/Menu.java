@@ -8,18 +8,16 @@ public class Menu
 {
 	private Button showLigaBtn = new Button("Liga");
 	private Button showMatchBtn = new Button("Kamp");
-	private Button btn4 = new Button("placeHolder vis kamp halløj");
 	
 	
 	@SuppressWarnings("static-access")
 	public Menu(Stage stage)
 	{
 		Layout layout = new Layout();
-		layout.left.getChildren().addAll(showLigaBtn,showMatchBtn,btn4);
+		layout.left.getChildren().addAll(showLigaBtn,showMatchBtn);
 		
 		layout.left.setTopAnchor(showLigaBtn, 0.0);
 		layout.left.setTopAnchor(showMatchBtn, 50.0);
-		layout.left.setTopAnchor(btn4, 100.0);
 
 		buttonFunctionality(stage);
 		
