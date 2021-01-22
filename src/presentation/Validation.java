@@ -37,5 +37,17 @@ public class Validation {
 			return true;
 		}
 	}
+	
+	protected void matchPlayedWarning() {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Match WARNING");
+		alert.setHeaderText("The match have already been played.");
+		alert.setContentText("You cannot start the match twice");
+		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
+		alert.getButtonTypes().setAll(confirmBtn);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == confirmBtn)
+			alert.close();
+	}
 
 }

@@ -340,6 +340,20 @@ public class DataLayer {
 			return false;
 		}
 	}
+	
+	public boolean updateMatch(Match match) {
+		String sql = "{call spUpdatePlayedMatch(?, ?)}";
+		try (CallableStatement stmt = connection.prepareCall(sql)) {
+			stmt.setInt(1, match.getMatchID());
+			stmt.setString(2, match.getPlayed());
+			stmt.execute();
+			return true;
+		}
+		catch (SQLException ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
 
 	/**
 	 * @About Suspension
