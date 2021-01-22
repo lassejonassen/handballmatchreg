@@ -6,6 +6,8 @@ import data.League;
 import data.Team;
 import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -23,6 +25,9 @@ public class LigaMenu {
 	private Button backBtn = new Button("Tilbage");
 	private Button createTeamBtn = new Button("Opret hold");
 	private Button updateTeamBtn = new Button("Opdatere hold");
+	
+	private Button refreshBtn = new Button("Refresh");
+	
 	private Layout layout = new Layout();
 	private Validation validate = new Validation();
 	private TableView<Team> leagueTable = new TableView<Team>();
@@ -45,15 +50,17 @@ public class LigaMenu {
 
 	@SuppressWarnings("static-access")
 	private void showLeagueMenu(Stage stage) {
-		layout.left.getChildren().addAll(createLeagueBtn, updateLeagueBtn, deleteLigaBtn, backBtn, leagueDropdown);
+		layout.left.getChildren().addAll(createLeagueBtn, updateLeagueBtn, deleteLigaBtn, backBtn, leagueDropdown, refreshBtn);
 		layout.bottom.getChildren().addAll(updateTeamBtn, createTeamBtn);
 		leagueDropdown.setId("leagueDropDown");
 		layout.left.setTopAnchor(createLeagueBtn, 0.0);
 		layout.left.setTopAnchor(updateLeagueBtn, 50.0);
 		layout.left.setTopAnchor(deleteLigaBtn, 100.0);
 		layout.left.setTopAnchor(leagueDropdown, 150.0);
+		layout.left.setTopAnchor(refreshBtn, 200.0);
 		layout.left.setBottomAnchor(backBtn, 0.0);
 		layout.root.setCenter(leagueTable);
+		
 		Scene scene = new Scene(layout.root);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
 		stage.setScene(scene);
@@ -67,6 +74,7 @@ public class LigaMenu {
 		backBtn.setOnAction(e -> new Menu(stage));
 		updateTeamBtn.setOnAction(e -> new UpdateTeam());
 		createTeamBtn.setOnAction(e -> new CreateTeam());
+		refreshBtn.setOnAction(e -> loadTableView(leagueDropdown.getSelectionModel().getSelectedItem()));
 	}
 
 	private void leagueDropDown() {
@@ -215,7 +223,10 @@ public class LigaMenu {
 			leagueTable.getColumns().add(tc);
 		
 		layout.root.setCenter(leagueTable);
-		leagueTable.getItems().addAll(teamImpl.getAllTeams(league.getId()));
+//		leagueTable.getItems().addAll(teamImpl.getAllTeams(league.getId()));
+		
+		ObservableList<Team> data = FXCollections.observableArrayList(teamImpl.getAllTeams(league.getId()));
+		leagueTable.setItems(data);
 		
 		
 //		ArrayList<Team> teamList = new ArrayList<>();

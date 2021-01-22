@@ -35,8 +35,6 @@ public class MatchDetails
 	private Button matchReportBtn = new Button("Kamp rapport");
 	private Button deleteSuspensionAwayBtn = new Button("Fjern Udvisning - Ude");
 	private Button deleteSuspensionHomeBtn = new Button("Fjern Udvisning - Hjemme");
-	private Button showSuspensionsHomeBtn = new Button("Vis udvisninger - Hjemme");
-	private Button showSuspensionsAwayBtn = new Button("Vis udvisninger - Ude");
 	
 	private int STARTTIME = 0;
 	private Timeline timeline;

@@ -20,7 +20,6 @@ public class CreateMatch {
 	private ComboBox<Team> awayChoice = new ComboBox<Team>();
 	private ComboBox<League> ligaChoice = new ComboBox<League>();
 	private Stage window = new Stage();
-	@SuppressWarnings("unused")
 	private Scene scene;
 	private ChildLayout teamLayout = new ChildLayout();
 
@@ -32,7 +31,7 @@ public class CreateMatch {
 	}
 
 	protected void showMatchCreate() {
-		Scene scene = new Scene(teamLayout.childRoot);
+		scene = new Scene(teamLayout.childRoot);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
 		window.setScene(scene);
 		window.setTitle("Tilføj kamp");
@@ -74,5 +73,6 @@ public class CreateMatch {
 
 			}
 		);
+		cancelMatchBtn.setOnAction(e -> window.close());
 	}
 }
