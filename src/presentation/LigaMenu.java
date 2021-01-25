@@ -4,6 +4,11 @@ import logic.LeagueImpl;
 import logic.TeamImpl;
 import data.League;
 import data.Team;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
@@ -16,6 +21,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 public class LigaMenu {
@@ -25,6 +31,7 @@ public class LigaMenu {
 	private Button backBtn = new Button("Tilbage");
 	private Button createTeamBtn = new Button("Opret hold");
 	private Button updateTeamBtn = new Button("Opdatere hold");
+	private Button printBtn = new Button("Print");
 	
 	private Button refreshBtn = new Button("Refresh");
 	
@@ -50,7 +57,7 @@ public class LigaMenu {
 
 	@SuppressWarnings("static-access")
 	private void showLeagueMenu(Stage stage) {
-		layout.left.getChildren().addAll(createLeagueBtn, updateLeagueBtn, deleteLigaBtn, backBtn, leagueDropdown, refreshBtn);
+		layout.left.getChildren().addAll(createLeagueBtn, updateLeagueBtn, deleteLigaBtn, backBtn, leagueDropdown, refreshBtn, printBtn);
 		layout.bottom.getChildren().addAll(updateTeamBtn, createTeamBtn);
 		leagueDropdown.setId("leagueDropDown");
 		layout.left.setTopAnchor(createLeagueBtn, 0.0);
@@ -59,6 +66,7 @@ public class LigaMenu {
 		layout.left.setTopAnchor(leagueDropdown, 150.0);
 		layout.left.setTopAnchor(refreshBtn, 200.0);
 		layout.left.setBottomAnchor(backBtn, 0.0);
+		layout.left.setTopAnchor(printBtn, 250.0);
 		layout.root.setCenter(leagueTable);
 		
 		Scene scene = new Scene(layout.root);
@@ -237,6 +245,48 @@ public class LigaMenu {
 		leagueTable.setItems(data);
 		pointsColumn.setSortType(TableColumn.SortType.DESCENDING);
 		leagueTable.getSortOrder().setAll(pointsColumn);
+		
+		printBtn.setOnAction(e -> exportLeague(data));
+	}
+	
+	private void exportLeague(ObservableList<Team> data) {
+		Stage window = new Stage();
+		DirectoryChooser dirChooser = new DirectoryChooser();
+		File selectedDir = dirChooser.showDialog(window);
+		 
+		try {
+			LocalDate date = LocalDate.now();
+			FileWriter writer = new FileWriter(selectedDir + "/ligastilling " + date + ".csv");
+			writer.append("id");
+			writer.append(", ");
+			writer.append("name");
+			writer.append(", ");
+			writer.append("matchesTotal");
+			writer.append(", ");
+			writer.append("matchesWon");
+			writer.append(", ");
+			writer.append("matchesLost");
+			writer.append(", ");
+			writer.append("matchesDraw");
+			writer.append(", ");
+			writer.append("goals");
+			writer.append(", ");
+			writer.append("goalsIn");
+			writer.append(", ");
+			writer.append("points");
+			writer.append(", ");
+			writer.append("leagueId");
+			writer.append('\n');
+			StringBuilder sb = new StringBuilder();
+			for (Team team : data) {
+				sb.append(team.exportString());
+				sb.append('\n');
+			}
+			writer.write(sb.toString());
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
