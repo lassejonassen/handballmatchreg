@@ -174,6 +174,8 @@ public class LigaMenu {
 		cancelBtn.setOnAction(e -> stage.close());
 	}
 
+	@SuppressWarnings("unchecked")
+	// Generic Array: Setting the sorting order of the tableview.
 	private void loadTableView(League league) {
 		leagueTable = new TableView<Team>();
 		ArrayList<TableColumn<Team, String>> columns = 
@@ -183,6 +185,7 @@ public class LigaMenu {
 		TableColumn<Team, String> idColumn = new TableColumn<Team, String>("ID");
 		idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 		columns.add(idColumn);
+		idColumn.setSortable(false);
 
 		TableColumn<Team, String> nameColumn = new TableColumn<>("NAME");
 		nameColumn.setPrefWidth(150);
@@ -221,25 +224,19 @@ public class LigaMenu {
 		TableColumn<Team, String> pointsColumn = new TableColumn<>("POINTS");
 		pointsColumn.setPrefWidth(150);
 		pointsColumn.setCellValueFactory(new PropertyValueFactory<>("points"));
+		pointsColumn.setSortType(TableColumn.SortType.DESCENDING);
 		columns.add(pointsColumn);
 
 		for (TableColumn<Team, String> tc : columns)
 			leagueTable.getColumns().add(tc);
 		
 		layout.root.setCenter(leagueTable);
-//		leagueTable.getItems().addAll(teamImpl.getAllTeams(league.getId()));
 		
-		ObservableList<Team> data = FXCollections.observableArrayList(teamImpl.getAllTeams(league.getId()));
+		ObservableList<Team> data = 
+				FXCollections.observableArrayList(teamImpl.getAllTeams(league.getId()));
 		leagueTable.setItems(data);
-		
-		
-//		ArrayList<Team> teamList = new ArrayList<>();
-//		if (teamList.size() <= 0) {
-//			leagueTable.getItems().addAll(teamImpl.getAllTeams(league.getId()));
-//				teamList.addAll(teamImpl.getAllTeams(league.getId()));
-//			} else if (teamList.size() > 0) {
-//				leagueTable.getItems().addAll(teamList);
-//			}
+		pointsColumn.setSortType(TableColumn.SortType.DESCENDING);
+		leagueTable.getSortOrder().setAll(pointsColumn);
 	}
 
 }
