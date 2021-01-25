@@ -20,6 +20,7 @@ public class MatchMenu {
 	private Button createMatchBtn = new Button("Opret Kamp");
 	private Button deleteMatchBtn = new Button("Slet Kamp");
 	private Button updateMatchBtn = new Button("Opdater Kamp");
+	private Button refreshBtn = new Button("Refresh");
 	private Button backBtn = new Button("Tilbage");
 	private Layout layout = new Layout();
 	private ComboBox<League> leagueDropdown = new ComboBox<League>();
@@ -35,12 +36,13 @@ public class MatchMenu {
 	@SuppressWarnings("static-access")
 	private void showMatchMenu(Stage stage)
 	{
-		layout.left.getChildren().addAll(createMatchBtn, deleteMatchBtn, updateMatchBtn,backBtn, leagueDropdown);
+		layout.left.getChildren().addAll(createMatchBtn, deleteMatchBtn, updateMatchBtn,backBtn, leagueDropdown, refreshBtn);
 		layout.left.setBottomAnchor(backBtn, 0.0);
 		layout.left.setTopAnchor(createMatchBtn, 0.0);
 		layout.left.setTopAnchor(updateMatchBtn, 50.0);
 		layout.left.setTopAnchor(deleteMatchBtn, 100.0);
 		layout.left.setTopAnchor(leagueDropdown, 150.0);
+		layout.left.setTopAnchor(refreshBtn, 200.0);
 		Scene scene = new Scene(layout.root);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
 		stage.setScene(scene);
@@ -63,6 +65,7 @@ public class MatchMenu {
 		backBtn.setOnAction(e -> new Menu(stage));
 		createMatchBtn.setOnAction(e-> new CreateMatch());
 		deleteMatchBtn.setOnAction(e -> new DeleteMatch());
+		refreshBtn.setOnAction(e -> loadTableView(leagueDropdown.getSelectionModel().getSelectedItem()));
 	}
 	
 	private void loadTableView(League league) {
