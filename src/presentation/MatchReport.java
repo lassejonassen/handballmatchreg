@@ -32,6 +32,11 @@ public class MatchReport
 	private Label awayScored = new Label();
 	private Label vsIndicator = new Label(" - ");
 	
+	private int gameSeconds;
+	private int gameMinutes;
+	private int homeGoals = 0;
+	private int awayGoals = 0;
+	
 	private GridPane scrollingGrid = new GridPane();
 	private ScrollPane sp = new ScrollPane(scrollingGrid);
 	
@@ -85,26 +90,55 @@ public class MatchReport
 		String matchEvent;
 		for(int j = 0; j < eventList.size(); j++)
 		{
-			scrollingGrid.add(new Label(match.getTeam1Goals() + " - " + match.getTeam2Goals()), 1, i);
+			scrollingGrid.add(new Label(homeGoals + " - " + awayGoals), 1, i);
 			if(eventList.get(i).getGoal() != null)
 			{
+				gameMinutes = 0;
+				if(eventList.get(i).getGoal().getTimeStamp()>= 60)
+				{
+					gameSeconds = eventList.get(i).getGoal().getTimeStamp() - 60;
+					gameMinutes++;
+					if(gameSeconds >= 60)
+					{
+						gameSeconds = gameSeconds - 60;
+						gameMinutes++;
+					}
+				}else
+				{
+					gameSeconds = eventList.get(i).getGoal().getTimeStamp();
+				}
 				matchEvent = " GOAL! ";
 				if(eventList.get(i).getGoal().getTeamId() == match.getTeam1Id())
 				{
-					scrollingGrid.add(new Label(eventList.get(i).getGoal().getTimeStamp() + " - " + match.getTeam1Name() + matchEvent), 0, i);
+					scrollingGrid.add(new Label(gameMinutes + ":" + gameSeconds + " - " + match.getTeam1Name() + matchEvent), 0, i);
+					homeGoals++;
 				}else
 				{
-					scrollingGrid.add(new Label(matchEvent + match.getTeam2Name() + " - " + eventList.get(i).getGoal().getTimeStamp()), 2, i);
+					scrollingGrid.add(new Label(matchEvent + match.getTeam2Name() + " - " + gameMinutes + ":" + gameSeconds), 2, i);
+					awayGoals++;
 				}
 			}else 
 			{
+				if(eventList.get(i).getSuspension().getMatchTime() >= 60)
+				{
+					gameSeconds = eventList.get(i).getSuspension().getMatchTime() - 60;
+					gameMinutes++;
+					if(gameSeconds >= 60)
+					{
+						gameSeconds = gameSeconds - 60;
+						gameMinutes++;
+					}
+				}else
+				{
+					gameSeconds = eventList.get(i).getSuspension().getMatchTime();
+				}
 				matchEvent = " Udvisning! ";
 				if(eventList.get(i).getSuspension().getTeamId() == match.getTeam1Id())
 				{
-					scrollingGrid.add(new Label(eventList.get(i).getSuspension().getMatchTime() + " - " + match.getTeam1Name() + matchEvent), 0, i);
+					scrollingGrid.add(new Label(gameMinutes + ":" + gameSeconds + " - " + match.getTeam1Name() + matchEvent), 0, i);
 				}else
 				{
-					scrollingGrid.add(new Label(matchEvent + match.getTeam2Name() + " - " + eventList.get(i).getSuspension().getMatchTime()), 2, i);
+					scrollingGrid.add(new Label(matchEvent + match.getTeam2Name() + " - " + gameMinutes + ":" + gameSeconds), 2, i);
 				}
 			}
 			i++;	
