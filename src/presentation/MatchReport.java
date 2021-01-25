@@ -3,6 +3,7 @@ package presentation;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import data.Match;
@@ -153,7 +154,8 @@ public class MatchReport
 		File selectedDir = dirChooser.showDialog(window);
 		 
 		try {
-			FileWriter writer = new FileWriter(selectedDir + "/kamprapport.csv");
+			LocalDate date = LocalDate.now();
+			FileWriter writer = new FileWriter(selectedDir + "/kamprapport " + date + ".csv");
 			writer.append("Type");
 			writer.append(", ");
 			writer.append("Id");

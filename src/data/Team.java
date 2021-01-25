@@ -98,5 +98,8 @@ public class Team {
 		return id + " : " + name;
 	}
 
+	public String exportString() {
+		return id + ", " + name + ", " + matchesTotal + ", " + matchesWon + ", " + matchesLost + ", " + matchesDraw + ", " + goals + ", " + goalsIn + ", " + points + ", " + leagueId;
+	}
 	
 }
