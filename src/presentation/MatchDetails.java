@@ -31,6 +31,7 @@ public class MatchDetails
 	private Button startMatchBtn = new Button("START kamp");
 	private Button resumeMatchBtn = new Button("Forsaet kamp");
 	private Button stopMatchBtn = new Button("STOP kamp");
+	private Button closeBtn = new Button("Luk");
 	
 	private int STARTTIME = 0;
 	private Timeline timeline;
@@ -99,6 +100,7 @@ public class MatchDetails
 		childLayout.childCenter.add(startMatchBtn, 2, 4);
 		childLayout.childCenter.add(stopMatchBtn, 3, 4);
 		childLayout.childCenter.add(resumeMatchBtn, 4, 4);
+		childLayout.childCenter.add(closeBtn, 4, 8);
 		timerLabel.setText("" + timeSeconds);
 		timerLabel.setStyle("-fx-font-size: 4em;");
 		GridPane.setHalignment(timerLabel, HPos.CENTER);
@@ -264,6 +266,7 @@ public class MatchDetails
 		awayTeamSuspension.setOnAction(e -> createSuspensionAway(match, teamID, timeSeconds));
 		deleteSuspensionHomeBtn.setOnAction(e -> deleteSuspensionHome(match, teamID, suspensionID));
 		deleteSuspensionAwayBtn.setOnAction(e -> deleteSuspensionAway(match, teamID, suspensionID));
+		closeBtn.setOnAction(e -> window.close());
 		startMatchBtn.setOnAction(e -> {
 			if (match.getPlayed().equals("no"))
 				timerLabelUpdate(match);
