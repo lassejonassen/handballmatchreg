@@ -1,5 +1,8 @@
 package presentation;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import data.Match;
@@ -11,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 public class MatchReport 
@@ -36,7 +40,7 @@ public class MatchReport
 	public MatchReport(Match match, ArrayList<ReportDTO> eventList)
 	{
 		showMatchReport(match);
-		matchReportBtnFunctionality(match);
+		matchReportBtnFunctionality(match, eventList);
 		insertEvents(match, eventList);
 	}
 	
@@ -104,10 +108,41 @@ public class MatchReport
 		}
 	}
 		
-	private void matchReportBtnFunctionality(Match match)
+	private void matchReportBtnFunctionality(Match match, ArrayList<ReportDTO> eventList)
 	{
-//		printReport.setOnAction(e -> testGridCellGet(match));
+		printReport.setOnAction(e -> exportReport(eventList));
 		closeBtn.setOnAction(e -> window.close());
+	}
+	
+	private void exportReport(ArrayList<ReportDTO> eventList) {
+		DirectoryChooser dirChooser = new DirectoryChooser();
+		File selectedDir = dirChooser.showDialog(window);
+		 
+		try {
+			FileWriter writer = new FileWriter(selectedDir + "/kamprapport.csv");
+			writer.append("Type");
+			writer.append(", ");
+			writer.append("Id");
+			writer.append(", ");
+			writer.append("matchId");
+			writer.append(", ");
+			writer.append("timeStamp");
+			writer.append(", ");
+			writer.append("teamId");
+			writer.append('\n');
+			StringBuilder sb = new StringBuilder();
+			for (ReportDTO event : eventList) {
+				if (event.getSuspension() != null)
+					sb.append(event.suspensionString());
+				else if (event.getGoal() != null)
+					sb.append(event.goalString());
+				sb.append('\n');
+			}
+			writer.write(sb.toString());
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

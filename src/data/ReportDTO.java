@@ -37,10 +37,14 @@ public class ReportDTO
 
 	@Override
 	public String toString() {
-		return "ReportDTO [suspension=" + suspension + ", goal=" + goal + "]";
+		return "suspension=" + suspension + ", goal=" + goal;
 	}
 	
+	public String suspensionString() {
+		return "Suspension" + ", " + suspension.getId() + ", " + suspension.getMatchId() + ", " + suspension.getMatchTime() + ", " + suspension.getTeamId();
+	}
 	
-	
-	
+	public String goalString() {
+		return "Goal" + ", " + goal.getId() + ", " + goal.getMatchId() + ", " + goal.getTimeStamp() + ", " + goal.getTeamId();
+	}
 }
