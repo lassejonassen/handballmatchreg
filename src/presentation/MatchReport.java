@@ -32,13 +32,13 @@ public class MatchReport
 	private int gameMinutes;
 	private int homeGoals = 0;
 	private int awayGoals = 0;
+	private int i = 0;
 	
 	private GridPane scrollingGrid = new GridPane();
 	private ScrollPane sp = new ScrollPane(scrollingGrid);
 	
 	private Scene scene;
 	private Stage window = new Stage();
-	private int i = 0;
 	
 	private ChildLayout childLayout = new ChildLayout();
 	
@@ -85,22 +85,25 @@ public class MatchReport
 	private void insertEvents(Match match, ArrayList<ReportDTO> eventList)
 	{
 		String matchEvent;
+		
 		for(int j = 0; j < eventList.size(); j++)
 		{
 			scrollingGrid.add(new Label(homeGoals + " - " + awayGoals), 1, i);
+			
 			if(eventList.get(i).getGoal() != null)
 			{
 				gameMinutes = 0;
 				if(eventList.get(i).getGoal().getTimeStamp()>= 60)
 				{
 					gameSeconds = eventList.get(i).getGoal().getTimeStamp() - 60;
-					gameMinutes++;
-					if(gameSeconds >= 60)
+					gameMinutes++;	
+					if(eventList.get(i).getGoal().getTimeStamp()>= 60)
 					{
-						gameSeconds = gameSeconds - 60;
-						gameMinutes++;
+						gameSeconds = eventList.get(i).getGoal().getTimeStamp() - 60;
+						gameMinutes++;		
 					}
-				}else
+				}
+				else
 				{
 					gameSeconds = eventList.get(i).getGoal().getTimeStamp();
 				}
@@ -116,16 +119,17 @@ public class MatchReport
 				}
 			}else 
 			{
-				if(eventList.get(i).getSuspension().getMatchTime() >= 60)
+				if(eventList.get(i).getSuspension().getMatchTime()>= 60)
 				{
 					gameSeconds = eventList.get(i).getSuspension().getMatchTime() - 60;
-					gameMinutes++;
-					if(gameSeconds >= 60)
+					gameMinutes++;	
+					if(eventList.get(i).getSuspension().getMatchTime()>= 60) 
 					{
-						gameSeconds = gameSeconds - 60;
+						gameSeconds = eventList.get(i).getSuspension().getMatchTime() - 60;
 						gameMinutes++;
 					}
-				}else
+				}
+				else
 				{
 					gameSeconds = eventList.get(i).getSuspension().getMatchTime();
 				}
@@ -138,22 +142,38 @@ public class MatchReport
 					scrollingGrid.add(new Label(matchEvent + match.getTeam2Name() + " - " + gameMinutes + ":" + gameSeconds), 2, i);
 				}
 			}
-			i++;	
+			i++;
 		}
 	}
 		
 	private void matchReportBtnFunctionality(Match match, ArrayList<ReportDTO> eventList)
 	{
-		printReport.setOnAction(e -> exportReport(eventList));
+		printReport.setOnAction(e -> exportReport(eventList, match));
 		closeBtn.setOnAction(e -> window.close());
 	}
 	
-	private void exportReport(ArrayList<ReportDTO> eventList) {
+	private void exportReport(ArrayList<ReportDTO> eventList, Match match) {
 		DirectoryChooser dirChooser = new DirectoryChooser();
 		File selectedDir = dirChooser.showDialog(window);
 		 
 		try {
 			FileWriter writer = new FileWriter(selectedDir + "/kamprapport.csv");
+			writer.append("Hold navn 1");
+			writer.append(", ");
+			writer.append("Hold 1 mål");
+			writer.append(", ");
+			writer.append("Hold navn 2");
+			writer.append(", ");
+			writer.append("Hold 2 mål");
+			writer.append('\n');
+			writer.append(match.getTeam1Name());
+			writer.append(", ");
+			writer.append(String.valueOf(match.getTeam1Goals()));
+			writer.append(", ");
+			writer.append(match.getTeam2Name());
+			writer.append(", ");
+			writer.append(String.valueOf(match.getTeam2Goals()));
+			writer.append('\n');
 			writer.append("Type");
 			writer.append(", ");
 			writer.append("Id");
