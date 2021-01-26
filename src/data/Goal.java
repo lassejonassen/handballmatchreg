@@ -50,4 +50,9 @@ public class Goal {
 	public void setTeamId(int teamId) {
 		this.teamId = teamId;
 	}
+
+	@Override
+	public String toString() {
+		return "Goal [id=" + id + ", matchId=" + matchId + ", timeStamp=" + timeStamp + ", teamId=" + teamId + "]";
+	}
 }

@@ -11,7 +11,8 @@ BEGIN
 	team2.team_name AS HOLDNAVN_U,
 	tm.team1_id AS TEAM1ID,
 	tm.team2_id AS TEAM2ID,
-	tm.played AS PLAYED
+	tm.played AS PLAYED,
+	tm.league_id AS LIGAID
 	FROM TMatch AS tm
 		JOIN Team as team1
 			ON team1.id = tm.team1_id AND team1.league_id = @league_id

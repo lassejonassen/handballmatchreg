@@ -94,22 +94,9 @@ public class MatchReport {
 					{
 						gameSeconds = gameSeconds - 60;
 						gameMinutes++;
-						System.out.println("mål" + gameMinutes + " " + gameSeconds);
+						System.out.println("mÃ¥l" + gameMinutes + " " + gameSeconds);
 					}
 				}
-//				if (gameSeconds >= 60) 
-//				{
-//					gameSeconds = eventList.get(i).getGoal().getTimeStamp() - 60;
-//					gameMinutes++;
-//					if (gameSeconds >= 60) 
-//					{
-//						gameSeconds = gameSeconds - 60;
-//						gameMinutes++;
-//					}
-//				} else 
-//				{
-//					gameSeconds = eventList.get(i).getGoal().getTimeStamp();
-//				}
 				matchEvent = " GOAL! ";
 				if (eventList.get(i).getGoal().getTeamId() == match.getTeam1Id()) {
 					scrollingGrid.add(
@@ -135,19 +122,6 @@ public class MatchReport {
 						System.out.println("suspension" + gameMinutes + " " + gameSeconds);
 					}
 				}
-//				if (eventList.get(i).getSuspension().getMatchTime() >= 60) 
-//				{
-//					gameSeconds = eventList.get(i).getSuspension().getMatchTime() - 60;
-//					gameMinutes++;
-//					if (gameSeconds >= 60) 
-//					{
-//						gameSeconds = gameSeconds - 60;
-//						gameMinutes++;
-//					}
-//				} else 
-//				{
-//					gameSeconds = eventList.get(i).getSuspension().getMatchTime();
-//				}
 				matchEvent = " Udvisning! ";
 				if (eventList.get(i).getSuspension().getTeamId() == match.getTeam1Id()) {
 					scrollingGrid.add(
@@ -160,12 +134,14 @@ public class MatchReport {
 				}
 			}
 		}
+
 	}
 
 	private void matchReportBtnFunctionality(Match match, ArrayList<ReportDTO> eventList) {
 		printReport.setOnAction(e -> exportReport(eventList, match));
 		closeBtn.setOnAction(e -> window.close());
 	}
+
 	private void exportReport(ArrayList<ReportDTO> eventList, Match match) {
 		DirectoryChooser dirChooser = new DirectoryChooser();
 		File selectedDir = dirChooser.showDialog(window);
@@ -177,17 +153,33 @@ public class MatchReport {
 			writer.append(", ");
 			writer.append("Hold 1 maal");
 			writer.append(", ");
+			writer.append("Hold 1 ID");
+			writer.append(", ");
 			writer.append("Hold navn 2");
 			writer.append(", ");
 			writer.append("Hold 2 maal");
+			writer.append(", ");
+			writer.append("Hold 2 ID");
+			writer.append(", ");
+			writer.append("Kamp ID");
+			writer.append(", ");
+			writer.append("Liga ID");
 			writer.append('\n');
 			writer.append(match.getTeam1Name());
 			writer.append(", ");
 			writer.append(String.valueOf(match.getTeam1Goals()));
 			writer.append(", ");
+			writer.append(String.valueOf(match.getTeam1Id()));
+			writer.append(", ");
 			writer.append(match.getTeam2Name());
 			writer.append(", ");
 			writer.append(String.valueOf(match.getTeam2Goals()));
+			writer.append(", ");
+			writer.append(String.valueOf(match.getTeam2Id()));
+			writer.append(", ");
+			writer.append(String.valueOf(match.getMatchID()));
+			writer.append(", ");
+			writer.append(String.valueOf(match.getLeagueId()));
 			writer.append('\n');
 			writer.append("Type");
 			writer.append(", ");

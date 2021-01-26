@@ -15,8 +15,26 @@ public class MatchImpl implements iMatch {
 		dataLayer.createMatch(team.getId(), team2.getId(), leagueID);
 	}
 	
+	public boolean createMatch(int leagueId, int team1Id, int team2Id) {
+		if (dataLayer.createMatch(team1Id, team2Id, leagueId))
+			return true;
+		else
+			return false;
+	}
+	
 	public ArrayList<Match> getMatchesByLeagueID(League league) {
 		return dataLayer.getAllMatchesByLeagueID(league.getId());
+	}
+	
+	public boolean matchExists(int matchId) {
+		if (dataLayer.matchExists(matchId))
+			return true;
+		else
+			return false;
+	}
+	
+	public Match latestInsert() {
+		return dataLayer.latestInsert();
 	}
 	
 	public void updateMatch(Match match) {
