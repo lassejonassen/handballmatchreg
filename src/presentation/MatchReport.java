@@ -32,14 +32,13 @@ public class MatchReport {
 	private int gameMinutes;
 	private int homeGoals = 0;
 	private int awayGoals = 0;
-
 	private GridPane scrollingGrid = new GridPane();
 	private ScrollPane sp = new ScrollPane(scrollingGrid);
 
 	private Scene scene;
 	private Stage window = new Stage();
 	private int i = 0;
-
+  
 	private ChildLayout childLayout = new ChildLayout();
 
 	public MatchReport(Match match, ArrayList<ReportDTO> eventList) {
@@ -93,7 +92,7 @@ public class MatchReport {
 						gameSeconds = gameSeconds - 60;
 						gameMinutes++;
 					}
-				} else {
+				} else 
 					gameSeconds = eventList.get(i).getGoal().getTimeStamp();
 				}
 				matchEvent = " GOAL! ";
@@ -138,7 +137,6 @@ public class MatchReport {
 		printReport.setOnAction(e -> exportReport(eventList, match));
 		closeBtn.setOnAction(e -> window.close());
 	}
-  
 	private void exportReport(ArrayList<ReportDTO> eventList, Match match) {
 		DirectoryChooser dirChooser = new DirectoryChooser();
 		File selectedDir = dirChooser.showDialog(window);
