@@ -22,18 +22,23 @@ public class Goal {
 	public int getId() {
 		return id;
 	}
+	
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 	public int getMatchId() {
 		return matchId;
 	}
+	
 	public void setMatchId(int matchId) {
 		this.matchId = matchId;
 	}
+	
 	public int getTimeStamp() {
 		return timeStamp;
 	}
+	
 	public void setTimeStamp(int timeStamp) {
 		this.timeStamp = timeStamp;
 	}
@@ -45,12 +50,4 @@ public class Goal {
 	public void setTeamId(int teamId) {
 		this.teamId = teamId;
 	}
-
-	@Override
-	public String toString() {
-		return "Goal [id=" + id + ", matchId=" + matchId + ", timeStamp=" + timeStamp + ", teamId=" + teamId + "]";
-	}
-	
-	
-
 }
