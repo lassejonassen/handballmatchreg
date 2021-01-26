@@ -138,7 +138,7 @@ public class MatchReport {
 		printReport.setOnAction(e -> exportReport(eventList, match));
 		closeBtn.setOnAction(e -> window.close());
 	}
-
+  
 	private void exportReport(ArrayList<ReportDTO> eventList, Match match) {
 		DirectoryChooser dirChooser = new DirectoryChooser();
 		File selectedDir = dirChooser.showDialog(window);
@@ -148,11 +148,11 @@ public class MatchReport {
 			FileWriter writer = new FileWriter(selectedDir + "/kamprapport " + date + ".csv");
 			writer.append("Hold navn 1");
 			writer.append(", ");
-			writer.append("Hold 1 mål");
+			writer.append("Hold 1 mÃ¥l");
 			writer.append(", ");
 			writer.append("Hold navn 2");
 			writer.append(", ");
-			writer.append("Hold 2 mål");
+			writer.append("Hold 2 mÃ¥l");
 			writer.append('\n');
 			writer.append(match.getTeam1Name());
 			writer.append(", ");
