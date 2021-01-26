@@ -145,17 +145,33 @@ public class MatchReport
 		
 	private void matchReportBtnFunctionality(Match match, ArrayList<ReportDTO> eventList)
 	{
-		printReport.setOnAction(e -> exportReport(eventList));
+		printReport.setOnAction(e -> exportReport(eventList, match));
 		closeBtn.setOnAction(e -> window.close());
 	}
 	
-	private void exportReport(ArrayList<ReportDTO> eventList) {
+	private void exportReport(ArrayList<ReportDTO> eventList, Match match) {
 		DirectoryChooser dirChooser = new DirectoryChooser();
 		File selectedDir = dirChooser.showDialog(window);
 		 
 		try {
 			LocalDate date = LocalDate.now();
 			FileWriter writer = new FileWriter(selectedDir + "/kamprapport " + date + ".csv");
+			writer.append("Hold navn 1");
+			writer.append(", ");
+			writer.append("Hold 1 mål");
+			writer.append(", ");
+			writer.append("Hold navn 2");
+			writer.append(", ");
+			writer.append("Hold 2 mål");
+			writer.append('\n');
+			writer.append(match.getTeam1Name());
+			writer.append(", ");
+			writer.append(String.valueOf(match.getTeam1Goals()));
+			writer.append(", ");
+			writer.append(match.getTeam2Name());
+			writer.append(", ");
+			writer.append(String.valueOf(match.getTeam2Goals()));
+			writer.append('\n');
 			writer.append("Type");
 			writer.append(", ");
 			writer.append("Id");
