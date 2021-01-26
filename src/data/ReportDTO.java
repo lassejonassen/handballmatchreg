@@ -1,12 +1,10 @@
 package data;
 
-public class ReportDTO 
-{
+public class ReportDTO {
 	private Suspension suspension;
 	private Goal goal;
 	
-	public ReportDTO(Suspension suspension,Goal goal)
-	{
+	public ReportDTO(Suspension suspension, Goal goal) {
 		this.suspension = suspension;
 		this.goal = goal;
 	}
