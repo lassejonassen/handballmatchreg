@@ -37,7 +37,6 @@ public class MatchReport {
 
 	private Scene scene;
 	private Stage window = new Stage();
-	private int i = 0;
 
 	private ChildLayout childLayout = new ChildLayout();
 
@@ -79,21 +78,24 @@ public class MatchReport {
 		window.show();
 	}
 
-	private void insertEvents(Match match, ArrayList<ReportDTO> eventList) {
+	private void insertEvents(Match match, ArrayList<ReportDTO> eventList) 
+	{
 		String matchEvent;
-		for (int j = 0; j < eventList.size(); j++) {
+		for (int i = 0; i < eventList.size(); i++) 
+		{
 			scrollingGrid.add(new Label(homeGoals + " - " + awayGoals), 1, i);
-			if (eventList.get(i).getGoal() != null) {
+			if (eventList.get(i).getGoal() != null) 
+			{
+				gameSeconds = eventList.get(i).getGoal().getTimeStamp();
 				gameMinutes = 0;
-				if (eventList.get(i).getGoal().getTimeStamp() >= 60) {
-					gameSeconds = eventList.get(i).getGoal().getTimeStamp() - 60;
-					gameMinutes++;
-					if (gameSeconds >= 60) {
+				for(int k = 0;k<eventList.get(i).getGoal().getTimeStamp();k++)
+				{
+					if (gameSeconds >= 60) 
+					{
 						gameSeconds = gameSeconds - 60;
 						gameMinutes++;
+						System.out.println("mål" + gameMinutes + " " + gameSeconds);
 					}
-				} else {
-					gameSeconds = eventList.get(i).getGoal().getTimeStamp();
 				}
 				matchEvent = " GOAL! ";
 				if (eventList.get(i).getGoal().getTeamId() == match.getTeam1Id()) {
@@ -107,16 +109,18 @@ public class MatchReport {
 							i);
 					awayGoals++;
 				}
-			} else {
-				if (eventList.get(i).getSuspension().getMatchTime() >= 60) {
-					gameSeconds = eventList.get(i).getSuspension().getMatchTime() - 60;
-					gameMinutes++;
-					if (gameSeconds >= 60) {
+			} else 
+			{
+				gameSeconds = eventList.get(i).getSuspension().getMatchTime();
+				gameMinutes = 0;
+				for(int k = 0;k<eventList.get(i).getSuspension().getMatchTime();k++)
+				{
+					if (gameSeconds >= 60) 
+					{
 						gameSeconds = gameSeconds - 60;
 						gameMinutes++;
+						System.out.println("suspension" + gameMinutes + " " + gameSeconds);
 					}
-				} else {
-					gameSeconds = eventList.get(i).getSuspension().getMatchTime();
 				}
 				matchEvent = " Udvisning! ";
 				if (eventList.get(i).getSuspension().getTeamId() == match.getTeam1Id()) {
@@ -129,7 +133,6 @@ public class MatchReport {
 							i);
 				}
 			}
-			i++;
 		}
 
 	}
