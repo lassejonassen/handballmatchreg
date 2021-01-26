@@ -146,11 +146,11 @@ public class MatchReport {
 			FileWriter writer = new FileWriter(selectedDir + "/kamprapport " + date + ".csv");
 			writer.append("Hold navn 1");
 			writer.append(", ");
-			writer.append("Hold 1 mål");
+			writer.append("Hold 1 maal");
 			writer.append(", ");
 			writer.append("Hold navn 2");
 			writer.append(", ");
-			writer.append("Hold 2 mål");
+			writer.append("Hold 2 maal");
 			writer.append('\n');
 			writer.append(match.getTeam1Name());
 			writer.append(", ");
