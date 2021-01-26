@@ -37,7 +37,7 @@ public class MatchDetails
 	private Timeline timeline;
 	private Label timerLabel = new Label();
 	private int timeSeconds = STARTTIME;
-	private int gameLength = 125;
+	private int gameLength = 60;
 	private int timeMinutes = 0;
 	private int totalTime;
 	

@@ -13,12 +13,9 @@ public class DataLayer {
 
 	private boolean loadJDBCDriver() {
 		try {
-			System.out.println("Loading JDBC Driver...");
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-			System.out.println("JDBC Driver loaded");
 			return true;
 		} catch (ClassNotFoundException e) {
-			System.out.println("Could not load JDBC Driver");
 			return false;
 		}
 	}
@@ -28,12 +25,9 @@ public class DataLayer {
 				+ "HbmrDb" + ";" + "integratedSecurity=true;";
 		connection = null;
 		try {
-			System.out.println("Connecting to database...");
 			connection = DriverManager.getConnection(connectionString);
-			System.out.println("Connected to database");
 			return true;
 		} catch (SQLException e) {
-			System.out.println("Could not connect to database!");
 			System.out.println(e.getMessage());
 			return false;
 		}
@@ -72,7 +66,6 @@ public class DataLayer {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Couldnt find any teams.");
 		}
 		return leagueList;
 	}
@@ -174,7 +167,6 @@ public class DataLayer {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Couldnt find any teams.");
 		}
 
 		return teamList;
@@ -212,7 +204,6 @@ public class DataLayer {
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			System.out.println("Der kunne ikke findes et hold.");
 		}
 		return teamList.get(0);
 	}
@@ -229,7 +220,6 @@ public class DataLayer {
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("fejl");
 			return false;
 		}
 	}
@@ -306,7 +296,6 @@ public class DataLayer {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Couldnt find any matches.");
 		}
 		return matchList;
 	}
@@ -321,8 +310,8 @@ public class DataLayer {
 				stmt.execute();
 			}
 			return true;
-		} catch (SQLException ex) {
-			ex.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -335,12 +324,12 @@ public class DataLayer {
 				stmt.execute();
 			}
 			return true;
-		} catch (SQLException ex) {
-			ex.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
-	
+
 	public boolean updateMatch(Match match) {
 		String sql = "{call spUpdatePlayedMatch(?, ?)}";
 		try (CallableStatement stmt = connection.prepareCall(sql)) {
@@ -348,9 +337,8 @@ public class DataLayer {
 			stmt.setString(2, match.getPlayed());
 			stmt.execute();
 			return true;
-		}
-		catch (SQLException ex) {
-			ex.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -378,14 +366,12 @@ public class DataLayer {
 	}
 
 	public boolean deleteSuspension(int matchId, int teamId, int suspensionID) {
-		try {
-			String sql = "{call spDeleteSuspension(?, ? ,?)}";
-			try (CallableStatement stmt = connection.prepareCall(sql)) {
-				stmt.setInt(1, matchId);
-				stmt.setInt(2, teamId);
-				stmt.setInt(3, suspensionID);
-				stmt.execute();
-			}
+		String sql = "{call spDeleteSuspension(?, ? ,?)}";
+		try (CallableStatement stmt = connection.prepareCall(sql)) {
+			stmt.setInt(1, matchId);
+			stmt.setInt(2, teamId);
+			stmt.setInt(3, suspensionID);
+			stmt.execute();
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -399,7 +385,6 @@ public class DataLayer {
 	 * @author
 	 * @created 20/01/2021
 	 */
-
 	public boolean createGoal(int matchId, int timeStamp, int teamId) {
 		String sql = "{call spCreateGoal(?, ?, ?)}";
 		try (CallableStatement stmt = connection.prepareCall(sql)) {
@@ -408,12 +393,12 @@ public class DataLayer {
 			stmt.setInt(3, teamId);
 			stmt.execute();
 			return true;
-		} catch (SQLException ex) {
-			ex.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
-	
+
 	public boolean deleteGoal(int matchId, int timeStamp, int goalId) {
 		String sql = "{call spDeleteGoal(?, ?, ?)}";
 		try (CallableStatement stmt = connection.prepareCall(sql)) {
@@ -422,12 +407,12 @@ public class DataLayer {
 			stmt.setInt(3, goalId);
 			stmt.execute();
 			return true;
-		} catch (SQLException ex) {
-			ex.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
-	
+
 	/**
 	 * @About Goal and Suspension
 	 * @tags {Read}
@@ -446,15 +431,15 @@ public class DataLayer {
 				int timeStamp = resultSet.getInt("match_time");
 				int teamId = resultSet.getInt("team_id");
 				if ((id > 9999) & (id < 99999))
-					list.add(new ReportDTO(new Suspension(id, mId, timeStamp, teamId))); 
+					list.add(new ReportDTO(new Suspension(id, mId, timeStamp, teamId)));
 				else if ((id > 99999) & (id < 999999))
 					list.add(new ReportDTO(new Goal(id, mId, timeStamp, teamId)));
 			}
-		} catch (SQLException ex) {
-			ex.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return list;
-	
+
 	}
 
 }

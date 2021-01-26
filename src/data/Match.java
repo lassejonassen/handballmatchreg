@@ -21,13 +21,10 @@ public class Match {
 		this.team2Id = team2Id;
 		this.played = played;
 	}
-	public String getPlayed() {
-		return played;
+	
+	public Match() {
+		
 	}
-	public void setPlayed(String played) {
-		this.played = played;
-	}
-	public Match() {}
 	
 	public String getTeam1Name() {
 		return team1Name;
@@ -64,9 +61,11 @@ public class Match {
 	public int getMatchID() {
 		return matchID;
 	}
+	
 	public void setMatchID(int matchID) {
 		this.matchID = matchID;
 	}
+	
 	public int getTeam1Goals() {
 		return team1Goals;
 	}
@@ -86,9 +85,19 @@ public class Match {
 	public String getDivider() {
 		return divider;
 	}
+	
 	public void setDivider(String divider) {
 		this.divider = divider;
 	}
+	
+	public String getPlayed() {
+		return played;
+	}
+	
+	public void setPlayed(String played) {
+		this.played = played;
+	}
+	
 	@Override
 	public String toString() {
 		return matchID + " " + team1Name + " " + divider + " " + team2Name;
