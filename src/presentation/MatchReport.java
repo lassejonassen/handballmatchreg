@@ -85,7 +85,6 @@ public class MatchReport {
 		String matchEvent;
 		for (int i = 0; i < eventList.size(); i++) 
 		{
-//			scrollingGrid.add(new Label(homeGoals + " - " + awayGoals), 1, i);
 			if (eventList.get(i).getGoal() != null) 
 			{
 				gameSeconds = eventList.get(i).getGoal().getTimeStamp();
@@ -96,7 +95,6 @@ public class MatchReport {
 					{
 						gameSeconds = gameSeconds - 60;
 						gameMinutes++;
-						System.out.println("maal" + gameMinutes + " " + gameSeconds);
 					}
 				}
 				matchEvent = " GOAL! ";
@@ -123,7 +121,6 @@ public class MatchReport {
 					{
 						gameSeconds = gameSeconds - 60;
 						gameMinutes++;
-						System.out.println("suspension" + gameMinutes + " " + gameSeconds);
 					}
 				}
 				matchEvent = " Udvisning! ";

@@ -4,8 +4,11 @@ import java.util.ArrayList;
 
 import data.League;
 import data.Match;
+import data.Team;
 import logic.LeagueImpl;
 import logic.MatchImpl;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -117,7 +120,6 @@ public class MatchMenu {
 		tableViewMatches.getSortOrder().setAll(idColumn);
 		
 		tableViewMatches.setOnMouseClicked(e -> {
-			System.out.println("halp");
 			if(tableViewMatches.getSelectionModel().getSelectedItem() != null) {
 				new MatchDetails(tableViewMatches.getSelectionModel().getSelectedItem());
 			}
