@@ -9,7 +9,9 @@ import javafx.geometry.HPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import logic.GoalImpl;
@@ -32,7 +34,7 @@ public class MatchDetails
 	private Button resumeMatchBtn = new Button("Forsaet kamp");
 	private Button stopMatchBtn = new Button("STOP kamp");
 	private Button closeBtn = new Button("Luk");
-	
+
 	private int STARTTIME = 0;
 	private Timeline timeline;
 	private Label timerLabel = new Label();
@@ -40,41 +42,45 @@ public class MatchDetails
 	private int gameLength = 300;
 	private int timeMinutes = 0;
 	private int totalTime;
-	
+
 	private Label homeTeamName = new Label();
 	private Label awayTeamName = new Label();
 	private Label homeScore = new Label();
 	private Label awayScore = new Label();
-	
+
 	private int i = 0;
 	private int j = 0;
-	private int k = 4;
-	
+	private int k = 0;
+
 	private int team1Goals;
 	private int team2Goals;
 	private int goalId;
-	
+
+	private GridPane scrollingGrid = new GridPane();
+	private ScrollPane sp = new ScrollPane(scrollingGrid);
+
 	private Scene scene;
 	private Stage window = new Stage();
-	
+
 	private ChildLayout childLayout = new ChildLayout();
 	private MatchImpl matchImpl = new MatchImpl();
 	private SuspensionImpl suspensionImpl = new SuspensionImpl();
 	private GoalImpl goalImpl = new GoalImpl();
 	private ReportDTOImpl reportDTOImpl = new ReportDTOImpl();
 	private Validation valid = new Validation();
-	
+
 	private int teamID;
 	private int suspensionID;
 
-	public MatchDetails(Match match)
+	public MatchDetails(Match match) 
 	{
 		showMatchDetails(match);
 		detailBtnFunctionality(match);
 		matchTeamDetails(match);
 	}
-	
-	public void showMatchDetails(Match match)
+
+	@SuppressWarnings("static-access")
+	public void showMatchDetails(Match match) 
 	{
 		childLayout.childCenter.add(timerLabel, 2, 0);
 		childLayout.childCenter.add(homeTeamName, 0, 1);
@@ -89,7 +95,7 @@ public class MatchDetails
 		homeScore.setStyle("-fx-font-size: 2em;");
 		awayScore.setStyle("-fx-font-size: 2em;");
 		awayTeamName.setStyle("-fx-font-size: 2em;");
-		
+
 		childLayout.childCenter.add(homeTeamAddGoalBtn, 0, 2);
 		childLayout.childCenter.add(homeTeamDeleteGoalBtn, 0, 3);
 		childLayout.childCenter.add(homeTeamSuspension, 1, 2);
@@ -102,79 +108,98 @@ public class MatchDetails
 		childLayout.childCenter.add(startMatchBtn, 2, 4);
 		childLayout.childCenter.add(stopMatchBtn, 3, 4);
 		childLayout.childCenter.add(resumeMatchBtn, 4, 4);
-		childLayout.childCenter.add(closeBtn, 4, 8);
+
+		childLayout.childBottom.getChildren().addAll(closeBtn);
+
 		timerLabel.setText("" + timeSeconds);
 		timerLabel.setStyle("-fx-font-size: 4em;");
 		GridPane.setHalignment(timerLabel, HPos.CENTER);
-		
+
+		childLayout.childCenter.add(sp, 0, 5, 5, 1);
+		childLayout.childCenter.setHgrow(sp, Priority.ALWAYS);
+		sp.setMaxWidth(Double.MAX_VALUE);
+		sp.setFitToWidth(true);
+		scrollingGrid.setId("scrollingGrid");
+
 		scene = new Scene(childLayout.childRoot);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
 		window.setScene(scene);
 		window.setTitle("Kamp detaljer");
 		window.show();
 	}
-	
-	private void matchTeamDetails(Match match)
+
+	private void matchTeamDetails(Match match) 
 	{
 		homeTeamName.setText("" + match.getTeam1Name());
 		awayTeamName.setText("" + match.getTeam2Name());
-		homeScore.setText(""+ match.getTeam1Goals());
-		awayScore.setText("" + match.getTeam2Goals());	
-	}
-	
-	private void homeTeamAddGoal(Match match)
-	{ 
-		if(totalTime < gameLength)
-		{
-			goalImpl.create(match, match.getTeam1Id(), totalTime);
-			i++;
-			match.setTeam1Goals(i);
-			homeScore.setText("" + match.getTeam1Goals());
-		}else
-		{
-			System.out.println("Kamp over STAPH");
-		}
+		homeScore.setText("" + match.getTeam1Goals());
+		awayScore.setText("" + match.getTeam2Goals());
 	}
 
-	private void awayTeamAddGoal(Match match)
-	{ 
-		if(totalTime < gameLength)
+	private void homeTeamAddGoal(Match match) 
+	{
+		if (timeSeconds != 0) 
 		{
-			goalImpl.create(match, match.getTeam2Id(), totalTime);
-			j++;
-			match.setTeam2Goals(j);
-			awayScore.setText("" + match.getTeam2Goals());
-		}else
-		{
-			System.out.println("Kamp over STAPH");
-		}
-	}
-	
-	private void homeTeamDeleteGoal(Match match, int goalId) {
-		
-		if(timeSeconds < gameLength) {
-			if (match.getTeam1Goals() > 0) {
-				goalImpl.delete(match, match.getTeam1Id(), goalId);
-				i--;
+			if (totalTime < gameLength) 
+			{
+				goalImpl.create(match, match.getTeam1Id(), totalTime);
+				i++;
 				match.setTeam1Goals(i);
 				homeScore.setText("" + match.getTeam1Goals());
 			}
 		}
 	}
-	
-	private void awayTeamDeleteGoal(Match match, int goalId) {
-		
-		if(timeSeconds < gameLength) {
-			if (match.getTeam2Goals() > 0) {
-			goalImpl.delete(match, match.getTeam2Id(), goalId);
-			j--;
-			match.setTeam2Goals(j);
-			awayScore.setText("" + match.getTeam2Goals());
+
+	private void awayTeamAddGoal(Match match) 
+	{
+		if (timeSeconds != 0) 
+		{
+			if (totalTime < gameLength) 
+			{
+				goalImpl.create(match, match.getTeam2Id(), totalTime);
+				j++;
+				match.setTeam2Goals(j);
+				awayScore.setText("" + match.getTeam2Goals());
 			}
 		}
 	}
-	
-	private void matchDataUpdate(Match match)
+
+	private void homeTeamDeleteGoal(Match match, int goalId) 
+	{
+		if (timeSeconds != 0) 
+		{
+			if (timeSeconds < gameLength) 
+			{
+				if (match.getTeam1Goals() > 0) 
+				{
+					goalImpl.delete(match, match.getTeam1Id(), goalId);
+					i--;
+					match.setTeam1Goals(i);
+					homeScore.setText("" + match.getTeam1Goals());
+				}
+			}
+		}
+	}
+
+	private void awayTeamDeleteGoal(Match match, int goalId) 
+	{
+
+		if (timeSeconds != 0) 
+		{
+			if (timeSeconds < gameLength) 
+			{
+				if (match.getTeam2Goals() > 0) 
+				{
+					goalImpl.delete(match, match.getTeam2Id(), goalId);
+					j--;
+					match.setTeam2Goals(j);
+					awayScore.setText("" + match.getTeam2Goals());
+				}
+			}
+		}
+	}
+
+	private void matchDataUpdate(Match match) 
 	{
 		team1Goals = match.getTeam1Goals();
 		team2Goals = match.getTeam2Goals();
@@ -183,9 +208,9 @@ public class MatchDetails
 		matchImpl.updateMatch(match);
 		matchImpl.matchPlayed(match);
 	}
-	
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private void timerLabelUpdate(Match match)
+	private void timerLabelUpdate(Match match) 
 	{
 		timeSeconds = STARTTIME;
 		timerLabel.setText(timeMinutes + ":" + timeSeconds);
@@ -197,16 +222,15 @@ public class MatchDetails
 			public void handle(Event arg0) {
 				timeSeconds++;
 				timerLabel.setText(timeMinutes + ":" + timeSeconds);
-				totalTime = (timeMinutes*60) + timeSeconds;
+				totalTime = (timeMinutes * 60) + timeSeconds;
 				System.out.println(totalTime);
-				if(timeSeconds == 60)
-				{
+				if (timeSeconds == 60) {
 					timeMinutes++;
 					timeSeconds = 0;
 					timerLabel.setText(timeMinutes + ":" + timeSeconds);
 				}
-			
-				if(totalTime == gameLength)
+
+				if (totalTime == gameLength) 
 				{
 					timeline.stop();
 					matchDataUpdate(match);
@@ -216,58 +240,70 @@ public class MatchDetails
 		}));
 		timeline.playFromStart();
 	}
-	
-	private void createSuspensionHome(Match match, int teamId, int totalTime) {
+
+	private void createSuspensionHome(Match match, int teamId, int totalTime) 
+	{
 		teamId = match.getTeam1Id();
-		
-		if (totalTime < gameLength) {
-			suspensionImpl.create(match, teamId, totalTime);
-			Label suspensionLabel = new Label();
-			Label teamNameLabel = new Label();
-			Label timeLabel = new Label();
-			suspensionLabel.setText("Udvisning - Hjemme");
-			teamNameLabel.setText(match.getTeam1Name());
-			timeLabel.setText("Tid: " + timeMinutes + ":" + timeSeconds);
-			childLayout.childCenter.add(suspensionLabel, 0, k);
-			childLayout.childCenter.add(teamNameLabel, 1, k);
-			childLayout.childCenter.add(timeLabel, 2, k);
-			k++;
-		} 
-	}
-	
-	private void createSuspensionAway(Match match, int teamId, int totalTime) {
-		teamId = match.getTeam2Id();
-		
-		if (totalTime < gameLength) {
-			suspensionImpl.create(match, teamId, totalTime);
-			Label suspensionLabel = new Label();
-			Label teamNameLabel = new Label();
-			Label timeLabel = new Label();
-			suspensionLabel.setText("Udvisning - Ude");
-			teamNameLabel.setText(match.getTeam2Name());
-			timeLabel.setText("Tid: " + timeMinutes + ":" + timeSeconds);
-			childLayout.childCenter.add(suspensionLabel, 0, k);
-			childLayout.childCenter.add(teamNameLabel, 1, k);
-			childLayout.childCenter.add(timeLabel, 2, k);
-			k++;
-		} 
-	}
-	
-	private void deleteSuspensionHome(Match match, int teamId, int suspensionID) {
-		teamId = match.getTeam1Id();
-		
-		if (timeSeconds < gameLength) {
-				suspensionImpl.delete(match, teamId, suspensionID);	
-				
+		if (timeSeconds != 0) 
+		{
+			if (totalTime < gameLength) 
+			{
+				System.out.println("home test");
+				suspensionImpl.create(match, teamId, totalTime);
+				String homeTeamName = match.getTeam1Name();
+				scrollingGrid.add(
+						new Label("Udvisning - Hjemme " + homeTeamName + " Tid: " + timeMinutes + ":" + timeSeconds), 0,
+						k);
+				k++;
+			}
 		}
 	}
-	
-	private void deleteSuspensionAway(Match match, int teamId, int suspensionID) {
+
+	private void createSuspensionAway(Match match, int teamId, int totalTime) 
+	{
 		teamId = match.getTeam2Id();
-		suspensionImpl.delete(match, teamId, suspensionID);
+		if (timeSeconds != 0) 
+		{
+			if (totalTime < gameLength) 
+			{
+				System.out.println("away test");
+				suspensionImpl.create(match, teamId, totalTime);
+				String awayTeamName = match.getTeam2Name();
+				scrollingGrid.add(
+						new Label("Udvisning - Ude " + awayTeamName + "Tid: " + timeMinutes + ":" + timeSeconds), 2, k);
+				k++;
+			}
+		}
 	}
-	
-	private void detailBtnFunctionality(Match match)
+
+	private void deleteSuspensionHome(Match match, int teamId, int suspensionID) 
+	{
+		teamId = match.getTeam1Id();
+		if (timeSeconds != 0) 
+		{
+			if (timeSeconds < gameLength) 
+			{
+				suspensionImpl.delete(match, teamId, suspensionID);
+				scrollingGrid.getChildren().remove(0,k);
+				k--;
+			}
+		}
+	}
+
+	private void deleteSuspensionAway(Match match, int teamId, int suspensionID) 
+	{
+		teamId = match.getTeam2Id();
+		if (timeSeconds != 0) {
+			if (timeSeconds < gameLength) 
+			{
+				suspensionImpl.delete(match, teamId, suspensionID);
+				scrollingGrid.getChildren().remove(2,k);
+				k--;
+			}
+		}
+	}
+
+	private void detailBtnFunctionality(Match match) 
 	{
 		homeTeamAddGoalBtn.setOnAction(e -> homeTeamAddGoal(match));
 		awayTeamAddGoalBtn.setOnAction(e -> awayTeamAddGoal(match));
@@ -278,6 +314,7 @@ public class MatchDetails
 		awayTeamSuspension.setOnAction(e -> createSuspensionAway(match, teamID, totalTime));
 		deleteSuspensionHomeBtn.setOnAction(e -> deleteSuspensionHome(match, teamID, suspensionID));
 		deleteSuspensionAwayBtn.setOnAction(e -> deleteSuspensionAway(match, teamID, suspensionID));
+		matchReportBtn.setOnAction(e -> new MatchReport(match, reportDTOImpl.read(match)));
 		closeBtn.setOnAction(e -> window.close());
 		startMatchBtn.setOnAction(e -> {
 			if (match.getPlayed().equals("no"))
