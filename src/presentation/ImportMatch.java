@@ -7,79 +7,31 @@ import java.io.IOException;
 import java.util.*;
 
 import data.Match;
-import javafx.geometry.HPos;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import logic.GoalImpl;
 import logic.MatchImpl;
+import logic.ReportDTOImpl;
+import logic.SuspensionImpl;
 
 public class ImportMatch {
-	private Label homeTeamName = new Label();
-	private Label homeScored = new Label();
-	private Label awayTeamName = new Label();
-	private Label awayScored = new Label();
-	private Label vsIndicator = new Label(" - ");
-
-	Button chooseFileBtn = new Button("Choose file");
-	TextField filePath = new TextField();
-
-	private int gameSeconds;
-	private int gameMinutes;
-
-	private GridPane scrollingGrid = new GridPane();
-	private ScrollPane sp = new ScrollPane(scrollingGrid);
-
-	private Scene scene;
 	private Stage window = new Stage();
-
-	private ChildLayout childLayout = new ChildLayout();
-	
-	MatchImpl matchImpl = new MatchImpl();
+	private MatchImpl matchImpl = new MatchImpl();
+	private GoalImpl goalImpl = new GoalImpl();
+	private SuspensionImpl susImpl = new SuspensionImpl();
+	private ReportDTOImpl reportDTOImpl = new ReportDTOImpl();
+	private int lines = 0;
 
 	public ImportMatch() {
-		if (fileChooser())
-			showMatchReport();
-		else // And a warning
+		if (fileChooser());
+		else
 			window.close();
 	}
 
-	@SuppressWarnings("static-access")
-	private void showMatchReport() {
-		childLayout.childTop.add(homeTeamName, 0, 0);
-		childLayout.childTop.add(vsIndicator, 1, 0);
-		childLayout.childTop.add(awayTeamName, 2, 0);
-		childLayout.childTop.add(homeScored, 0, 1);
-		childLayout.childTop.add(awayScored, 2, 1);
-		childLayout.childBottom.getChildren().addAll(chooseFileBtn, filePath);
-		GridPane.setHalignment(homeTeamName, HPos.CENTER);
-		GridPane.setHalignment(vsIndicator, HPos.CENTER);
-		GridPane.setHalignment(awayTeamName, HPos.CENTER);
-		GridPane.setHalignment(homeScored, HPos.CENTER);
-		GridPane.setHalignment(awayScored, HPos.CENTER);
-
-		childLayout.childCenter.add(sp, 0, 0);
-		childLayout.childCenter.setHgrow(sp, Priority.ALWAYS);
-		sp.setId("sp");
-		sp.setFitToWidth(true);
-		scrollingGrid.setId("scrollingGrid");
-
-		scene = new Scene(childLayout.childRoot);
-		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
-		window.setScene(scene);
-		window.setTitle("Kamp rapport");
-		window.show();
-	}
-	
 	private boolean fileChooser() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Vælg kamprapport fil");
@@ -115,12 +67,30 @@ public class ImportMatch {
 				matchImpl.createMatch(leagueId, team1Id, team2Id);
 				Match match = matchImpl.latestInsert();
 				matchImpl.matchPlayed(match);
+				match.setTeam1Name(matchImpl.getOneTeam(match.getTeam1Id()));
+				match.setTeam2Name(matchImpl.getOneTeam(match.getTeam2Id()));
 				
+				int eventId = 0;
+				int timeStamp = 0;
+				int teamId = 0;
 				// Getting the data, ID, timestamp, teamid
-				for (int i = 3; i < 4; i++) {
-					
+				for (int i = 3; i < lines; i++) {
+					String eventIdStr = reportDataList.get(i)[1];
+					eventId = Integer.parseInt(eventIdStr.stripLeading());
+					String timeStampStr = reportDataList.get(i)[3];
+					timeStamp = Integer.parseInt(timeStampStr.stripLeading());
+					String teamIdStr = reportDataList.get(i)[4];
+					teamId = Integer.parseInt(teamIdStr.stripLeading());
+				
+					if (eventId > 9999 && eventId < 100000)
+						goalImpl.create(match.getMatchID(), teamId, timeStamp);
+					else if (eventId > 99999 && eventId < 999999)
+						susImpl.create(match.getMatchID(), teamId, timeStamp);
+					else
+						return false;
 				}
 				
+				new MatchReport(match,reportDTOImpl.read(match));
 				return true;
 			}
 		} else {
@@ -128,13 +98,14 @@ public class ImportMatch {
 		}
 	}
 	
-	
 	private List<String[]> openCSVFile(File file) {
 		List<String[]> list = new ArrayList<>();
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 			String line = "";
 			while ((line = br.readLine()) != null) {
 				list.add(line.split(","));
+				lines++;
+				System.out.println(lines);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -10,6 +10,7 @@ public interface iMatch {
 	public boolean createMatch(int leagueId, int team1Id, int team2Id);
 	public ArrayList<Match> getMatchesByLeagueID(League league);
 	public Match latestInsert();
+	public String getOneTeam(int teamId);
 	public boolean matchExists(int matchId);
 	public void updateMatch(Match match);
 	public void deleteMatch(Match ID);

@@ -33,6 +33,11 @@ public class MatchImpl implements iMatch {
 			return false;
 	}
 	
+	public String getOneTeam(int teamId) {
+		Team team = dataLayer.getOneTeam(teamId);
+		return team.getName();
+	}
+	
 	public Match latestInsert() {
 		return dataLayer.latestInsert();
 	}
