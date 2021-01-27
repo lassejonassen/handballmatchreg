@@ -40,14 +40,16 @@ public class MatchReport {
 
 	private ChildLayout childLayout = new ChildLayout();
 
-	public MatchReport(Match match, ArrayList<ReportDTO> eventList) {
+	public MatchReport(Match match, ArrayList<ReportDTO> eventList) 
+	{
 		showMatchReport(match);
 		matchReportBtnFunctionality(match, eventList);
 		insertEvents(match, eventList);
 	}
 
 	@SuppressWarnings("static-access")
-	private void showMatchReport(Match match) {
+	private void showMatchReport(Match match) 
+	{
 		childLayout.childBottom.getChildren().addAll(printReport, closeBtn);
 		childLayout.childTop.add(homeTeamName, 0, 0);
 		childLayout.childTop.add(vsIndicator, 1, 0);
@@ -148,7 +150,7 @@ public class MatchReport {
 
 		try {
 			LocalDate date = LocalDate.now();
-			FileWriter writer = new FileWriter(selectedDir + "/kamprapport " + date + ".csv");
+			FileWriter writer = new FileWriter(selectedDir + "/"+ match.getTeam1Name() + " - " + match.getTeam2Name() + " kamprapport " + date + ".csv");
 			writer.append("Hold navn 1");
 			writer.append(", ");
 			writer.append("Hold 1 maal");
