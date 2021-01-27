@@ -49,5 +49,29 @@ public class Validation {
 		if (result.get() == confirmBtn)
 			alert.close();
 	}
+	
+	protected void teamLeagueAlert() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Team ERROR");
+		alert.setHeaderText("Team hasn't been asigned a league.");
+		alert.setContentText("Du skal vælge hvilken liga holdet skal tilhøre.");
+		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
+		alert.getButtonTypes().setAll(confirmBtn);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == confirmBtn)
+			alert.close();
+	}
+	
+	protected void noLeagueChoosenAlert() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("League ERROR");
+		alert.setHeaderText("A league hasn't been choosen");
+		alert.setContentText("Du skal vælge en liga før du kan trykke 'Opdater'");
+		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
+		alert.getButtonTypes().setAll(confirmBtn);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == confirmBtn)
+			alert.close();
+	}
 
 }
