@@ -15,7 +15,7 @@ public class SuspensionImpl implements iSuspension {
 	}
 
 	public void delete(Match match, int teamId) {
-		dataLayer.deleteSuspension(match.getMatchID(), int teamId);
+		dataLayer.deleteSuspension(match.getMatchID(), teamId);
 	}
 	
 	
