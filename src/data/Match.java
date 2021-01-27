@@ -10,8 +10,9 @@ public class Match {
 	private int team2Goals;
 	private String divider = "-";
 	private String played;
+	private int leagueId;
 	
-	public Match(int id, int team1Goals, int team2Goals, String team1Name, String team2Name, int team1Id, int team2Id, String played) {
+	public Match(int id, int team1Goals, int team2Goals, String team1Name, String team2Name, int team1Id, int team2Id, String played, int leagueId) {
 		this.matchID = id;
 		this.team1Goals = team1Goals;
 		this.team2Goals = team2Goals;
@@ -20,6 +21,7 @@ public class Match {
 		this.team1Id = team1Id;
 		this.team2Id = team2Id;
 		this.played = played;
+		this.leagueId = leagueId;
 	}
 	
 	public Match() {
@@ -98,6 +100,14 @@ public class Match {
 		this.played = played;
 	}
 	
+	public int getLeagueId() {
+		return leagueId;
+	}
+
+	public void setLeagueId(int leagueId) {
+		this.leagueId = leagueId;
+	}
+
 	@Override
 	public String toString() {
 		return matchID + " " + team1Name + " " + divider + " " + team2Name;

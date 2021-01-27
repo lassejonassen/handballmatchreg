@@ -10,6 +10,10 @@ public class GoalImpl implements iGoal {
 		dataLayer.createGoal(match.getMatchID(), timeStamp, teamId);
 	}
 	
+	public void create(int matchId, int teamId, int timeStamp) {
+		dataLayer.createGoal(matchId, timeStamp, teamId);
+	}
+	
 	public void delete (Match match, int teamId, int goalId) {
 		dataLayer.deleteGoal(match.getMatchID(), teamId, goalId);
 	}

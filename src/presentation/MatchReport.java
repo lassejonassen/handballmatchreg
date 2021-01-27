@@ -40,14 +40,16 @@ public class MatchReport {
 
 	private ChildLayout childLayout = new ChildLayout();
 
-	public MatchReport(Match match, ArrayList<ReportDTO> eventList) {
+	public MatchReport(Match match, ArrayList<ReportDTO> eventList) 
+	{
 		showMatchReport(match);
 		matchReportBtnFunctionality(match, eventList);
 		insertEvents(match, eventList);
 	}
 
 	@SuppressWarnings("static-access")
-	private void showMatchReport(Match match) {
+	private void showMatchReport(Match match) 
+	{
 		childLayout.childBottom.getChildren().addAll(printReport, closeBtn);
 		childLayout.childTop.add(homeTeamName, 0, 0);
 		childLayout.childTop.add(vsIndicator, 1, 0);
@@ -136,34 +138,52 @@ public class MatchReport {
 				scrollingGrid.add(new Label(homeGoals + " - " + awayGoals), 1, i);
 			}
 		}
+
 	}
 
 	private void matchReportBtnFunctionality(Match match, ArrayList<ReportDTO> eventList) {
 		printReport.setOnAction(e -> exportReport(eventList, match));
 		closeBtn.setOnAction(e -> window.close());
 	}
+
 	private void exportReport(ArrayList<ReportDTO> eventList, Match match) {
 		DirectoryChooser dirChooser = new DirectoryChooser();
 		File selectedDir = dirChooser.showDialog(window);
 
 		try {
 			LocalDate date = LocalDate.now();
-			FileWriter writer = new FileWriter(selectedDir + "/kamprapport " + date + ".csv");
+			FileWriter writer = new FileWriter(selectedDir + "/"+ match.getTeam1Name() + " - " + match.getTeam2Name() + " kamprapport " + date + ".csv");
 			writer.append("Hold navn 1");
 			writer.append(", ");
-			writer.append("Hold 1 mål");
+			writer.append("Hold 1 maal");
+			writer.append(", ");
+			writer.append("Hold 1 ID");
 			writer.append(", ");
 			writer.append("Hold navn 2");
 			writer.append(", ");
-			writer.append("Hold 2 mål");
+			writer.append("Hold 2 maal");
+			writer.append(", ");
+			writer.append("Hold 2 ID");
+			writer.append(", ");
+			writer.append("Kamp ID");
+			writer.append(", ");
+			writer.append("Liga ID");
 			writer.append('\n');
 			writer.append(match.getTeam1Name());
 			writer.append(", ");
 			writer.append(String.valueOf(match.getTeam1Goals()));
 			writer.append(", ");
+			writer.append(String.valueOf(match.getTeam1Id()));
+			writer.append(", ");
 			writer.append(match.getTeam2Name());
 			writer.append(", ");
 			writer.append(String.valueOf(match.getTeam2Goals()));
+			writer.append(", ");
+			writer.append(String.valueOf(match.getTeam2Id()));
+			writer.append(", ");
+			writer.append(String.valueOf(match.getMatchID()));
+			writer.append(", ");
+			writer.append(String.valueOf(match.getLeagueId()));
 			writer.append('\n');
 			writer.append("Type");
 			writer.append(", ");

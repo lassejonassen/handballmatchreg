@@ -292,12 +292,55 @@ public class DataLayer {
 				int team1Id = matches.getInt("TEAM1ID");
 				int team2Id = matches.getInt("TEAM2ID");
 				String played = matches.getString("PLAYED");
-				matchList.add(new Match(id, team1Goals, team2Goals, team1Name, team2Name, team1Id, team2Id, played));
+				int leagueId = matches.getInt("LIGAID");
+				matchList.add(new Match(id, team1Goals, team2Goals, team1Name, team2Name, team1Id, team2Id, played, leagueId));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return matchList;
+	}
+	
+	public boolean matchExists(int matchId) {
+		String sql = "{call spMatchExists(?)}";
+		try (CallableStatement stmt = connection.prepareCall(sql)) {
+			stmt.setInt(1, matchId);
+			ResultSet resultSet = stmt.executeQuery();
+			if (resultSet.next())
+				return true;
+			else
+				return false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public Match latestInsert() {
+		ArrayList<Match> matchList = new ArrayList<Match>();
+		String sql = "{call spGetLatestMatch}";
+		try (CallableStatement stmt = connection.prepareCall(sql)) {
+			ResultSet resultSet = stmt.executeQuery();
+			while (resultSet.next()) {
+				Match match = new Match();
+				int id = resultSet.getInt("id");
+				int team1Id = resultSet.getInt("team1_id");
+				int team2Id = resultSet.getInt("team2_id");
+				int team1Goals = resultSet.getInt("team1_goals");
+				int team2Goals = resultSet.getInt("team2_goals");
+				String played = resultSet.getString("played");
+				match.setMatchID(id);
+				match.setTeam1Id(team1Id);
+				match.setTeam2Id(team2Id);
+				match.setTeam1Goals(team1Goals);
+				match.setTeam2Goals(team2Goals);
+				match.setPlayed(played);
+				matchList.add(match);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return matchList.get(0);
 	}
 
 	public boolean updateMatch(int matchID, int team1Goals, int team2Goals) {

@@ -309,6 +309,7 @@ public class MatchDetails
 		awayTeamAddGoalBtn.setOnAction(e -> awayTeamAddGoal(match));
 		homeTeamDeleteGoalBtn.setOnAction(e -> homeTeamDeleteGoal(match, goalId));
 		awayTeamDeleteGoalBtn.setOnAction(e -> awayTeamDeleteGoal(match, goalId));
+		matchReportBtn.setOnAction(e -> new MatchReport(match,reportDTOImpl.read(match)));
 		homeTeamSuspension.setOnAction(e -> createSuspensionHome(match, teamID, totalTime));
 		awayTeamSuspension.setOnAction(e -> createSuspensionAway(match, teamID, totalTime));
 		deleteSuspensionHomeBtn.setOnAction(e -> deleteSuspensionHome(match, teamID, suspensionID));

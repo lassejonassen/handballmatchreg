@@ -51,4 +51,11 @@ public class Suspension {
 	public void setTeamId(int teamId) {
 		this.teamId = teamId;
 	}
+
+	@Override
+	public String toString() {
+		return "Suspension [id=" + id + ", matchId=" + matchId + ", matchTime=" + matchTime + ", teamId=" + teamId
+				+ "]";
+	}
+	
 }

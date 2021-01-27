@@ -1,0 +1,10 @@
+USE [HbmrDb];
+GO
+CREATE PROCEDURE spGetLatestMatch
+AS
+BEGIN
+	DECLARE @id INT;
+	SET @id = (SELECT IDENT_CURRENT('TMatch'));
+	SELECT * FROM TMatch WHERE id = @id;
+END
+GO
