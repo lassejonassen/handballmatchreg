@@ -70,7 +70,6 @@ public class MatchDetails
 	private Validation valid = new Validation();
 
 	private int teamID;
-	private int suspensionID;
 
 	public MatchDetails(Match match) 
 	{
@@ -276,27 +275,25 @@ public class MatchDetails
 		}
 	}
 
-	private void deleteSuspensionHome(Match match, int teamId, int suspensionID) 
+	private void deleteSuspensionHome(Match match) 
 	{
-		teamId = match.getTeam1Id();
 		if (timeSeconds != 0) 
 		{
 			if (timeSeconds < gameLength) 
 			{
-				suspensionImpl.delete(match, teamId, suspensionID);
+				suspensionImpl.delete(match, match.getTeam1Id());
 				scrollingGrid.getChildren().remove(0,k);
 				k--;
 			}
 		}
 	}
 
-	private void deleteSuspensionAway(Match match, int teamId, int suspensionID) 
+	private void deleteSuspensionAway(Match match) 
 	{
-		teamId = match.getTeam2Id();
 		if (timeSeconds != 0) {
 			if (timeSeconds < gameLength) 
 			{
-				suspensionImpl.delete(match, teamId, suspensionID);
+				suspensionImpl.delete(match, match.getTeam2Id());
 				scrollingGrid.getChildren().remove(2,k);
 				k--;
 			}
@@ -312,8 +309,8 @@ public class MatchDetails
 		matchReportBtn.setOnAction(e -> new MatchReport(match,reportDTOImpl.read(match)));
 		homeTeamSuspension.setOnAction(e -> createSuspensionHome(match, teamID, totalTime));
 		awayTeamSuspension.setOnAction(e -> createSuspensionAway(match, teamID, totalTime));
-		deleteSuspensionHomeBtn.setOnAction(e -> deleteSuspensionHome(match, teamID, suspensionID));
-		deleteSuspensionAwayBtn.setOnAction(e -> deleteSuspensionAway(match, teamID, suspensionID));
+		deleteSuspensionHomeBtn.setOnAction(e -> deleteSuspensionHome(match));
+		deleteSuspensionAwayBtn.setOnAction(e -> deleteSuspensionAway(match));
 		matchReportBtn.setOnAction(e -> new MatchReport(match, reportDTOImpl.read(match)));
 		closeBtn.setOnAction(e -> window.close());
 		startMatchBtn.setOnAction(e -> {
