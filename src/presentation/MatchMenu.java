@@ -4,11 +4,8 @@ import java.util.ArrayList;
 
 import data.League;
 import data.Match;
-import data.Team;
 import logic.LeagueImpl;
 import logic.MatchImpl;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
