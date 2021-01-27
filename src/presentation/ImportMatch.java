@@ -70,26 +70,34 @@ public class ImportMatch {
 				match.setTeam1Name(matchImpl.getOneTeam(match.getTeam1Id()));
 				match.setTeam2Name(matchImpl.getOneTeam(match.getTeam2Id()));
 				
-				int eventId = 0;
 				int timeStamp = 0;
 				int teamId = 0;
+				int team1Goals = 0;
+				int team2Goals = 0;
 				// Getting the data, ID, timestamp, teamid
 				for (int i = 3; i < lines; i++) {
-					String eventIdStr = reportDataList.get(i)[1];
-					eventId = Integer.parseInt(eventIdStr.stripLeading());
+					String type = reportDataList.get(i)[0];
 					String timeStampStr = reportDataList.get(i)[3];
 					timeStamp = Integer.parseInt(timeStampStr.stripLeading());
 					String teamIdStr = reportDataList.get(i)[4];
 					teamId = Integer.parseInt(teamIdStr.stripLeading());
-				
-					if (eventId > 9999 && eventId < 100000)
+					
+					if (type.equals("Goal")) {
 						goalImpl.create(match.getMatchID(), teamId, timeStamp);
-					else if (eventId > 99999 && eventId < 999999)
+						if (teamId == match.getTeam1Id())
+							team1Goals++;
+						else
+							team2Goals++;
+					}
+					else if (type.equals("Suspension"))
 						susImpl.create(match.getMatchID(), teamId, timeStamp);
 					else
 						return false;
 				}
 				
+				match.setTeam1Goals(team1Goals);
+				match.setTeam2Goals(team2Goals);
+				matchImpl.updateMatchData(match);
 				new MatchReport(match,reportDTOImpl.read(match));
 				return true;
 			}

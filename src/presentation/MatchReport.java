@@ -85,7 +85,6 @@ public class MatchReport {
 		String matchEvent;
 		for (int i = 0; i < eventList.size(); i++) 
 		{
-			
 			if (eventList.get(i).getGoal() != null) 
 			{
 				gameSeconds = eventList.get(i).getGoal().getTimeStamp();
@@ -104,7 +103,6 @@ public class MatchReport {
 					scrollingGrid.add(
 							new Label(gameMinutes + ":" + gameSeconds + " - " + match.getTeam1Name() + matchEvent), 0,
 							i);
-					
 				} else {
 					awayGoals++;
 					scrollingGrid.add(

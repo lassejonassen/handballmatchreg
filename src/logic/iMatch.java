@@ -13,6 +13,7 @@ public interface iMatch {
 	public String getOneTeam(int teamId);
 	public boolean matchExists(int matchId);
 	public void updateMatch(Match match);
+	public void updateMatchData(Match match);
 	public void deleteMatch(Match ID);
 	public void matchPlayed(Match match);
 }

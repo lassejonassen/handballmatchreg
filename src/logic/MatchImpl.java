@@ -73,6 +73,10 @@ public class MatchImpl implements iMatch {
 		dataLayer.updateTeamScore(team2);
 	}
 	
+	public void updateMatchData(Match match) {
+		dataLayer.updateMatch(match.getMatchID(), match.getTeam1Goals(), match.getTeam2Goals());
+	}
+	
 	public void deleteMatch(Match match) {
 		dataLayer.deleteMatch(match.getMatchID());
 	}

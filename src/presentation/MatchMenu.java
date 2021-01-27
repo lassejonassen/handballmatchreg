@@ -74,6 +74,7 @@ public class MatchMenu {
 		importMatchBtn.setOnAction(e -> new ImportMatch());
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void loadTableView(League league) {
 		tableViewMatches = new TableView<Match>();
 		ArrayList<TableColumn<Match, String>> columns = 
@@ -114,6 +115,9 @@ public class MatchMenu {
 		matchList.addAll(matchImpl.getMatchesByLeagueID(league));
 		tableViewMatches.getItems().addAll(matchList);
 		layout.root.setCenter(tableViewMatches);
+		
+		idColumn.setSortType(TableColumn.SortType.DESCENDING);
+		tableViewMatches.getSortOrder().setAll(idColumn);
 		
 		tableViewMatches.setOnMouseClicked(e -> {
 			if(tableViewMatches.getSelectionModel().getSelectedItem() != null) {
