@@ -408,12 +408,11 @@ public class DataLayer {
 		}
 	}
 
-	public boolean deleteSuspension(int matchId, int teamId, int suspensionID) {
-		String sql = "{call spDeleteSuspension(?, ? ,?)}";
+	public boolean deleteSuspension(int matchId, int teamId) {
+		String sql = "{call spDeleteSuspension(?, ?)}";
 		try (CallableStatement stmt = connection.prepareCall(sql)) {
 			stmt.setInt(1, matchId);
 			stmt.setInt(2, teamId);
-			stmt.setInt(3, suspensionID);
 			stmt.execute();
 			return true;
 		} catch (SQLException e) {
