@@ -89,7 +89,7 @@ public class MatchMenu {
 		team1NameColumn.setCellValueFactory(new PropertyValueFactory<>("team1Name"));
 		columns.add(team1NameColumn);
 		
-		TableColumn<Match, String> team1GoalsColumn = new TableColumn<Match, String>("MÅL");
+		TableColumn<Match, String> team1GoalsColumn = new TableColumn<Match, String>("MÃ…L");
 		team1GoalsColumn.setCellValueFactory(new PropertyValueFactory<>("team1Goals"));
 		columns.add(team1GoalsColumn);
 		
@@ -97,7 +97,7 @@ public class MatchMenu {
 		dividerColumn.setCellValueFactory(new PropertyValueFactory<>("divider"));
 		columns.add(dividerColumn);
 		
-		TableColumn<Match, String> team2GoalsColumn = new TableColumn<Match, String>("MÅL");
+		TableColumn<Match, String> team2GoalsColumn = new TableColumn<Match, String>("MÃ…L");
 		team2GoalsColumn.setCellValueFactory(new PropertyValueFactory<>("team2Goals"));
 		columns.add(team2GoalsColumn);
 		

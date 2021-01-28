@@ -61,11 +61,11 @@ public class DeleteMatch {
 	private void btnFunctionality() {
 		MatchImpl matchImpl = new MatchImpl();
 		deleteMatchBtn.setOnAction(e -> {
-			matchImpl.deleteMatch(matchChoice.getSelectionModel().getSelectedItem());
-		window.close();
-		} 
-	);
-}
-	
-	
+			if(!(matchChoice.getSelectionModel().getSelectedItem() == null))
+			{
+				matchImpl.deleteMatch(matchChoice.getSelectionModel().getSelectedItem());
+				window.close();
+			}	
+		});
+	}
 }

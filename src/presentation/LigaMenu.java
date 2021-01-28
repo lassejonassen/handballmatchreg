@@ -144,11 +144,15 @@ public class LigaMenu {
 		stage.setScene(scene);
 		stage.show();
 		addBtn.setOnAction(e -> {
-			if (validate.confirmChanges()) {
-				leagueImpl.deleteLeague(leagues.getSelectionModel().getSelectedItem());
-				stage.close();
-				leagueDropDown();
+			if(!(leagues.getSelectionModel().getSelectedItem() == null))
+			{
+				if (validate.confirmChanges()) {
+					leagueImpl.deleteLeague(leagues.getSelectionModel().getSelectedItem());
+					stage.close();
+					leagueDropDown();
+				}
 			}
+			
 		});
 		cancelBtn.setOnAction(e -> stage.close());
 	}

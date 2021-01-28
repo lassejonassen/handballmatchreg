@@ -2,6 +2,7 @@ package presentation;
 
 import java.util.Optional;
 
+import data.Team;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
@@ -23,6 +24,22 @@ public class Validation {
 		else if (result.get() == cancelBtn)
 			return false;
 		return false;
+	}
+	
+	protected boolean confirmMatchCreate(Team team1, Team team2)
+	{
+		if(team1.getId()==team2.getId())
+		{
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Samme hold valgt to gange");
+			alert.setHeaderText("DU HAR VALGT DET SAMME HOLD TO GANGE");
+			alert.setContentText("Vælg venligst to forskellige hold");
+			alert.show();
+			return false;
+		}else
+		{
+			return true;
+		}
 	}
 
 	protected boolean emptyStringWarning(String str) {
