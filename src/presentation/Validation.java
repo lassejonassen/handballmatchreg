@@ -8,7 +8,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 
 public class Validation {
-		
+
 	protected boolean confirmChanges() {
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("Confirm changes to league");
@@ -37,7 +37,7 @@ public class Validation {
 			return true;
 		}
 	}
-	
+
 	protected void matchPlayedWarning() {
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("Match WARNING");
@@ -49,19 +49,19 @@ public class Validation {
 		if (result.get() == confirmBtn)
 			alert.close();
 	}
-  
-   protected void teamLeagueAlert() {
+
+	protected void teamLeagueAlert() {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Team ERROR");
 		alert.setHeaderText("Team hasn't been asigned a league.");
 		alert.setContentText("Du skal vÃ¦lge hvilken liga holdet skal tilhÃ¸re.");
-    ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
+		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
 		alert.getButtonTypes().setAll(confirmBtn);
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == confirmBtn)
 			alert.close();
-   }
-  
+	}
+
 	protected void matchResumeWarning() {
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("Kamp ADVARSEL");
@@ -73,7 +73,7 @@ public class Validation {
 		if (result.get() == confirmBtn)
 			alert.close();
 	}
-  
+
 	protected void matchResumeWarning2() {
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("Kamp ADVARSEL");
@@ -85,7 +85,7 @@ public class Validation {
 		if (result.get() == confirmBtn)
 			alert.close();
 	}
-	
+
 	protected void matchStopWarning() {
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("Kamp ADVARSEL");
@@ -97,7 +97,7 @@ public class Validation {
 		if (result.get() == confirmBtn)
 			alert.close();
 	}
-	
+
 	protected void matchStopWarning2() {
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("Kamp ADVARSEL");
@@ -109,18 +109,18 @@ public class Validation {
 		if (result.get() == confirmBtn)
 			alert.close();
 	}
-	
+
 	protected void matchNotPlayedWarning() {
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("Kamp ADVARSEL");
 		alert.setHeaderText("Kampen er ikke spillet.");
 		alert.setContentText("Du kan ikke se rapporten, hvis kampen ikke er spillet.");
-    ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
+		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
 		alert.getButtonTypes().setAll(confirmBtn);
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == confirmBtn)
-			alert.close()
-  }
+			alert.close();
+	}
 
 	protected void noLeagueChoosenAlert() {
 		Alert alert = new Alert(AlertType.ERROR);
@@ -132,5 +132,31 @@ public class Validation {
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == confirmBtn)
 			alert.close();
-}
+	}
+	
+	protected void matchStartedWarning() {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Kamp ADVARSEL");
+		alert.setHeaderText("Kampen er igang");
+		alert.setContentText("Du kan ikke starte en kampe som allerede er i gang.");
+		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
+		alert.getButtonTypes().setAll(confirmBtn);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == confirmBtn)
+			alert.close();
+	}
+	
+	protected void matchPausedWarning() {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Kamp ADVARSEL");
+		alert.setHeaderText("Kampen er pauset");
+		alert.setContentText("Du kan ikke give mål eller udvisninger så længe kampen er pauset.");
+		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
+		alert.getButtonTypes().setAll(confirmBtn);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == confirmBtn)
+			alert.close();
+	}
+	
+	
 }
