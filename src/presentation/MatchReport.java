@@ -147,7 +147,6 @@ public class MatchReport {
 	private void exportReport(ArrayList<ReportDTO> eventList, Match match) {
 		DirectoryChooser dirChooser = new DirectoryChooser();
 		File selectedDir = dirChooser.showDialog(window);
-
 		try {
 			LocalDate date = LocalDate.now();
 			FileWriter writer = new FileWriter(selectedDir + "/"+ match.getTeam1Name() + " - " + match.getTeam2Name() + " kamprapport " + date + ".csv");

@@ -49,12 +49,36 @@ public class Validation {
 		if (result.get() == confirmBtn)
 			alert.close();
 	}
-	
-	protected void teamLeagueAlert() {
+  
+   protected void teamLeagueAlert() {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Team ERROR");
 		alert.setHeaderText("Team hasn't been asigned a league.");
-		alert.setContentText("Du skal v�lge hvilken liga holdet skal tilh�re.");
+		alert.setContentText("Du skal vælge hvilken liga holdet skal tilhøre.");
+    ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
+		alert.getButtonTypes().setAll(confirmBtn);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == confirmBtn)
+			alert.close();
+   }
+  
+	protected void matchResumeWarning() {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Kamp ADVARSEL");
+		alert.setHeaderText("Kampen er allerede færdig.");
+		alert.setContentText("Du kan ikke fortsætte en kamp som er færdig.");
+		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
+		alert.getButtonTypes().setAll(confirmBtn);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == confirmBtn)
+			alert.close();
+	}
+  
+	protected void matchResumeWarning2() {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Kamp ADVARSEL");
+		alert.setHeaderText("Kampen er ikke stoppet.");
+		alert.setContentText("Du kan ikke fortsætte en kamp, som ikke er på pause.");
 		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
 		alert.getButtonTypes().setAll(confirmBtn);
 		Optional<ButtonType> result = alert.showAndWait();
@@ -62,16 +86,51 @@ public class Validation {
 			alert.close();
 	}
 	
+	protected void matchStopWarning() {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Kamp ADVARSEL");
+		alert.setHeaderText("Kampen er stoppet");
+		alert.setContentText("Du kan ikke stoppe en kamp som er færdig.");
+		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
+		alert.getButtonTypes().setAll(confirmBtn);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == confirmBtn)
+			alert.close();
+	}
+	
+	protected void matchStopWarning2() {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Kamp ADVARSEL");
+		alert.setHeaderText("Kampen ikke igang.");
+		alert.setContentText("Du kan ikke stoppe en kamp der ikke er i gang.");
+		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
+		alert.getButtonTypes().setAll(confirmBtn);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == confirmBtn)
+			alert.close();
+	}
+	
+	protected void matchNotPlayedWarning() {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Kamp ADVARSEL");
+		alert.setHeaderText("Kampen er ikke spillet.");
+		alert.setContentText("Du kan ikke se rapporten, hvis kampen ikke er spillet.");
+    ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
+		alert.getButtonTypes().setAll(confirmBtn);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == confirmBtn)
+			alert.close()
+  }
+
 	protected void noLeagueChoosenAlert() {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("League ERROR");
 		alert.setHeaderText("A league hasn't been choosen");
-		alert.setContentText("Du skal v�lge en liga f�r du kan trykke 'Opdater'");
+		alert.setContentText("Du skal vælge en liga før du kan trykke 'Opdater'");
 		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
 		alert.getButtonTypes().setAll(confirmBtn);
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == confirmBtn)
 			alert.close();
-	}
-
+}
 }
