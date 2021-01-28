@@ -5,8 +5,8 @@ AS
 BEGIN
 	DECLARE @id INT;
 	SET @id = (SELECT Max(id) FROM Suspension 
-				WHERE Suspension.match_id = 1038 
-				AND Suspension.team_id = 105
+				WHERE Suspension.match_id = @match_id 
+				AND Suspension.team_id = @team_id
 				);
 	DELETE FROM Suspension WHERE id = @id;
 END

@@ -39,7 +39,7 @@ public class MatchDetails
 	private Timeline timeline;
 	private Label timerLabel = new Label();
 	private int timeSeconds = STARTTIME;
-	private int gameLength = 30;
+	private int gameLength = 10;
 	private int timeMinutes = 0;
 	private int totalTime;
 	private boolean matchPaused = false;
@@ -53,6 +53,8 @@ public class MatchDetails
 	private int i = 0;
 	private int j = 0;
 	private int k = 0;
+	private int u = 0;
+	
 
 	private int team1Goals;
 	private int team2Goals;
@@ -272,8 +274,8 @@ public class MatchDetails
 				suspensionImpl.create(match, teamId, totalTime);
 				String awayTeamName = match.getTeam2Name();
 				scrollingGrid.add(
-						new Label("Udvisning - Ude " + awayTeamName + "Tid: " + timeMinutes + ":" + timeSeconds), 2, k);
-				k++;
+						new Label("Udvisning - Ude " + awayTeamName + "Tid: " + timeMinutes + ":" + timeSeconds), 2, u);
+				u++;
 			}
 		}
 	}
@@ -297,8 +299,8 @@ public class MatchDetails
 			if (timeSeconds < gameLength) 
 			{
 				suspensionImpl.delete(match, match.getTeam2Id());
-				scrollingGrid.getChildren().remove(2,k);
-				k--;
+				scrollingGrid.getChildren().remove(2,u);
+				u--;
 			}
 		}
 	}
