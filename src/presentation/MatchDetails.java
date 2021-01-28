@@ -42,6 +42,8 @@ public class MatchDetails
 	private int gameLength = 30;
 	private int timeMinutes = 0;
 	private int totalTime;
+	private boolean matchPaused = false;
+	private boolean matchStarted = false;
 
 	private Label homeTeamName = new Label();
 	private Label awayTeamName = new Label();
@@ -206,6 +208,7 @@ public class MatchDetails
 		System.out.println("Hold 2s mål: " + team2Goals);
 		matchImpl.updateMatch(match);
 		matchImpl.matchPlayed(match);
+		timeline.stop();
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -302,6 +305,7 @@ public class MatchDetails
 
 	private void detailBtnFunctionality(Match match) 
 	{
+		
 		homeTeamAddGoalBtn.setOnAction(e -> homeTeamAddGoal(match));
 		awayTeamAddGoalBtn.setOnAction(e -> awayTeamAddGoal(match));
 		homeTeamDeleteGoalBtn.setOnAction(e -> homeTeamDeleteGoal(match, goalId));
@@ -311,7 +315,12 @@ public class MatchDetails
 		awayTeamSuspension.setOnAction(e -> createSuspensionAway(match, teamID, totalTime));
 		deleteSuspensionHomeBtn.setOnAction(e -> deleteSuspensionHome(match));
 		deleteSuspensionAwayBtn.setOnAction(e -> deleteSuspensionAway(match));
-		matchReportBtn.setOnAction(e -> new MatchReport(match, reportDTOImpl.read(match)));
+		matchReportBtn.setOnAction(e -> {
+			if (match.getPlayed().equals("yes"))
+				new MatchReport(match, reportDTOImpl.read(match));
+			else
+				valid.matchNotPlayedWarning();
+		});
 		closeBtn.setOnAction(e -> window.close());
 		startMatchBtn.setOnAction(e -> {
 			if (match.getPlayed().equals("no"))
@@ -319,7 +328,27 @@ public class MatchDetails
 			else if (match.getPlayed().equals("yes"))
 				valid.matchPlayedWarning();
 		});
-		stopMatchBtn.setOnAction(e -> timeline.pause());
-		resumeMatchBtn.setOnAction(e -> timeline.play());
+		stopMatchBtn.setOnAction(e -> {
+			if (match.getPlayed().equals("yes"))
+				valid.matchStopWarning();
+			else if (matchStarted) {
+				timeline.pause();
+				matchPaused = true;
+			}
+			else if (!matchStarted)
+				valid.matchStopWarning2();
+		});
+		resumeMatchBtn.setOnAction(e -> {
+			if (match.getPlayed().equals("yes"))
+				valid.matchResumeWarning();
+			else if (matchPaused) {
+				matchPaused = false;
+				timeline.play();
+			}
+			else if (!matchPaused) {
+				valid.matchResumeWarning2();
+			}
+				
+		});
 	}
 }

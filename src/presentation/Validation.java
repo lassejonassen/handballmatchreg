@@ -49,5 +49,65 @@ public class Validation {
 		if (result.get() == confirmBtn)
 			alert.close();
 	}
+	
+	protected void matchResumeWarning() {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Kamp ADVARSEL");
+		alert.setHeaderText("Kampen er allerede færdig.");
+		alert.setContentText("Du kan ikke fortsætte en kamp som er færdig.");
+		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
+		alert.getButtonTypes().setAll(confirmBtn);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == confirmBtn)
+			alert.close();
+	}
+	
+	protected void matchResumeWarning2() {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Kamp ADVARSEL");
+		alert.setHeaderText("Kampen er ikke stoppet.");
+		alert.setContentText("Du kan ikke fortsætte en kamp, som ikke er på pause.");
+		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
+		alert.getButtonTypes().setAll(confirmBtn);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == confirmBtn)
+			alert.close();
+	}
+	
+	protected void matchStopWarning() {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Kamp ADVARSEL");
+		alert.setHeaderText("Kampen er stoppet");
+		alert.setContentText("Du kan ikke stoppe en kamp som er færdig.");
+		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
+		alert.getButtonTypes().setAll(confirmBtn);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == confirmBtn)
+			alert.close();
+	}
+	
+	protected void matchStopWarning2() {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Kamp ADVARSEL");
+		alert.setHeaderText("Kampen ikke igang.");
+		alert.setContentText("Du kan ikke stoppe en kamp der ikke er i gang.");
+		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
+		alert.getButtonTypes().setAll(confirmBtn);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == confirmBtn)
+			alert.close();
+	}
+	
+	protected void matchNotPlayedWarning() {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Kamp ADVARSEL");
+		alert.setHeaderText("Kampen er ikke spillet.");
+		alert.setContentText("Du kan ikke se rapporten, hvis kampen ikke er spillet.");
+		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
+		alert.getButtonTypes().setAll(confirmBtn);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == confirmBtn)
+			alert.close();
+	}
 
 }
