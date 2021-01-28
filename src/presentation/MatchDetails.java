@@ -49,19 +49,17 @@ public class MatchDetails
 	private Label awayTeamName = new Label();
 	private Label homeScore = new Label();
 	private Label awayScore = new Label();
+	private Label homeSuspensions = new Label();
+	private Label awaySuspensions = new Label();
 
 	private int i = 0;
 	private int j = 0;
-	private int k = 0;
-	private int u = 0;
 	
-
 	private int team1Goals;
 	private int team2Goals;
 	private int goalId;
-
-	private GridPane scrollingGrid = new GridPane();
-	private ScrollPane sp = new ScrollPane(scrollingGrid);
+	private int team1Suspensions;
+	private int team2Suspensions;
 
 	private Scene scene;
 	private Stage window = new Stage();
@@ -98,6 +96,8 @@ public class MatchDetails
 		homeScore.setStyle("-fx-font-size: 2em;");
 		awayScore.setStyle("-fx-font-size: 2em;");
 		awayTeamName.setStyle("-fx-font-size: 2em;");
+		homeSuspensions.setStyle("-fx-font-size: 2em;");
+		awaySuspensions.setStyle("-fx-font-size: 2em;");
 
 		childLayout.childCenter.add(homeTeamAddGoalBtn, 0, 2);
 		childLayout.childCenter.add(homeTeamDeleteGoalBtn, 0, 3);
@@ -107,22 +107,18 @@ public class MatchDetails
 		childLayout.childCenter.add(awayTeamDeleteGoalBtn, 4, 3);
 		childLayout.childCenter.add(matchReportBtn, 2, 3);
 		childLayout.childCenter.add(deleteSuspensionHomeBtn, 1, 3);
+		childLayout.childCenter.add(homeSuspensions, 1, 4);
 		childLayout.childCenter.add(deleteSuspensionAwayBtn, 3, 3);
-		childLayout.childCenter.add(startMatchBtn, 2, 4);
-		childLayout.childCenter.add(stopMatchBtn, 3, 4);
-		childLayout.childCenter.add(resumeMatchBtn, 4, 4);
+		childLayout.childCenter.add(awaySuspensions, 3, 4);
+		childLayout.childCenter.add(startMatchBtn, 2, 5);
+		childLayout.childCenter.add(stopMatchBtn, 3, 5);
+		childLayout.childCenter.add(resumeMatchBtn, 4, 5);
 
 		childLayout.childBottom.getChildren().addAll(closeBtn);
 
 		timerLabel.setText("" + timeSeconds);
 		timerLabel.setStyle("-fx-font-size: 4em;");
 		GridPane.setHalignment(timerLabel, HPos.CENTER);
-
-		childLayout.childCenter.add(sp, 0, 5, 5, 1);
-		childLayout.childCenter.setHgrow(sp, Priority.ALWAYS);
-		sp.setMaxWidth(Double.MAX_VALUE);
-		sp.setFitToWidth(true);
-		scrollingGrid.setId("scrollingGrid");
 
 		scene = new Scene(childLayout.childRoot);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
@@ -137,6 +133,8 @@ public class MatchDetails
 		awayTeamName.setText("" + match.getTeam2Name());
 		homeScore.setText("" + match.getTeam1Goals());
 		awayScore.setText("" + match.getTeam2Goals());
+		homeSuspensions.setText("" + 0);
+		awaySuspensions.setText("" + 0);
 	}
 
 	private void homeTeamAddGoal(Match match) 
@@ -252,13 +250,10 @@ public class MatchDetails
 		{
 			if (totalTime < gameLength) 
 			{
-				System.out.println("home test");
 				suspensionImpl.create(match, teamId, totalTime);
-				String homeTeamName = match.getTeam1Name();
-				scrollingGrid.add(
-						new Label("Udvisning - Hjemme " + homeTeamName + " Tid: " + timeMinutes + ":" + timeSeconds), 0,
-						k);
-				k++;
+				team1Suspensions++;
+				homeSuspensions.setText("" + team1Suspensions);
+				
 			}
 		}
 	}
@@ -270,12 +265,9 @@ public class MatchDetails
 		{
 			if (totalTime < gameLength) 
 			{
-				System.out.println("away test");
 				suspensionImpl.create(match, teamId, totalTime);
-				String awayTeamName = match.getTeam2Name();
-				scrollingGrid.add(
-						new Label("Udvisning - Ude " + awayTeamName + "Tid: " + timeMinutes + ":" + timeSeconds), 2, u);
-				u++;
+				team2Suspensions++;
+				awaySuspensions.setText("" + team2Suspensions);
 			}
 		}
 	}
@@ -284,11 +276,13 @@ public class MatchDetails
 	{
 		if (timeSeconds != 0) 
 		{
-			if (timeSeconds < gameLength) 
-			{
-				suspensionImpl.delete(match, match.getTeam1Id());
-				scrollingGrid.getChildren().remove(0,k);
-				k--;
+			if (timeSeconds < gameLength) {
+				if (team1Suspensions > 0) {
+					suspensionImpl.delete(match, match.getTeam1Id());
+					team1Suspensions--;
+					homeSuspensions.setText("" + team1Suspensions);
+				}
+			
 			}
 		}
 	}
@@ -296,11 +290,13 @@ public class MatchDetails
 	private void deleteSuspensionAway(Match match) 
 	{
 		if (timeSeconds != 0) {
-			if (timeSeconds < gameLength) 
-			{
-				suspensionImpl.delete(match, match.getTeam2Id());
-				scrollingGrid.getChildren().remove(2,u);
-				u--;
+			if (timeSeconds < gameLength) {
+				if (team2Suspensions > 0) {
+					suspensionImpl.delete(match, match.getTeam2Id());
+					team2Suspensions--;
+					awaySuspensions.setText("" + team2Suspensions);
+				}
+				
 			}
 		}
 	}
