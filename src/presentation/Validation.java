@@ -57,9 +57,9 @@ public class Validation {
 
 	protected void matchPlayedWarning() {
 		Alert alert = new Alert(AlertType.WARNING);
-		alert.setTitle("Match WARNING");
-		alert.setHeaderText("The match have already been played.");
-		alert.setContentText("You cannot start the match twice");
+		alert.setTitle("Kamp ADVARSEL");
+		alert.setHeaderText("Kampen er blevet spillet");
+		alert.setContentText("Du kan ikke starte en kamp to gange.");
 		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
 		alert.getButtonTypes().setAll(confirmBtn);
 		Optional<ButtonType> result = alert.showAndWait();
@@ -69,9 +69,9 @@ public class Validation {
 
 	protected void teamLeagueAlert() {
 		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Team ERROR");
-		alert.setHeaderText("Team hasn't been asigned a league.");
-		alert.setContentText("Du skal vælge hvilken liga holdet skal tilhøre.");
+		alert.setTitle("Hold FEJL");
+		alert.setHeaderText("Holdet er ikke tildelt en liga");
+		alert.setContentText("Du skal vaelge hvilken liga holdet skal tilhoere.");
 		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
 		alert.getButtonTypes().setAll(confirmBtn);
 		Optional<ButtonType> result = alert.showAndWait();
@@ -82,8 +82,8 @@ public class Validation {
 	protected void matchResumeWarning() {
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("Kamp ADVARSEL");
-		alert.setHeaderText("Kampen er allerede færdig.");
-		alert.setContentText("Du kan ikke fortsætte en kamp som er færdig.");
+		alert.setHeaderText("Kampen er allerede faerdig.");
+		alert.setContentText("Du kan ikke fortsaette en kamp som er faerdig.");
 		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
 		alert.getButtonTypes().setAll(confirmBtn);
 		Optional<ButtonType> result = alert.showAndWait();
@@ -95,7 +95,7 @@ public class Validation {
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("Kamp ADVARSEL");
 		alert.setHeaderText("Kampen er ikke stoppet.");
-		alert.setContentText("Du kan ikke fortsætte en kamp, som ikke er på pause.");
+		alert.setContentText("Du kan ikke fortsaette en kamp, som ikke er paa pause.");
 		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
 		alert.getButtonTypes().setAll(confirmBtn);
 		Optional<ButtonType> result = alert.showAndWait();
@@ -141,9 +141,9 @@ public class Validation {
 
 	protected void noLeagueChoosenAlert() {
 		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("League ERROR");
-		alert.setHeaderText("A league hasn't been choosen");
-		alert.setContentText("Du skal vælge en liga før du kan trykke 'Opdater'");
+		alert.setTitle("Liga FEJL");
+		alert.setHeaderText("Der er ikke valgt en liga");
+		alert.setContentText("Du skal vaelge en liga faar du kan trykke 'Opdater'");
 		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
 		alert.getButtonTypes().setAll(confirmBtn);
 		Optional<ButtonType> result = alert.showAndWait();
