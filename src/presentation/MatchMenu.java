@@ -19,12 +19,13 @@ public class MatchMenu {
 	private MatchImpl matchImpl = new MatchImpl();	
 	private Button createMatchBtn = new Button("Opret Kamp");
 	private Button deleteMatchBtn = new Button("Slet Kamp");
-	private Button refreshBtn = new Button("Refresh");
+	private Button refreshBtn = new Button("Opdaterer");
 	private Button importMatchBtn = new Button("Importer");
 	private Button backBtn = new Button("Tilbage");
 	private Layout layout = new Layout();
 	private ComboBox<League> leagueDropdown = new ComboBox<League>();
 	private TableView<Match> tableViewMatches = new TableView<Match>();
+	private Validation validate = new Validation();
 	
 	public MatchMenu(Stage stage) {
 		matchBtnFunctionality(stage);
@@ -36,7 +37,7 @@ public class MatchMenu {
 	@SuppressWarnings("static-access")
 	private void showMatchMenu(Stage stage)
 	{
-		layout.left.getChildren().addAll(createMatchBtn, deleteMatchBtn, backBtn, leagueDropdown, refreshBtn, importMatchBtn);
+		layout.left.getChildren().addAll(createMatchBtn, deleteMatchBtn,backBtn, leagueDropdown, refreshBtn, importMatchBtn);
 		layout.left.setBottomAnchor(backBtn, 0.0);
 		layout.left.setTopAnchor(createMatchBtn, 0.0);
 		layout.left.setTopAnchor(deleteMatchBtn, 50.0);
@@ -66,10 +67,10 @@ public class MatchMenu {
 		createMatchBtn.setOnAction(e-> new CreateMatch());
 		deleteMatchBtn.setOnAction(e -> new DeleteMatch());
 		refreshBtn.setOnAction(e -> {
-			if(!leagueDropdown.getSelectionModel().isEmpty())
-			{
+			if (leagueDropdown.getSelectionModel().getSelectedItem() == null)
+				validate.noLeagueChoosenAlert();
+			else
 				loadTableView(leagueDropdown.getSelectionModel().getSelectedItem());
-			}
 		});
 		importMatchBtn.setOnAction(e -> new ImportMatch());
 	}
@@ -88,7 +89,7 @@ public class MatchMenu {
 		team1NameColumn.setCellValueFactory(new PropertyValueFactory<>("team1Name"));
 		columns.add(team1NameColumn);
 		
-		TableColumn<Match, String> team1GoalsColumn = new TableColumn<Match, String>("MÅL");
+		TableColumn<Match, String> team1GoalsColumn = new TableColumn<Match, String>("MÃ…L");
 		team1GoalsColumn.setCellValueFactory(new PropertyValueFactory<>("team1Goals"));
 		columns.add(team1GoalsColumn);
 		
@@ -96,7 +97,7 @@ public class MatchMenu {
 		dividerColumn.setCellValueFactory(new PropertyValueFactory<>("divider"));
 		columns.add(dividerColumn);
 		
-		TableColumn<Match, String> team2GoalsColumn = new TableColumn<Match, String>("MÅL");
+		TableColumn<Match, String> team2GoalsColumn = new TableColumn<Match, String>("MÃ…L");
 		team2GoalsColumn.setCellValueFactory(new PropertyValueFactory<>("team2Goals"));
 		columns.add(team2GoalsColumn);
 		

@@ -51,7 +51,7 @@ CREATE TABLE TMatch (
 	REFERENCES Team(id),
 
 	CONSTRAINT Match_League_Relation FOREIGN KEY (league_id) 
-	REFERENCES League(id)
+	REFERENCES League(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Suspension (
@@ -64,7 +64,7 @@ CREATE TABLE Suspension (
 	CONSTRAINT Suspension_Match_Relation FOREIGN KEY (match_id) 
 	REFERENCES TMatch(id) ON DELETE CASCADE,
 	CONSTRAINT Suspension_Team_Relation FOREIGN KEY (team_id) 
-	REFERENCES Team(id) ON DELETE CASCADE
+	REFERENCES Team(id)
 );
 
 CREATE TABLE Goal (
@@ -77,9 +77,5 @@ CREATE TABLE Goal (
 	CONSTRAINT Goal_Match_Relation FOREIGN KEY (match_id)
 	REFERENCES TMatch(id) ON DELETE CASCADE,
 	CONSTRAINT Goal_Team_Relation FOREIGN KEY (team_id)
-	REFERENCES Team(id) ON DELETE CASCADE
+	REFERENCES Team(id)
 );
-
-
-
-

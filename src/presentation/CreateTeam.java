@@ -10,8 +10,7 @@ import javafx.stage.Stage;
 import logic.LeagueImpl;
 import logic.TeamImpl;
 
-public class CreateTeam 
-{
+public class CreateTeam {
 	private Stage window = new Stage();
 	private Scene scene;
 	private TextField teamName = new TextField();
@@ -22,45 +21,43 @@ public class CreateTeam
 	private LeagueImpl leagueImpl = new LeagueImpl();
 	private Validation validation = new Validation();
 	private TeamImpl teamImpl = new TeamImpl();
-	
-	public CreateTeam()
-	{
+
+	public CreateTeam() {
 		showTeamCreate();
 		createTeamButtonFunctionality();
 	}
 
-	private void showTeamCreate()
-	{ 
+	private void showTeamCreate() {
 		leagueChoice.getItems().addAll(leagueImpl.getAllLeagues());
-		
+
 		childLayout.childTop.getChildren().add(new Label("Opret hold"));
 		childLayout.childBottom.getChildren().addAll(confirmCreateBtn, cancelCreateBtn);
 		childLayout.childCenter.add(new Label("Hold navn"), 0, 0);
 		childLayout.childCenter.add(teamName, 1, 0);
 		childLayout.childCenter.add(new Label("Vælg liga"), 0, 1);
 		childLayout.childCenter.add(leagueChoice, 1, 1);
-		
 		scene = new Scene(childLayout.childRoot);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
 		window.setScene(scene);
 		window.setTitle("Opret hold");
 		window.show();
 	}
-	
-	private void createTeamButtonFunctionality()
-	{
+
+	private void createTeamButtonFunctionality() {
 		confirmCreateBtn.setOnAction(e -> createConfirm());
 		cancelCreateBtn.setOnAction(e -> window.close());
 	}
-	
-	private void createConfirm()
-	{
-		if(validation.emptyStringWarning(teamName.getText()))
-			if(validation.confirmChanges())
-			{
-				teamImpl.createTeam(leagueChoice.getSelectionModel().getSelectedItem(), teamName.getText());
-				window.close();
-			}
+
+	private void createConfirm() {
+		League league = leagueChoice.getSelectionModel().getSelectedItem();
+		if (league != null)
+			if (validation.emptyStringWarning(teamName.getText()))
+				if (validation.confirmChanges()) {
+					teamImpl.createTeam(leagueChoice.getSelectionModel().getSelectedItem(), teamName.getText());
+					window.close();
+				}
+		else
+			validation.teamLeagueAlert();
 	}
-	
+
 }
