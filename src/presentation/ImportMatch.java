@@ -25,6 +25,7 @@ public class ImportMatch {
 	private SuspensionImpl susImpl = new SuspensionImpl();
 	private ReportDTOImpl reportDTOImpl = new ReportDTOImpl();
 	private int lines = 0;
+	private Validation valid = new Validation();
 
 	public ImportMatch() {
 		if (fileChooser());
@@ -41,11 +42,15 @@ public class ImportMatch {
 		if (selectedFile != null) {
 			List<String[]> reportDataList = openCSVFile(selectedFile);
 			int matchId = 0;
-			
 			// Getting the matchId
 			for (int i = 0; i < 1; i++) {
 				String matchIdStr = reportDataList.get(1)[6];
 				matchId = Integer.parseInt(matchIdStr.stripLeading());
+				if (!(matchId > 999) && !(matchId < 10000 )) {
+					String str = "Kamp ID'et er ikke format. Tjek linje: 2 i importfilen.";
+					valid.csvImportError(str);
+					window.close();
+				}
 			}
 			if (matchImpl.matchExists(matchId)) {
 				matchExistsWarning();
@@ -54,15 +59,29 @@ public class ImportMatch {
 				int leagueId = 0;
 				int team1Id = 0;
 				int team2Id = 0;
-				
 				// Creating the match on the database
 				for (int i = 0; i < 1; i++) {
 					String leagueIdStr = reportDataList.get(1)[7];
 					leagueId = Integer.parseInt(leagueIdStr.stripLeading());
+					if (!(leagueId > 0) && !(leagueId < 100 )) {
+						String str = "Liga ID'et er ikke rigitg format. Tjek linje 2 i importfilen.";
+						valid.csvImportError(str);
+						window.close();
+					}
 					String team1IdStr = reportDataList.get(1)[2];
 					team1Id = Integer.parseInt(team1IdStr.stripLeading());
+					if (!(team1Id > 0) && !(team1Id < 100 )) {
+						String str = "Hold ID 1 er ikke rigtig format. Tjek linje 2 i importfilen.";
+						valid.csvImportError(str);
+						window.close();
+					}
 					String team2IdStr = reportDataList.get(1)[5];
 					team2Id = Integer.parseInt(team2IdStr.stripLeading());
+					if (!(team1Id > 0) && !(team1Id < 100 )) {
+						String str = "Hold ID 2 er ikke rigtig format. Tjek linje 2 i importfilen.";
+						valid.csvImportError(str);
+						window.close();
+					}
 				}
 				matchImpl.createMatch(leagueId, team1Id, team2Id);
 				Match match = matchImpl.latestInsert();
@@ -74,14 +93,18 @@ public class ImportMatch {
 				int teamId = 0;
 				int team1Goals = 0;
 				int team2Goals = 0;
-				// Getting the data, ID, timestamp, teamid
+				// Getting the data, Type, timestamp, teamid
 				for (int i = 3; i < lines; i++) {
 					String type = reportDataList.get(i)[0];
 					String timeStampStr = reportDataList.get(i)[3];
 					timeStamp = Integer.parseInt(timeStampStr.stripLeading());
 					String teamIdStr = reportDataList.get(i)[4];
 					teamId = Integer.parseInt(teamIdStr.stripLeading());
-					
+					if (!(teamId > 0) && !(teamId < 100 )) {
+						String str = "Hold ID 1 er ikke rigtig format. Tjek linje " + i + " i importfilen.";
+						valid.csvImportError(str);
+						window.close();
+					}
 					if (type.equals("Goal")) {
 						goalImpl.create(match.getMatchID(), teamId, timeStamp);
 						if (teamId == match.getTeam1Id())
@@ -94,7 +117,6 @@ public class ImportMatch {
 					else
 						return false;
 				}
-				
 				match.setTeam1Goals(team1Goals);
 				match.setTeam2Goals(team2Goals);
 				matchImpl.updateMatchData(match);

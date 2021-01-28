@@ -158,5 +158,17 @@ public class Validation {
 			alert.close();
 	}
 	
+	protected void csvImportError(String str) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Import FEJL");
+		alert.setHeaderText("Der opstod en fejl under importering af rapport.");
+		alert.setContentText(str);
+		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
+		alert.getButtonTypes().setAll(confirmBtn);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == confirmBtn)
+			alert.close();
+	}
+	
 	
 }
