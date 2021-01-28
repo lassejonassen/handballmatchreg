@@ -12,11 +12,11 @@ public class Validation {
 
 	protected boolean confirmChanges(String str) {
 		Alert alert = new Alert(AlertType.WARNING);
-		alert.setTitle("Confirm changes to " + str);
-		alert.setHeaderText("Are you sure you want to make changes?");
-		alert.setContentText("Choose your option.");
-		ButtonType confirmBtn = new ButtonType("Yes", ButtonData.OK_DONE);
-		ButtonType cancelBtn = new ButtonType("No", ButtonData.CANCEL_CLOSE);
+		alert.setTitle("Accepter ændringer til: " + str);
+		alert.setHeaderText("Er du sikker på du vil lave ændringer?");
+		alert.setContentText("Vælg en mulighed");
+		ButtonType confirmBtn = new ButtonType("Ja", ButtonData.OK_DONE);
+		ButtonType cancelBtn = new ButtonType("Nej", ButtonData.CANCEL_CLOSE);
 		alert.getButtonTypes().setAll(confirmBtn, cancelBtn);
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == confirmBtn)
@@ -33,7 +33,7 @@ public class Validation {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Samme hold valgt to gange");
 			alert.setHeaderText("DU HAR VALGT DET SAMME HOLD TO GANGE");
-			alert.setContentText("V�lg venligst to forskellige hold");
+			alert.setContentText("Vælg venligst to forskellige hold");
 			alert.show();
 			return false;
 		}else
@@ -107,7 +107,7 @@ public class Validation {
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("Kamp ADVARSEL");
 		alert.setHeaderText("Kampen er stoppet");
-		alert.setContentText("Du kan ikke stoppe en kamp som er færdig.");
+		alert.setContentText("Du kan ikke stoppe en kamp som er fÃ¦rdig.");
 		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
 		alert.getButtonTypes().setAll(confirmBtn);
 		Optional<ButtonType> result = alert.showAndWait();
@@ -167,7 +167,7 @@ public class Validation {
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("Kamp ADVARSEL");
 		alert.setHeaderText("Kampen er pauset");
-		alert.setContentText("Du kan ikke give m�l eller udvisninger s� l�nge kampen er pauset.");
+		alert.setContentText("Du kan ikke give mål eller udvisninger så længe kampen er pauset.");
 		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
 		alert.getButtonTypes().setAll(confirmBtn);
 		Optional<ButtonType> result = alert.showAndWait();
