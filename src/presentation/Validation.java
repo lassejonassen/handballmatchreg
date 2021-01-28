@@ -49,24 +49,36 @@ public class Validation {
 		if (result.get() == confirmBtn)
 			alert.close();
 	}
-	
+  
+   protected void teamLeagueAlert() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Team ERROR");
+		alert.setHeaderText("Team hasn't been asigned a league.");
+		alert.setContentText("Du skal v√¶lge hvilken liga holdet skal tilh√∏re.");
+    ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
+		alert.getButtonTypes().setAll(confirmBtn);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == confirmBtn)
+			alert.close();
+   }
+  
 	protected void matchResumeWarning() {
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("Kamp ADVARSEL");
-		alert.setHeaderText("Kampen er allerede fÊrdig.");
-		alert.setContentText("Du kan ikke fortsÊtte en kamp som er fÊrdig.");
+		alert.setHeaderText("Kampen er allerede f√¶rdig.");
+		alert.setContentText("Du kan ikke forts√¶tte en kamp som er f√¶rdig.");
 		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
 		alert.getButtonTypes().setAll(confirmBtn);
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == confirmBtn)
 			alert.close();
 	}
-	
+  
 	protected void matchResumeWarning2() {
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("Kamp ADVARSEL");
 		alert.setHeaderText("Kampen er ikke stoppet.");
-		alert.setContentText("Du kan ikke fortsÊtte en kamp, som ikke er pÂ pause.");
+		alert.setContentText("Du kan ikke forts√¶tte en kamp, som ikke er p√• pause.");
 		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
 		alert.getButtonTypes().setAll(confirmBtn);
 		Optional<ButtonType> result = alert.showAndWait();
@@ -78,7 +90,7 @@ public class Validation {
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("Kamp ADVARSEL");
 		alert.setHeaderText("Kampen er stoppet");
-		alert.setContentText("Du kan ikke stoppe en kamp som er fÊrdig.");
+		alert.setContentText("Du kan ikke stoppe en kamp som er f√¶rdig.");
 		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
 		alert.getButtonTypes().setAll(confirmBtn);
 		Optional<ButtonType> result = alert.showAndWait();
@@ -103,11 +115,22 @@ public class Validation {
 		alert.setTitle("Kamp ADVARSEL");
 		alert.setHeaderText("Kampen er ikke spillet.");
 		alert.setContentText("Du kan ikke se rapporten, hvis kampen ikke er spillet.");
+    ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
+		alert.getButtonTypes().setAll(confirmBtn);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == confirmBtn)
+			alert.close()
+  }
+
+	protected void noLeagueChoosenAlert() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("League ERROR");
+		alert.setHeaderText("A league hasn't been choosen");
+		alert.setContentText("Du skal v√¶lge en liga f√∏r du kan trykke 'Opdater'");
 		ButtonType confirmBtn = new ButtonType("OK", ButtonData.OK_DONE);
 		alert.getButtonTypes().setAll(confirmBtn);
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == confirmBtn)
 			alert.close();
-	}
-
+}
 }
