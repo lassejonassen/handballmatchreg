@@ -104,6 +104,7 @@ public class LigaMenu {
 		leagueNameField.setPromptText("Liga navn");
 		Button addBtn = new Button("OK");
 		Button cancelBtn = new Button("Annuller");
+		String str = "liga";
 		
 		childLayout.childTop.getChildren().add(header);
 		childLayout.childCenter.add(guideLabel, 0, 0);
@@ -118,7 +119,7 @@ public class LigaMenu {
 		
 		addBtn.setOnAction(e -> {
 			if (validate.emptyStringWarning(leagueNameField.getText()))
-				if (validate.confirmChanges()) {
+				if (validate.confirmChanges(str)) {
 					leagueImpl.createLeague(new League(leagueNameField.getText()));
 					stage.close();
 					leagueDropDown();
@@ -134,7 +135,7 @@ public class LigaMenu {
 		Label header = new Label("Slet en liga");
 		Label guideLabel = new Label("VÃ¦lg venligst den liga du vil slette");
 		ComboBox<League> leagues = new ComboBox<>();
-		
+		String str = "liga";
 		
 		childLayout.childTop.getChildren().add(header);
 		childLayout.childCenter.add(guideLabel, 0, 0);
@@ -152,7 +153,7 @@ public class LigaMenu {
 		addBtn.setOnAction(e -> {
 			if(!(leagues.getSelectionModel().getSelectedItem() == null))
 			{
-				if (validate.confirmChanges()) {
+				if (validate.confirmChanges(str)) {
 					leagueImpl.deleteLeague(leagues.getSelectionModel().getSelectedItem());
 					stage.close();
 					leagueDropDown();
@@ -172,6 +173,7 @@ public class LigaMenu {
 		TextField leagueNameField = new TextField();
 		Button cancelBtn = new Button("Annuller");
 		Button confirmBtn = new Button("OK");
+		String str = "liga";
 		
 		childLayout.childTop.getChildren().add(header);
 		childLayout.childCenter.add(guideLabel, 0, 0);
@@ -194,7 +196,7 @@ public class LigaMenu {
 			League league = leagues.getSelectionModel().getSelectedItem();
 			if (league != null) {
 				if (validate.emptyStringWarning(leagueNameField.getText()))
-					if (validate.confirmChanges()) {
+					if (validate.confirmChanges(str)) {
 						leagueImpl.updateLeague(leagues.getSelectionModel().getSelectedItem(), leagueNameField.getText());
 						stage.close();
 						leagueDropDown();

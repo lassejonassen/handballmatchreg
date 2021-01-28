@@ -108,8 +108,9 @@ public class UpdateTeam
 	
 	private void updateConfirm()
 	{
+		String str = "hold";
 		if(validation.emptyStringWarning(teamName.getText()))
-			if(validation.confirmChanges())
+			if(validation.confirmChanges(str))
 			{
 				teamImpl.updateTeam(teamChoice.getSelectionModel().getSelectedItem(), teamName.getText(), updateTeamLeague.getSelectionModel().getSelectedItem());
 				window.close();
