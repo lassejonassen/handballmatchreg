@@ -36,6 +36,7 @@ public class CreateTeam {
 		childLayout.childCenter.add(teamName, 1, 0);
 		childLayout.childCenter.add(new Label("Vælg liga"), 0, 1);
 		childLayout.childCenter.add(leagueChoice, 1, 1);
+		
 		scene = new Scene(childLayout.childRoot);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
 		window.setScene(scene);
@@ -50,9 +51,10 @@ public class CreateTeam {
 
 	private void createConfirm() {
 		League league = leagueChoice.getSelectionModel().getSelectedItem();
+		String str = "hold";
 		if (league != null)
 			if (validation.emptyStringWarning(teamName.getText()))
-				if (validation.confirmChanges()) {
+				if (validation.confirmChanges(str)) {
 					teamImpl.createTeam(leagueChoice.getSelectionModel().getSelectedItem(), teamName.getText());
 					window.close();
 				}

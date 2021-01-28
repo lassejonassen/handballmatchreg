@@ -10,9 +10,9 @@ import javafx.scene.control.ButtonBar.ButtonData;
 
 public class Validation {
 
-	protected boolean confirmChanges() {
+	protected boolean confirmChanges(String str) {
 		Alert alert = new Alert(AlertType.WARNING);
-		alert.setTitle("Confirm changes to league");
+		alert.setTitle("Confirm changes to " + str);
 		alert.setHeaderText("Are you sure you want to make changes?");
 		alert.setContentText("Choose your option.");
 		ButtonType confirmBtn = new ButtonType("Yes", ButtonData.OK_DONE);

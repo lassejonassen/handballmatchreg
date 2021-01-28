@@ -16,6 +16,7 @@ public class Layout
 	protected HBox center = new HBox();
 	protected AnchorPane left = new AnchorPane();
 	protected VBox right = new VBox();
+	protected Label heading = new Label();
 	
 	public Layout() 
 	{
@@ -36,7 +37,7 @@ public class Layout
 	{
 		root.setTop(top);
 		top.setId("top");		
-		Label heading = new Label();
+		
 		top.getChildren().add(heading);
 		heading.setText("Midtvejsprojekt - Kampregistering");
 	}
@@ -58,8 +59,6 @@ public class Layout
 	{
 		root.setLeft(left);
 		left.setId("left");
-//		left.setAlignment(Pos.TOP_CENTER);
-		
 	}
 	
 	private void rightLayout()

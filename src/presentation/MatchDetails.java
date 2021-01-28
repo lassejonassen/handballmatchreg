@@ -202,8 +202,6 @@ public class MatchDetails
 	{
 		team1Goals = match.getTeam1Goals();
 		team2Goals = match.getTeam2Goals();
-		System.out.println("Hold 1s mål: " + team1Goals);
-		System.out.println("Hold 2s mål: " + team2Goals);
 		matchImpl.updateMatch(match);
 		matchImpl.matchPlayed(match);
 		timeline.stop();
@@ -223,7 +221,6 @@ public class MatchDetails
 				timeSeconds++;
 				timerLabel.setText(timeMinutes + ":" + timeSeconds);
 				totalTime = (timeMinutes * 60) + timeSeconds;
-				System.out.println(totalTime);
 				if (timeSeconds == 60) {
 					timeMinutes++;
 					timeSeconds = 0;
@@ -234,7 +231,6 @@ public class MatchDetails
 				{
 					timeline.stop();
 					matchDataUpdate(match);
-					System.out.println(timeMinutes + ":" + timeSeconds + "   " + totalTime);
 				}
 			}
 		}));
