@@ -33,7 +33,7 @@ public class LigaMenu {
 	private Button updateTeamBtn = new Button("Opdatere hold");
 	private Button printBtn = new Button("Print");
 	
-	private Button refreshBtn = new Button("Refresh");
+	private Button refreshBtn = new Button("Opdaterer");
 	
 	private Layout layout = new Layout();
 	private Validation validate = new Validation();

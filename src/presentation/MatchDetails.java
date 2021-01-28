@@ -305,26 +305,73 @@ public class MatchDetails
 
 	private void detailBtnFunctionality(Match match) 
 	{
-		
-		homeTeamAddGoalBtn.setOnAction(e -> homeTeamAddGoal(match));
-		awayTeamAddGoalBtn.setOnAction(e -> awayTeamAddGoal(match));
-		homeTeamDeleteGoalBtn.setOnAction(e -> homeTeamDeleteGoal(match, goalId));
-		awayTeamDeleteGoalBtn.setOnAction(e -> awayTeamDeleteGoal(match, goalId));
-		matchReportBtn.setOnAction(e -> new MatchReport(match,reportDTOImpl.read(match)));
-		homeTeamSuspension.setOnAction(e -> createSuspensionHome(match, teamID, totalTime));
-		awayTeamSuspension.setOnAction(e -> createSuspensionAway(match, teamID, totalTime));
-		deleteSuspensionHomeBtn.setOnAction(e -> deleteSuspensionHome(match));
-		deleteSuspensionAwayBtn.setOnAction(e -> deleteSuspensionAway(match));
+		homeTeamAddGoalBtn.setOnAction(e -> {
+			if (matchPaused)
+				valid.matchPausedWarning();
+			else
+				homeTeamAddGoal(match);
+		});
+		awayTeamAddGoalBtn.setOnAction(e -> {
+			if (matchPaused)
+				valid.matchPausedWarning();
+			else
+				awayTeamAddGoal(match);
+		});
+		homeTeamDeleteGoalBtn.setOnAction(e -> {
+			if (matchPaused)
+				valid.matchPausedWarning();
+			else
+				homeTeamDeleteGoal(match, goalId);
+		});
+		awayTeamDeleteGoalBtn.setOnAction(e -> {
+			if (matchPaused)
+				valid.matchPausedWarning();
+			else
+				awayTeamDeleteGoal(match, goalId);
+		});
+		matchReportBtn.setOnAction(e -> {
+			if (matchPaused)
+				valid.matchPausedWarning();
+			else
+				new MatchReport(match,reportDTOImpl.read(match));
+		});
+		homeTeamSuspension.setOnAction(e -> {
+			if (matchPaused)
+				valid.matchPausedWarning();
+			else
+				createSuspensionHome(match, teamID, totalTime);
+		});
+		awayTeamSuspension.setOnAction(e -> {
+			if (matchPaused)
+				valid.matchPausedWarning();
+			else
+				createSuspensionAway(match, teamID, totalTime);
+		});
+		deleteSuspensionHomeBtn.setOnAction(e -> {
+			if (matchPaused)
+				valid.matchPausedWarning();
+			else
+				deleteSuspensionHome(match);
+		});
+		deleteSuspensionAwayBtn.setOnAction(e -> {
+			if (matchPaused)
+				valid.matchPausedWarning();
+			else
+				deleteSuspensionAway(match);
+		});
 		matchReportBtn.setOnAction(e -> {
 			if (match.getPlayed().equals("yes"))
 				new MatchReport(match, reportDTOImpl.read(match));
 			else
 				valid.matchNotPlayedWarning();
 		});
-		closeBtn.setOnAction(e -> window.close());
 		startMatchBtn.setOnAction(e -> {
-			if (match.getPlayed().equals("no"))
+			if (matchStarted)
+				valid.matchStartedWarning();
+			else if (match.getPlayed().equals("no")) {
 				timerLabelUpdate(match);
+				matchStarted = true;
+			}
 			else if (match.getPlayed().equals("yes"))
 				valid.matchPlayedWarning();
 		});
@@ -345,10 +392,9 @@ public class MatchDetails
 				matchPaused = false;
 				timeline.play();
 			}
-			else if (!matchPaused) {
+			else if (!matchPaused)
 				valid.matchResumeWarning2();
-			}
-				
 		});
+		closeBtn.setOnAction(e -> window.close());
 	}
 }

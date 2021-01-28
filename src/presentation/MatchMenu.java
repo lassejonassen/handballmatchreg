@@ -19,8 +19,7 @@ public class MatchMenu {
 	private MatchImpl matchImpl = new MatchImpl();	
 	private Button createMatchBtn = new Button("Opret Kamp");
 	private Button deleteMatchBtn = new Button("Slet Kamp");
-	private Button updateMatchBtn = new Button("Opdater Kamp");
-	private Button refreshBtn = new Button("Refresh");
+	private Button refreshBtn = new Button("Opdaterer");
 	private Button importMatchBtn = new Button("Importer");
 	private Button backBtn = new Button("Tilbage");
 	private Layout layout = new Layout();
@@ -38,14 +37,13 @@ public class MatchMenu {
 	@SuppressWarnings("static-access")
 	private void showMatchMenu(Stage stage)
 	{
-		layout.left.getChildren().addAll(createMatchBtn, deleteMatchBtn, updateMatchBtn,backBtn, leagueDropdown, refreshBtn, importMatchBtn);
+		layout.left.getChildren().addAll(createMatchBtn, deleteMatchBtn,backBtn, leagueDropdown, refreshBtn, importMatchBtn);
 		layout.left.setBottomAnchor(backBtn, 0.0);
 		layout.left.setTopAnchor(createMatchBtn, 0.0);
-		layout.left.setTopAnchor(updateMatchBtn, 50.0);
-		layout.left.setTopAnchor(deleteMatchBtn, 100.0);
-		layout.left.setTopAnchor(leagueDropdown, 150.0);
-		layout.left.setTopAnchor(refreshBtn, 200.0);
-		layout.left.setTopAnchor(importMatchBtn, 250.0);
+		layout.left.setTopAnchor(deleteMatchBtn, 50.0);
+		layout.left.setTopAnchor(leagueDropdown, 100.0);
+		layout.left.setTopAnchor(refreshBtn, 150.0);
+		layout.left.setTopAnchor(importMatchBtn, 200.0);
 		Scene scene = new Scene(layout.root);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
 		stage.setScene(scene);
