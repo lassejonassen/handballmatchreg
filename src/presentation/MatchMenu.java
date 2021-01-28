@@ -26,6 +26,7 @@ public class MatchMenu {
 	private Layout layout = new Layout();
 	private ComboBox<League> leagueDropdown = new ComboBox<League>();
 	private TableView<Match> tableViewMatches = new TableView<Match>();
+	private Validation validate = new Validation();
 	
 	public MatchMenu(Stage stage) {
 		matchBtnFunctionality(stage);
@@ -67,7 +68,12 @@ public class MatchMenu {
 		backBtn.setOnAction(e -> new Menu(stage));
 		createMatchBtn.setOnAction(e-> new CreateMatch());
 		deleteMatchBtn.setOnAction(e -> new DeleteMatch());
-		refreshBtn.setOnAction(e -> loadTableView(leagueDropdown.getSelectionModel().getSelectedItem()));
+		refreshBtn.setOnAction(e -> {
+			if (leagueDropdown.getSelectionModel().getSelectedItem() == null)
+				validate.noLeagueChoosenAlert();
+			else
+				loadTableView(leagueDropdown.getSelectionModel().getSelectedItem());
+		});
 		importMatchBtn.setOnAction(e -> new ImportMatch());
 	}
 	

@@ -82,7 +82,12 @@ public class LigaMenu {
 		backBtn.setOnAction(e -> new Menu(stage));
 		updateTeamBtn.setOnAction(e -> new UpdateTeam());
 		createTeamBtn.setOnAction(e -> new CreateTeam());
-		refreshBtn.setOnAction(e -> loadTableView(leagueDropdown.getSelectionModel().getSelectedItem()));
+		refreshBtn.setOnAction(e -> {
+			if (leagueDropdown.getSelectionModel().getSelectedItem() == null)
+				validate.noLeagueChoosenAlert();
+			else
+				loadTableView(leagueDropdown.getSelectionModel().getSelectedItem());
+		});
 	}
 
 	private void leagueDropDown() {
@@ -162,9 +167,9 @@ public class LigaMenu {
 		TextField leagueNameField = new TextField();
 		leagueNameField.setPromptText("Liga navn");
 		layout.childCenter.add(leagueNameField, 1, 1);
-		Button addBtn = new Button("OK");
+		Button confirmBtn = new Button("OK");
 		Button cancelBtn = new Button("Annuller");
-		layout.childCenter.add(addBtn, 0, 2);
+		layout.childCenter.add(confirmBtn, 0, 2);
 		layout.childCenter.add(cancelBtn, 1, 2);
 		Scene scene = new Scene(layout.childRoot);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
@@ -172,12 +177,18 @@ public class LigaMenu {
 		stage.setScene(scene);
 		stage.show();
 		leagues.setOnAction(e -> leagueNameField.setText(""));
-		addBtn.setOnAction(e -> {
-			if (validate.confirmChanges()) {
-				leagueImpl.updateLeague(leagues.getSelectionModel().getSelectedItem(), leagueNameField.getText());
-				stage.close();
-				leagueDropDown();
+		confirmBtn.setOnAction(e -> {
+			League league = leagues.getSelectionModel().getSelectedItem();
+			if (league != null) {
+				if (validate.emptyStringWarning(leagueNameField.getText()))
+					if (validate.confirmChanges()) {
+						leagueImpl.updateLeague(leagues.getSelectionModel().getSelectedItem(), leagueNameField.getText());
+						stage.close();
+						leagueDropDown();
+					}
 			}
+			else
+				validate.noLeagueChoosenAlert();
 		});
 		cancelBtn.setOnAction(e -> stage.close());
 	}
