@@ -19,6 +19,9 @@ public class CreateMatch {
 	private ComboBox<Team> homeChoice = new ComboBox<Team>();
 	private ComboBox<Team> awayChoice = new ComboBox<Team>();
 	private ComboBox<League> ligaChoice = new ComboBox<League>();
+	
+	private Validation validation = new Validation();
+	private MatchImpl matchImpl = new MatchImpl();
 	private Stage window = new Stage();
 	private Scene scene;
 	private ChildLayout teamLayout = new ChildLayout();
@@ -60,19 +63,26 @@ public class CreateMatch {
 		ligaChoice.setOnAction(e -> {
 			id = ligaChoice.getSelectionModel().getSelectedItem().getId();
 			homeChoice.getItems().addAll(teamImpl.getAllTeams(id));
-			awayChoice.getItems().addAll(teamImpl.getAllTeams(id));
-		});
+			awayChoice.getItems().addAll(teamImpl.getAllTeams(id));	
+		});		
 	}
 
-	private void btnFunctionality() {
-		MatchImpl matchImpl = new MatchImpl();
-		createMatchBtn.setOnAction(e -> {
-			matchImpl.createMatch(homeChoice.getSelectionModel().getSelectedItem(),
-					awayChoice.getSelectionModel().getSelectedItem(), id);
-			window.close();
-
-			}
-		);
+	private void btnFunctionality() 
+	{
+		createMatchBtn.setOnAction(e -> createConfirm());
 		cancelMatchBtn.setOnAction(e -> window.close());
+	}
+	
+	private void createConfirm()
+	{
+		if(!(homeChoice.getSelectionModel().getSelectedItem() == null) & !(awayChoice.getSelectionModel().getSelectedItem() == null))
+		{
+			if(validation.confirmMatchCreate(homeChoice.getSelectionModel().getSelectedItem(), awayChoice.getSelectionModel().getSelectedItem()))
+			{
+				matchImpl.createMatch(homeChoice.getSelectionModel().getSelectedItem(),
+						awayChoice.getSelectionModel().getSelectedItem(), id);
+				window.close();
+			}	
+		}
 	}
 }

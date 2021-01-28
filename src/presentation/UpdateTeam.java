@@ -67,9 +67,13 @@ public class UpdateTeam
 	private void teamChoiceSelection()
 	{
 		if (teamName.getText().isEmpty())
+		{
 			teamName.setText("");
+		}
 		else
+		{
 			teamName.setText(teamChoice.getSelectionModel().getSelectedItem().getName());
+		}	
 		updateTeamLeague.getItems().clear();
 		updateTeamLeague.getItems().addAll(leagueImpl.getAllLeagues());
 		updateTeamLeague.setValue(leagueImpl.getLeagueById(teamChoice.getSelectionModel().getSelectedItem().getLeagueId()));

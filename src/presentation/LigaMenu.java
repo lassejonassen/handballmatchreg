@@ -82,7 +82,12 @@ public class LigaMenu {
 		backBtn.setOnAction(e -> new Menu(stage));
 		updateTeamBtn.setOnAction(e -> new UpdateTeam());
 		createTeamBtn.setOnAction(e -> new CreateTeam());
-		refreshBtn.setOnAction(e -> loadTableView(leagueDropdown.getSelectionModel().getSelectedItem()));
+		refreshBtn.setOnAction(e -> { 
+			if(!leagueDropdown.getSelectionModel().isEmpty())
+			{
+				loadTableView(leagueDropdown.getSelectionModel().getSelectedItem());
+			}
+		});
 	}
 
 	private void leagueDropDown() {
@@ -139,11 +144,15 @@ public class LigaMenu {
 		stage.setScene(scene);
 		stage.show();
 		addBtn.setOnAction(e -> {
-			if (validate.confirmChanges()) {
-				leagueImpl.deleteLeague(leagues.getSelectionModel().getSelectedItem());
-				stage.close();
-				leagueDropDown();
+			if(!(leagues.getSelectionModel().getSelectedItem() == null))
+			{
+				if (validate.confirmChanges()) {
+					leagueImpl.deleteLeague(leagues.getSelectionModel().getSelectedItem());
+					stage.close();
+					leagueDropDown();
+				}
 			}
+			
 		});
 		cancelBtn.setOnAction(e -> stage.close());
 	}
