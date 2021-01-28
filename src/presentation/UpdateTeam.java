@@ -66,27 +66,35 @@ public class UpdateTeam
 	
 	private void teamChoiceSelection()
 	{
-		if (teamName.getText().isEmpty())
-		{
-			teamName.setText("");
-		}
-		else
+		if(teamChoice.getSelectionModel().getSelectedItem() != null)
 		{
 			teamName.setText(teamChoice.getSelectionModel().getSelectedItem().getName());
+		}else
+		{
+			teamName.setText("");
 		}	
 		updateTeamLeague.getItems().clear();
 		updateTeamLeague.getItems().addAll(leagueImpl.getAllLeagues());
-		updateTeamLeague.setValue(leagueImpl.getLeagueById(teamChoice.getSelectionModel().getSelectedItem().getLeagueId()));
+		if(teamChoice.getSelectionModel().getSelectedItem() != null)
+		{
+			updateTeamLeague.setValue(leagueImpl.getLeagueById(teamChoice.getSelectionModel().getSelectedItem().getLeagueId()));
+		}
+		
 	}
 	
 	private void resetTeamChoice()
 	{
-		teamName.setText("");
 		updateTeamLeague.getItems().clear();
 		updateTeamLeague.setValue(null);
 		teamChoice.getSelectionModel().clearSelection();
 		teamChoice.setValue(null);
 		teamChoice.getItems().clear();
+		teamName.setText("");
+		if(leagueChoice.getSelectionModel().getSelectedItem() != null)
+		{
+			teamAndLeagueChoice();
+		}
+		
 	}
 	
 	private void updateTeamBtnFunctionality()

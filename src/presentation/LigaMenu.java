@@ -97,23 +97,25 @@ public class LigaMenu {
 	}
 
 	private void createLeague() {
-		ChildLayout layout = new ChildLayout();
+		ChildLayout childLayout = new ChildLayout();
 		Label header = new Label("Opret ny liga");
 		Label guideLabel = new Label("Skriv venligst navnet paa den nye liga: ");
 		TextField leagueNameField = new TextField();
 		leagueNameField.setPromptText("Liga navn");
 		Button addBtn = new Button("OK");
 		Button cancelBtn = new Button("Annuller");
-		Scene scene = new Scene(layout.childRoot);
+		
+		childLayout.childTop.getChildren().add(header);
+		childLayout.childCenter.add(guideLabel, 0, 0);
+		childLayout.childCenter.add(leagueNameField, 1, 0);
+		childLayout.childBottom.getChildren().addAll(addBtn, cancelBtn);
+		
+		Scene scene = new Scene(childLayout.childRoot);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
 		Stage stage = new Stage();
 		stage.setScene(scene);
 		stage.show();
-		layout.childTop.getChildren().add(header);
-		layout.childCenter.add(guideLabel, 0, 0);
-		layout.childCenter.add(leagueNameField, 1, 0);
-		layout.childCenter.add(addBtn, 0, 1);
-		layout.childCenter.add(cancelBtn, 1, 1);
+		
 		addBtn.setOnAction(e -> {
 			if (validate.emptyStringWarning(leagueNameField.getText()))
 				if (validate.confirmChanges()) {
@@ -126,23 +128,27 @@ public class LigaMenu {
 	}
 
 	private void deleteLeague() {
-		ChildLayout layout = new ChildLayout();
-		Label header = new Label("Slet en liga");
-		layout.childTop.getChildren().add(header);
-		Label guideLabel = new Label("VÃ¦lg venligst den liga du vil slette");
-		layout.childCenter.add(guideLabel, 0, 0);
-		ComboBox<League> leagues = new ComboBox<>();
-		leagues.getItems().addAll(leagueImpl.getAllLeagues());
-		layout.childCenter.add(leagues, 1, 0);
+		ChildLayout childLayout = new ChildLayout();
 		Button addBtn = new Button("OK");
 		Button cancelBtn = new Button("Annuller");
-		layout.childCenter.add(addBtn, 0, 1);
-		layout.childCenter.add(cancelBtn, 1, 1);
-		Scene scene = new Scene(layout.childRoot);
+		Label header = new Label("Slet en liga");
+		Label guideLabel = new Label("VÃ¦lg venligst den liga du vil slette");
+		ComboBox<League> leagues = new ComboBox<>();
+		
+		
+		childLayout.childTop.getChildren().add(header);
+		childLayout.childCenter.add(guideLabel, 0, 0);
+		childLayout.childCenter.add(leagues, 1, 0);
+		childLayout.childBottom.getChildren().addAll(addBtn,cancelBtn);
+		
+		leagues.getItems().addAll(leagueImpl.getAllLeagues());
+		
+		Scene scene = new Scene(childLayout.childRoot);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
 		Stage stage = new Stage();
 		stage.setScene(scene);
 		stage.show();
+		
 		addBtn.setOnAction(e -> {
 			if(!(leagues.getSelectionModel().getSelectedItem() == null))
 			{
@@ -158,28 +164,31 @@ public class LigaMenu {
 	}
 
 	private void updateLeague() {
-		ChildLayout layout = new ChildLayout();
+		ChildLayout childLayout = new ChildLayout();
 		Label header = new Label("Opdater en liga");
-		layout.childTop.getChildren().add(header);
 		Label guideLabel = new Label("VÃ¦lg den liga du vil opdaterer");
-		layout.childCenter.add(guideLabel, 0, 0);
-		ComboBox<League> leagues = new ComboBox<>();
-		leagues.getItems().addAll(leagueImpl.getAllLeagues());
-		layout.childCenter.add(leagues, 1, 0);
 		Label guideLabel2 = new Label("Skriv ligaens nye navn");
-		layout.childCenter.add(guideLabel2, 0, 1);
+		ComboBox<League> leagues = new ComboBox<>();
 		TextField leagueNameField = new TextField();
-		leagueNameField.setPromptText("Liga navn");
-		layout.childCenter.add(leagueNameField, 1, 1);
-		Button confirmBtn = new Button("OK");
 		Button cancelBtn = new Button("Annuller");
-		layout.childCenter.add(confirmBtn, 0, 2);
-		layout.childCenter.add(cancelBtn, 1, 2);
-		Scene scene = new Scene(layout.childRoot);
+		Button confirmBtn = new Button("OK");
+		
+		childLayout.childTop.getChildren().add(header);
+		childLayout.childCenter.add(guideLabel, 0, 0);
+		childLayout.childCenter.add(leagues, 1, 0);
+		childLayout.childCenter.add(guideLabel2, 0, 1);
+		childLayout.childCenter.add(leagueNameField, 1, 1);
+		childLayout.childBottom.getChildren().addAll(confirmBtn,cancelBtn);
+		
+		leagueNameField.setPromptText("Liga navn");
+		leagues.getItems().addAll(leagueImpl.getAllLeagues());		
+		
+		Scene scene = new Scene(childLayout.childRoot);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
 		Stage stage = new Stage();
 		stage.setScene(scene);
 		stage.show();
+		
 		leagues.setOnAction(e -> leagueNameField.setText(""));
 		confirmBtn.setOnAction(e -> {
 			League league = leagues.getSelectionModel().getSelectedItem();
