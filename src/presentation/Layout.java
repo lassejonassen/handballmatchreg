@@ -1,14 +1,10 @@
 package presentation;
 
 
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 
 public class Layout 
-/*Author: Calle 
- *Date: 11-01-2021
-*/
 {
 	protected BorderPane root = new BorderPane();
 	protected HBox top = new HBox();

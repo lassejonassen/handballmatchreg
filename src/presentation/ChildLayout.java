@@ -1,6 +1,5 @@
 package presentation;
 
-import javafx.geometry.Pos;
 import javafx.scene.layout.*;
 
 public class ChildLayout 

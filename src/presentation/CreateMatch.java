@@ -42,8 +42,6 @@ public class CreateMatch {
 	}
 
 	private void matchCreateCenter() {
-		// ComboBox kalde på hold liste.
-
 		teamLayout.childCenter.add(new Label("Valg af liga"), 0, 0);
 		teamLayout.childCenter.add(ligaChoice, 2, 0);
 		teamLayout.childCenter.add(new Label("Hjemme"), 0, 1);

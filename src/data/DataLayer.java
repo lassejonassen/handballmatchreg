@@ -36,8 +36,6 @@ public class DataLayer {
 	/**
 	 * @About League
 	 * @tags {Create, Read, Update, Delete}
-	 * @author Lasse Jonassen
-	 * @created 11/01/2021 - 13/01/2021
 	 */
 	public boolean createLeague(String leagueName) {
 		try {
@@ -117,8 +115,6 @@ public class DataLayer {
 	/**
 	 * @About Team
 	 * @tags {Create, Read, Update, Delete}
-	 * @author Lucas Elley & Lasse Jonassen
-	 * @created 11/01/2021 - 13/01/2021
 	 */
 	public boolean createTeam(String name, int ligaId) {
 		try {
@@ -258,8 +254,6 @@ public class DataLayer {
 	/**
 	 * @About Match
 	 * @tags {Create, Read, Update, Delete}
-	 * @author Lucas Elley & Lasse Jonassen
-	 * @created 15/01/2021
 	 */
 	public boolean createMatch(int team1ID, int team2ID, int leagueID) {
 		try {
@@ -389,8 +383,6 @@ public class DataLayer {
 	/**
 	 * @About Suspension
 	 * @tags {Create, delete}
-	 * @author
-	 * @created 15/01/2021
 	 */
 	public boolean createSuspension(int matchId, int teamId, int matchTime) {
 		try {
@@ -424,8 +416,6 @@ public class DataLayer {
 	/**
 	 * @About Goal
 	 * @tags {Create}
-	 * @author
-	 * @created 20/01/2021
 	 */
 	public boolean createGoal(int matchId, int timeStamp, int teamId) {
 		String sql = "{call spCreateGoal(?, ?, ?)}";
@@ -458,8 +448,6 @@ public class DataLayer {
 	/**
 	 * @About Goal and Suspension
 	 * @tags {Read}
-	 * @author
-	 * @created 21/01/2021
 	 */
 	public ArrayList<ReportDTO> getGoalsAndSuspensions(int matchId) {
 		String sql = "{call spGetGoalsAndSuspensions(?)}";

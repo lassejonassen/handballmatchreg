@@ -79,7 +79,6 @@ public class MatchDetails
 		matchTeamDetails(match);
 	}
 
-	@SuppressWarnings("static-access")
 	public void showMatchDetails(Match match) 
 	{
 		childLayout.childCenter.add(timerLabel, 2, 0);
