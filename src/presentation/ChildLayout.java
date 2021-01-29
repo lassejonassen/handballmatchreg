@@ -37,13 +37,25 @@ public class ChildLayout
 	{
 		childRoot.setBottom(childBottom);
 		childBottom.setId("childBottom");
-		childBottom.setAlignment(Pos.CENTER_RIGHT);
 	}
 	
 	private void childCenterLayout() 
 	{
 		childRoot.setCenter(childCenter);
 		childCenter.setId("childCenter");
+		
+		ColumnConstraints col1 = new ColumnConstraints();
+		col1.setPercentWidth(20);
+		ColumnConstraints col2 = new ColumnConstraints();
+		col1.setPercentWidth(20);
+		ColumnConstraints col3 = new ColumnConstraints();
+		col1.setPercentWidth(20);
+		ColumnConstraints col4 = new ColumnConstraints();
+		col1.setPercentWidth(20);
+		ColumnConstraints col5 = new ColumnConstraints();
+		col1.setPercentWidth(20);
+		
+		childCenter.getColumnConstraints().addAll(col1, col2, col3, col4, col5);
 	}
 	
 	private void childLeftLayout()

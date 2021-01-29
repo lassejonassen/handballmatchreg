@@ -46,7 +46,6 @@ public class Layout
 	{
 		root.setBottom(bottom);
 		bottom.setId("bottom");
-		bottom.setAlignment(Pos.CENTER_RIGHT);
 	}
 	
 	private void centerLayout()

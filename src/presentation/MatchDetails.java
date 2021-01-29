@@ -47,18 +47,19 @@ public class MatchDetails
 	private Label awayTeamName = new Label();
 	private Label homeScore = new Label();
 	private Label awayScore = new Label();
+	private Label homeSuspensionsText = new Label("Hjemme udvisninger");
 	private Label homeSuspensions = new Label();
+	private Label awaySuspensionsText = new Label("Ude udvisninger");
 	private Label awaySuspensions = new Label();
 
 	private int i = 0;
 	private int j = 0;
 	
-	private int team1Goals;
-	private int team2Goals;
 	private int goalId;
 	private int team1Suspensions;
 	private int team2Suspensions;
-
+	private int teamID;
+	
 	private Scene scene;
 	private Stage window = new Stage();
 
@@ -68,8 +69,6 @@ public class MatchDetails
 	private GoalImpl goalImpl = new GoalImpl();
 	private ReportDTOImpl reportDTOImpl = new ReportDTOImpl();
 	private Validation valid = new Validation();
-
-	private int teamID;
 
 	public MatchDetails(Match match) 
 	{
@@ -86,17 +85,6 @@ public class MatchDetails
 		childLayout.childCenter.add(homeScore, 1, 1);
 		childLayout.childCenter.add(awayScore, 3, 1);
 		childLayout.childCenter.add(awayTeamName, 4, 1);
-		GridPane.setHalignment(homeTeamName, HPos.CENTER);
-		GridPane.setHalignment(homeScore, HPos.CENTER);
-		GridPane.setHalignment(awayScore, HPos.CENTER);
-		GridPane.setHalignment(awayTeamName, HPos.CENTER);
-		homeTeamName.setStyle("-fx-font-size: 2em;");
-		homeScore.setStyle("-fx-font-size: 2em;");
-		awayScore.setStyle("-fx-font-size: 2em;");
-		awayTeamName.setStyle("-fx-font-size: 2em;");
-		homeSuspensions.setStyle("-fx-font-size: 2em;");
-		awaySuspensions.setStyle("-fx-font-size: 2em;");
-
 		childLayout.childCenter.add(homeTeamAddGoalBtn, 0, 2);
 		childLayout.childCenter.add(homeTeamDeleteGoalBtn, 0, 3);
 		childLayout.childCenter.add(homeTeamSuspension, 1, 2);
@@ -105,18 +93,36 @@ public class MatchDetails
 		childLayout.childCenter.add(awayTeamDeleteGoalBtn, 4, 3);
 		childLayout.childCenter.add(matchReportBtn, 2, 3);
 		childLayout.childCenter.add(deleteSuspensionHomeBtn, 1, 3);
+		childLayout.childCenter.add(homeSuspensionsText, 0, 4);
 		childLayout.childCenter.add(homeSuspensions, 1, 4);
 		childLayout.childCenter.add(deleteSuspensionAwayBtn, 3, 3);
 		childLayout.childCenter.add(awaySuspensions, 3, 4);
+		childLayout.childCenter.add(awaySuspensionsText, 4, 4);
+		childLayout.childCenter.add(resumeMatchBtn, 1, 5);
 		childLayout.childCenter.add(startMatchBtn, 2, 5);
 		childLayout.childCenter.add(stopMatchBtn, 3, 5);
-		childLayout.childCenter.add(resumeMatchBtn, 4, 5);
 
 		childLayout.childBottom.getChildren().addAll(closeBtn);
-
-		timerLabel.setText("" + timeSeconds);
-		timerLabel.setStyle("-fx-font-size: 4em;");
+		
+		GridPane.setHalignment(homeTeamName, HPos.CENTER);
+		GridPane.setHalignment(homeScore, HPos.CENTER);
+		GridPane.setHalignment(awayScore, HPos.CENTER);
+		GridPane.setHalignment(awayTeamName, HPos.CENTER);
+		GridPane.setHalignment(homeSuspensions, HPos.CENTER);
+		GridPane.setHalignment(awaySuspensions, HPos.CENTER);
 		GridPane.setHalignment(timerLabel, HPos.CENTER);
+
+		timerLabel.setText(timeMinutes + ":" + timeSeconds);
+		
+		timerLabel.setId("timerLabel");
+		homeTeamName.setId("matchDetailLabels");
+		homeScore.setId("matchDetailLabels");
+		awayScore.setId("matchDetailLabels");
+		awayTeamName.setId("matchDetailLabels");
+		homeSuspensions.setId("matchDetailLabels");
+		awaySuspensions.setId("matchDetailLabels");
+		homeSuspensionsText.setId("matchDetailLabels");
+		awaySuspensionsText.setId("matchDetailLabels");
 
 		scene = new Scene(childLayout.childRoot);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
@@ -200,8 +206,6 @@ public class MatchDetails
 
 	private void matchDataUpdate(Match match) 
 	{
-		team1Goals = match.getTeam1Goals();
-		team2Goals = match.getTeam2Goals();
 		matchImpl.updateMatch(match);
 		matchImpl.matchPlayed(match);
 		timeline.stop();

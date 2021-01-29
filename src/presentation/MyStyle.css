@@ -1,7 +1,7 @@
 #root
 {
 	-fx-background-color: linear-gradient(to bottom right, #dcdcdc, #d3d3d3);
-	-fx-pref-width:800px;
+	-fx-pref-width:900px;
 	-fx-pref-height:600px;
 }
 .combo-box
@@ -23,13 +23,15 @@
 {
 	-fx-pref-height: 100px;
 	-fx-padding: 15px;
+	-fx-alignment:center-right;
 }
 #center
 {
 	-fx-background-color: blue;
 	-fx-pref-height: 400px;
-	-fx-pref-width: 640px;
+	-fx-pref-width: 740px;
 	-fx-min-width:640px;
+	-fx-min-height:200px;
 }
 
 #left
@@ -39,6 +41,8 @@
 
 .button
 {
+	-fx-wrap-text: true;
+	-fx-font-size:15;
 	-fx-pref-width: 150px;
 	-fx-pref-height: 50px;
 	-fx-background-radius: 0;
@@ -68,14 +72,16 @@
 
 #childBottom
 {
-	-fx-pref-height: 50px;
-	-fx-padding: 15px;
+	-fx-pref-height: 100px;
+	-fx-spacing:15px;
+	-fx-padding:15px;
+	-fx-alignment:center-right;
 }
 
 #childCenter
 {
 	-fx-pref-height:600px;
-	-fx-pref-width:600px;
+	-fx-pref-width:750px;
 	-fx-alignment:center;
 	-fx-hgap:5px;
 	-fx-vgap:5px;
@@ -90,12 +96,12 @@
 
 #childLeft
 {
-	-fx-pref-width: 50px;
+	-fx-pref-width: 10px;
 }
 
 #childRight
 {
-	-fx-pref-width:50px;
+	-fx-pref-width:10px;
 }
 
 #leagueDropDown
@@ -105,4 +111,13 @@
 	-fx-background-radius: 0;
 	-fx-border-color: #e7e7e7;
 	-fx-border-size: 5px;
+}
+#timerLabel
+{
+	-fx-font-size:4em;
+}
+#matchDetailLabels
+{
+	-fx-font-size:1.8em;
+	-fx-wrap-text:true;
 }

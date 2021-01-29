@@ -21,24 +21,24 @@ public class Menu
 		layout.bottom.getChildren().addAll(closeBtn);
 		layout.left.setTopAnchor(showLigaBtn, 0.0);
 		layout.left.setTopAnchor(showMatchBtn, 50.0);
-		
 
 		buttonFunctionality(stage);
 		String imageUrl = "file:///..\\archives\\hblogo.jpg";
 		Image img = new Image(imageUrl);
 		ImageView iView = new ImageView(img);
+		iView.fitWidthProperty().bind(layout.center.widthProperty());
+//		iView.fitHeightProperty().bind(layout.center.heightProperty());
+		iView.fitHeightProperty().bind(layout.center.heightProperty());
 		
+//		iView.setFitHeight(400);
+//		iView.setFitWidth(740);
+//		iView.setPreserveRatio(false);
 		layout.center.getChildren().add(iView);
-		
-		iView.setFitHeight(400);
-		iView.setFitWidth(650);
-		iView.setPreserveRatio(false);
 		
 		Scene scene = new Scene(layout.root);
 		scene.getStylesheets().add(getClass().getResource("MyStyle.css").toExternalForm());
 		stage.setScene(scene);
 		stage.show();
-		
 	}
 	
 	public void buttonFunctionality(Stage stage)
