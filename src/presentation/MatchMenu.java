@@ -19,7 +19,7 @@ public class MatchMenu {
 	private MatchImpl matchImpl = new MatchImpl();	
 	private Button createMatchBtn = new Button("Opret Kamp");
 	private Button deleteMatchBtn = new Button("Slet Kamp");
-	private Button refreshBtn = new Button("Opdaterer");
+	private Button refreshBtn = new Button("Opdater");
 	private Button importMatchBtn = new Button("Importer");
 	private Button backBtn = new Button("Tilbage");
 	private Layout layout = new Layout();

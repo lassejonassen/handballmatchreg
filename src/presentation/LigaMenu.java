@@ -30,10 +30,10 @@ public class LigaMenu {
 	private Button deleteLigaBtn = new Button("Slet Liga");
 	private Button backBtn = new Button("Tilbage");
 	private Button createTeamBtn = new Button("Opret hold");
-	private Button updateTeamBtn = new Button("Opdatere hold");
+	private Button updateTeamBtn = new Button("Opdater hold");
 	private Button printBtn = new Button("Print");
 	
-	private Button refreshBtn = new Button("Opdaterer");
+	private Button refreshBtn = new Button("Opdater");
 	
 	private Layout layout = new Layout();
 	private Validation validate = new Validation();
@@ -133,7 +133,7 @@ public class LigaMenu {
 		Button addBtn = new Button("OK");
 		Button cancelBtn = new Button("Annuller");
 		Label header = new Label("Slet en liga");
-		Label guideLabel = new Label("VÃ¦lg venligst den liga du vil slette");
+		Label guideLabel = new Label("Vaelg venligst den liga du vil slette");
 		ComboBox<League> leagues = new ComboBox<>();
 		String str = "liga";
 		
@@ -167,7 +167,7 @@ public class LigaMenu {
 	private void updateLeague() {
 		ChildLayout childLayout = new ChildLayout();
 		Label header = new Label("Opdater en liga");
-		Label guideLabel = new Label("VÃ¦lg den liga du vil opdaterer");
+		Label guideLabel = new Label("Vaelg den liga du vil opdaterer");
 		Label guideLabel2 = new Label("Skriv ligaens nye navn");
 		ComboBox<League> leagues = new ComboBox<>();
 		TextField leagueNameField = new TextField();
