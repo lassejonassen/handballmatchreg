@@ -9,6 +9,7 @@ import javafx.geometry.HPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -71,7 +72,8 @@ public class MatchDetails
 	private Validation valid = new Validation();
 
 	public MatchDetails(Match match) 
-	{
+	{	
+		gridConstraints();
 		showMatchDetails(match);
 		detailBtnFunctionality(match);
 		matchTeamDetails(match);
@@ -392,5 +394,20 @@ public class MatchDetails
 				valid.matchResumeWarning2();
 		});
 		closeBtn.setOnAction(e -> window.close());
+	}
+	private void gridConstraints()
+	{
+		ColumnConstraints col1 = new ColumnConstraints();
+		col1.setPercentWidth(20);
+		ColumnConstraints col2 = new ColumnConstraints();
+		col1.setPercentWidth(20);
+		ColumnConstraints col3 = new ColumnConstraints();
+		col1.setPercentWidth(20);
+		ColumnConstraints col4 = new ColumnConstraints();
+		col1.setPercentWidth(20);
+		ColumnConstraints col5 = new ColumnConstraints();
+		col1.setPercentWidth(20);
+		
+		childLayout.childCenter.getColumnConstraints().addAll(col1, col2, col3, col4, col5);
 	}
 }

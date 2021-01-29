@@ -12,8 +12,7 @@ public class Menu
 	private Button showLigaBtn = new Button("Liga");
 	private Button showMatchBtn = new Button("Kamp");
 	private Button closeBtn = new Button("Luk program");
-	
-	
+
 	@SuppressWarnings("static-access")
 	public Menu(Stage stage) {
 		Layout layout = new Layout();
@@ -27,12 +26,8 @@ public class Menu
 		Image img = new Image(imageUrl);
 		ImageView iView = new ImageView(img);
 		iView.fitWidthProperty().bind(layout.center.widthProperty());
-//		iView.fitHeightProperty().bind(layout.center.heightProperty());
 		iView.fitHeightProperty().bind(layout.center.heightProperty());
-		
-//		iView.setFitHeight(400);
-//		iView.setFitWidth(740);
-//		iView.setPreserveRatio(false);
+
 		layout.center.getChildren().add(iView);
 		
 		Scene scene = new Scene(layout.root);
